@@ -11,7 +11,8 @@ const Index = ({ auth, news }) => {
     const flashMessage = page.props.flash
     const [toast, setToast] = useState(null);
 
-    console.log(news)
+    console.log(auth)
+
 
     useEffect(() => {
         if (flashMessage.success) {

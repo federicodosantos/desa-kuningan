@@ -49,9 +49,11 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $request)
     {
+     
         $validated = $request->validated();
 
         $slug = Str::slug($validated['title']);
+
 
         try {
             if (!$request->hasFile('photo') || !$request->file('photo')->isValid()) {
@@ -156,7 +158,6 @@ class NewsController extends Controller
          
                 $news->setUpdatedAt(Carbon::now('Asia/Jakarta'));
 
-                dd($news);
                 $news->save();
                 
                 return Redirect::route('admin.news.index', ['slug' => $slug])->with('success', 'success update news');

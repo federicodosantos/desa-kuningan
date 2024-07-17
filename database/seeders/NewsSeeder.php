@@ -17,7 +17,7 @@ class NewsSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::where('email','darwin123@gmail.com')->first();
+        $user = User::where('email','adminKuningan@gmail.com')->first();
 
         $imagePath = 'public/bubub-ananta.jpg';
 

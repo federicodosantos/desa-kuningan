@@ -24,7 +24,6 @@ export default function Edit({ auth, news }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         clearErrors();
-        
         try {
             newsSchema.parse(data);
             post(route('news.update', news.slug));
