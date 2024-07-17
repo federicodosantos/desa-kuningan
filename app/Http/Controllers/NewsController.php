@@ -49,13 +49,13 @@ class NewsController extends Controller
 
         try {
             if (!$request->hasFile('photo') || !$request->file('photo')->isValid()) {
-                return Redirect::back()->with('error', 'Invalid news photo');
+                return Redirect::back()->with('error', 'Invalid photo news');
             }
 
-            $image_path = $request->file('photo')->store('newsImage', 'public');
+            $photo_path = $request->file('photo')->store('newsImage', 'public');
         } catch (\Exception $e) {
             Log::info('Failed to upload photo news: ' . $e);
-            return Redirect::back()->with('error', 'cannot upload news photo');
+            return Redirect::back()->with('error', 'cannot upload photo news');
         }
 
         try {
@@ -64,7 +64,7 @@ class NewsController extends Controller
                 'title' => $validated['title'],
                 'admin_id' => Auth::id(),
                 'content' => $validated['content'],
-                'photo_path' => $image_path,
+                'photo_path' => $photo_path,
                 'slug' => $slug,
                 'created_at' => Carbon::now('Asia/Jakarta'),
                 'updated_at' => Carbon::now('Asia/Jakarta')
