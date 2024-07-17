@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\NewsUpdateRequest;
 use App\Models\News;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -55,13 +55,13 @@ class NewsController extends Controller
 
         try {
             if (!$request->hasFile('photo') || !$request->file('photo')->isValid()) {
-                return Redirect::back()->with('error', 'Invalid news photo');
+                return Redirect::back()->with('error', 'Invalid photo news');
             }
 
-            $image_path = $request->file('photo')->store('newsImage', 'public');
+            $photo_path = $request->file('photo')->store('newsImage', 'public');
         } catch (\Exception $e) {
             Log::info('Failed to upload photo news: ' . $e);
-            return Redirect::back()->with('error', 'cannot upload news photo');
+            return Redirect::back()->with('error', 'cannot upload photo news');
         }
 
         try {
@@ -72,7 +72,7 @@ class NewsController extends Controller
                 'title' => $validated['title'],
                 'user_id' => Auth::user()->id,
                 'content' => $validated['content'],
-                'photo_path' => $image_path,
+                'photo_path' => $photo_path,
                 'slug' => $slug,
                 'created_at' => Carbon::now('Asia/Jakarta'),
                 'updated_at' => Carbon::now('Asia/Jakarta')
@@ -122,7 +122,7 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(NewsRequest $request, string $slug)
+    public function update(NewsUpdateRequest $request, string $slug)
     {
         $validated = $request->validated();
 
@@ -146,7 +146,8 @@ class NewsController extends Controller
                 if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
                     // Delete the old photo if exists
                     if ($news->photo_path) {
-                        Storage::delete($news->photo_path);
+                        $delete_path = 'storage/app/' . $news->photo_path;
+                        Storage::delete($delete_path);
                     }
                     
                     // Store the new photo
@@ -182,7 +183,8 @@ class NewsController extends Controller
                 }
 
                 if ($news->photo_path) {
-                    Storage::delete($news->photo_path);
+                    $delete_path = 'storage/app/' . $news->photo_path;
+                    Storage::delete($delete_path);
                 }
 
                 $success = $news->delete();
