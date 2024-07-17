@@ -24,8 +24,13 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::paginate(5);
-
-        return Inertia::render('News/Index', [
+       
+        $news->map(function ($item) {
+            $item->photo_path = 'storage/' . $item->photo_path;
+            $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
+            return $item;
+        });
+        return Inertia::render('Admin/News/Index', [
             'news' => $news
         ]);
     }
@@ -35,7 +40,7 @@ class NewsController extends Controller
      */
     public function create(Request $request)
     {
-//        return Inertia::render();
+        return Inertia::render('Admin/News/Create');
     }
 
     /**
@@ -100,13 +105,13 @@ class NewsController extends Controller
      */
     public function edit(string $slug)
     {
-        $news = News::with('admin')->where('slug', $slug)->first();
+        $news = News::with('user')->where('slug', $slug)->first();
 
         if (is_null($news)) {
             return Redirect::back()->with('error', 'news not found');
         }
 
-        return Inertia::render('', [
+        return Inertia::render('Admin/News/Edit', [
             'news' => $news
         ]);
     }
@@ -148,7 +153,7 @@ class NewsController extends Controller
 
                 $news->save();
 
-                return Redirect::route('news.show', ['slug' => $slug])->with('success', 'success update news');
+                return Redirect::route('admin.news.index', ['slug' => $slug])->with('success', 'success update news');
             });
         } catch (\Exception $e) {
             Log::error('Error updating news value: ' . $e->getMessage());
@@ -181,7 +186,7 @@ class NewsController extends Controller
                     return Redirect::back()->with('error', 'cannot delete news');
                 }
 
-                return Redirect::route('news.index')->with('success', 'success delete news');
+                return Redirect::route('admin.news.index')->with('success', 'success delete news');
             });
         } catch (\Exception $e) {
             Log::error('Error deleting news ' . $e->getMessage());

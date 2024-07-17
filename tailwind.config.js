@@ -12,11 +12,20 @@ export default {
 
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            colors: {
+              'primary-orange': '#de5828',
+              'primary-white': '#FFFFFF',
+              'secondary-orange': '#FF964A',
+              'text-black': '#000000',
+              'text-white': '#F9F6EE',
+              'text-dark-gray': '#878787',
+              'outline-gray': '#F0F0F0',
             },
-        },
+            fontFamily: {
+              'poppins': ['Poppins', 'sans-serif'],
+            },
+          },
     },
 
-    plugins: [forms],
+    plugins: [forms,require('@tailwindcss/typography'),],
 };
