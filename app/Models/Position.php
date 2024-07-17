@@ -24,4 +24,9 @@ class Position extends Model
     {
         return  $this->hasMany(User::class, 'position_id', 'id');
     }
+
+    public function VillageOfficer(): HasMany
+    {
+        return $this->hasMany(VillageOfficer::class, 'position_id', 'id');
+    }
 }
