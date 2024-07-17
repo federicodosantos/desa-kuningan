@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\NewsUpdateRequest;
 use App\Models\News;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -100,7 +100,7 @@ class NewsController extends Controller
      */
     public function edit(string $slug)
     {
-        $news = News::with('admin')->where('slug', $slug)->first();
+        $news = News::with('user')->where('slug', $slug)->first();
 
         if (is_null($news)) {
             return Redirect::back()->with('error', 'news not found');
@@ -114,7 +114,7 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(NewsRequest $request, string $slug)
+    public function update(NewsUpdateRequest $request, string $slug)
     {
         $validated = $request->validated();
 
@@ -128,6 +128,7 @@ class NewsController extends Controller
 
                 if (!is_null($validated['title'])) {
                     $news->title = $validated['title'];
+                    $news->slug = Str::slug($validated['title']);
                 }
 
                 if (!is_null($validated['content'])) {
@@ -137,7 +138,8 @@ class NewsController extends Controller
                 if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
                     // Delete the old photo if exists
                     if ($news->photo_path) {
-                        Storage::delete($news->photo_path);
+                        $delete_path = 'storage/app/' . $news->photo_path;
+                        Storage::delete($delete_path);
                     }
 
                     // Store the new photo
@@ -172,7 +174,8 @@ class NewsController extends Controller
                 }
 
                 if ($news->photo_path) {
-                    Storage::delete($news->photo_path);
+                    $delete_path = 'storage/app/' . $news->photo_path;
+                    Storage::delete($delete_path);
                 }
 
                 $success = $news->delete();
