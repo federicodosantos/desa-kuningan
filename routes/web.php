@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FacilitiesController;
 use App\Http\Controllers\AttractionController;
@@ -20,13 +22,33 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+Route::get('/',[FeController::class,'index'])->name('home');
+Route::get('/berita',[FeController::class,'allBerita'])->name('berita');
+Route::get('/berita/{slug}',[FeController::class,'detailBerita'])->name('detailBerita');
+Route::get('/tentang-kami', function () {
+    return Inertia::render('Tentang');
+})->name('tentang');
+Route::get('/data-penduduk', function () {
+    return Inertia::render('DataPenduduk');
+})->name('demografis');
+Route::get('/peta-digital', function () {
+    return Inertia::render('Peta');
+})->name('peta');
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::resource('news', NewsController::class)->names([
+        'index' => 'admin.news.index',
+        'create' => 'admin.news.create',
+        'store' => 'admin.news.store',
+        'edit' => 'admin.news.edit',
+        'update' => 'admin.news.update',
+        'destroy' => 'admin.news.destroy',
+        'show' => 'admin.news.show',
     ]);
+
+  
 });
 
 Route::get('/dashboard', function () {
@@ -37,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     Route::prefix('/news')->group(function () {
         Route::get('', [NewsController::class, 'index'])->name('news.index');
         Route::get('/create', [NewsController::class, 'create'])->name('news.create');

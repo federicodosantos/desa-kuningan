@@ -24,9 +24,15 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::paginate(5);
-
-        return Inertia::render('News/Index', [
-            'news' => $news
+       
+        $news->map(function ($item) {
+            $item->photo_path = 'storage/' . $item->photo_path;
+            $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
+            return $item;
+        });
+        return Inertia::render('Admin/News/Index', [
+            'news' => $news,
+            'flash' => $this->flash()
         ]);
     }
 
@@ -35,7 +41,7 @@ class NewsController extends Controller
      */
     public function create(Request $request)
     {
-//        return Inertia::render();
+        return Inertia::render('Admin/News/Create');
     }
 
     /**
@@ -43,9 +49,11 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $request)
     {
+     
         $validated = $request->validated();
 
         $slug = Str::slug($validated['title']);
+
 
         try {
             if (!$request->hasFile('photo') || !$request->file('photo')->isValid()) {
@@ -59,10 +67,12 @@ class NewsController extends Controller
         }
 
         try {
+
+            
             $news = [
                 'id' => Str::uuid()->toString(),
                 'title' => $validated['title'],
-                'admin_id' => Auth::id(),
+                'user_id' => Auth::user()->id,
                 'content' => $validated['content'],
                 'photo_path' => $photo_path,
                 'slug' => $slug,
@@ -90,7 +100,7 @@ class NewsController extends Controller
             return Redirect::back()->with('error', 'news not found');
         }
 
-        return Inertia::render('News/Show', [
+        return Inertia::render('Admin/News/Show', [
             'news' => $news
         ]);
     }
@@ -106,7 +116,7 @@ class NewsController extends Controller
             return Redirect::back()->with('error', 'news not found');
         }
 
-        return Inertia::render('', [
+        return Inertia::render('Admin/News/Edit', [
             'news' => $news
         ]);
     }
@@ -121,36 +131,36 @@ class NewsController extends Controller
         try {
             return DB::transaction(function () use ($request, $slug, $validated) {
                 $news = News::with('user')->where('slug', $slug)->first();
-
+                
                 if (is_null($news)) {
                     return Redirect::back()->with('error', 'news not found');
                 }
-
+                
                 if (!is_null($validated['title'])) {
                     $news->title = $validated['title'];
                     $news->slug = Str::slug($validated['title']);
                 }
-
+                
                 if (!is_null($validated['content'])) {
                     $news->content = $validated['content'];
                 }
-
+                
                 if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
                     // Delete the old photo if exists
                     if ($news->photo_path) {
                         $delete_path = 'storage/app/' . $news->photo_path;
                         Storage::delete($delete_path);
                     }
-
+                    
                     // Store the new photo
                     $news->photo_path = $request->file('photo')->store('newsImage', 'public');
                 }
-
+         
                 $news->setUpdatedAt(Carbon::now('Asia/Jakarta'));
 
                 $news->save();
-
-                return Redirect::route('news.show', ['slug' => $slug])->with('success', 'success update news');
+                
+                return Redirect::route('admin.news.index', ['slug' => $slug])->with('success', 'success update news');
             });
         } catch (\Exception $e) {
             Log::error('Error updating news value: ' . $e->getMessage());
@@ -184,11 +194,22 @@ class NewsController extends Controller
                     return Redirect::back()->with('error', 'cannot delete news');
                 }
 
-                return Redirect::route('news.index')->with('success', 'success delete news');
+                return Redirect::route('admin.news.index')->with('success', 'success delete news');
             });
         } catch (\Exception $e) {
             Log::error('Error deleting news ' . $e->getMessage());
             return Redirect::back()->with('error', 'cannot delete the news');
         }
+    }
+
+    public function flash(){
+        return [
+            'info' => session('info'),
+            'success' => session('success'),
+            'danger' => session('danger'),
+            'warning' => session('warning'),
+            'light' => session('light'),
+            'dark' => session('dark'),
+        ];
     }
 }
