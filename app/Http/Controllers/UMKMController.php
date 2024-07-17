@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlacesRequest;
+use App\Http\Requests\PlaceUpdateRequest;
 use App\Models\Places;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
@@ -105,7 +105,7 @@ class UMKMController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PlacesRequest $request, string $id)
+    public function update(PlaceUpdateRequest $request, string $id)
     {
         $validated = $request->validated();
 
@@ -128,7 +128,8 @@ class UMKMController extends Controller
                 if ($request->hasFile('photo_path') && $request->file('photo_path')->isValid()) {
                     // Delete the old photo if exists
                     if ($umkm->photo_path) {
-                        Storage::delete($umkm->photo_path);
+                        $delete_path = 'storage/app/' . $umkm->photo_path;
+                        Storage::delete($delete_path);
                     }
 
                     // Store the new photo
@@ -161,7 +162,8 @@ class UMKMController extends Controller
                 }
 
                 if ($umkm->photo_path) {
-                    Storage::delete($umkm->photo_path);
+                    $delete_path = 'storage/app/' . $umkm->photo_path;
+                    Storage::delete($delete_path);
                 }
 
                 $success = $umkm->delete();

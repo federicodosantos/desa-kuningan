@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlacesRequest;
+use App\Http\Requests\PlaceUpdateRequest;
 use App\Models\Places;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -104,7 +105,7 @@ class FacilitiesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PlacesRequest $request, string $id)
+    public function update(PlaceUpdateRequest $request, string $id)
     {
         $validated = $request->validated();
 
@@ -127,7 +128,8 @@ class FacilitiesController extends Controller
                 if ($request->hasFile('photo_path') && $request->file('photo_path')->isValid()) {
                     // Delete the old photo if exists
                     if ($facilities->photo_path) {
-                        Storage::delete($facilities->photo_path);
+                        $delete_path = 'storage/app/' . $facilities->photo_path;
+                        Storage::delete($delete_path);
                     }
 
                     // Store the new photo
@@ -160,7 +162,8 @@ class FacilitiesController extends Controller
                 }
 
                 if ($facilities->photo_path) {
-                    Storage::delete($facilities->photo_path);
+                    $delete_path = 'storage/app/' . $facilities->photo_path;
+                    Storage::delete($delete_path);
                 }
 
                 $success = $facilities->delete();
