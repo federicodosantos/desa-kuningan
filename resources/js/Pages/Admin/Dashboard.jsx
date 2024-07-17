@@ -42,28 +42,28 @@ export default function Dashboard({ auth ,totalNews}) {
                         <div className="w-full aspect-square  rounded p-3 flex flex-col gap-2">
                             <Icon icon={'ph:buildings-bold'} className="text-5xl text-primary-orange"/>
                             <h3 className="font-semibold">Sarana & Prasarana</h3>
-                            <p className="text-xl font-semibold">10 Postingan</p>
+                            <p className="text-xl font-semibold">10 Lokasi</p>
 
 
                         </div>
                         <div className="w-full aspect-square  rounded p-3 flex flex-col gap-2">
                             <Icon icon={'mdi:location'} className="text-5xl text-primary-orange"/>
                             <h3 className="font-semibold">Peta Digital</h3>
-                            <p className="text-xl font-semibold">10 Postingan</p>
+                            <p className="text-xl font-semibold">10 Koordinat</p>
 
 
                         </div>
                         <div className="w-full aspect-square  rounded p-3 flex flex-col gap-2">
                             <Icon icon={'material-symbols:holiday-village'} className="text-5xl text-primary-orange"/>
                             <h3 className="font-semibold">Tempat Wisata</h3>
-                            <p className="text-xl font-semibold">10 Postingan</p>
+                            <p className="text-xl font-semibold">10 Lokasi</p>
 
 
                         </div>
                         <div className="w-full aspect-square  rounded p-3 flex flex-col gap-2">
                             <Icon icon={'teenyicons:shop-outline'} className="text-5xl text-primary-orange"/>
                             <h3 className="font-semibold">UMKM</h3>
-                            <p className="text-xl font-semibold">10 Postingan</p>
+                            <p className="text-xl font-semibold">10 Lokasi</p>
 
 
                         </div>

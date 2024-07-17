@@ -31,7 +31,8 @@ class NewsController extends Controller
             return $item;
         });
         return Inertia::render('Admin/News/Index', [
-            'news' => $news
+            'news' => $news,
+            'flash' => $this->flash()
         ]);
     }
 
@@ -64,10 +65,12 @@ class NewsController extends Controller
         }
 
         try {
+
+            
             $news = [
                 'id' => Str::uuid()->toString(),
                 'title' => $validated['title'],
-                'admin_id' => Auth::id(),
+                'user_id' => Auth::user()->id,
                 'content' => $validated['content'],
                 'photo_path' => $image_path,
                 'slug' => $slug,
@@ -122,7 +125,6 @@ class NewsController extends Controller
     public function update(NewsRequest $request, string $slug)
     {
         $validated = $request->validated();
-
         try {
             return DB::transaction(function () use ($request, $slug, $validated) {
                 $news = News::with('user')->where('slug', $slug)->first();
@@ -133,6 +135,7 @@ class NewsController extends Controller
 
                 if (!is_null($validated['title'])) {
                     $news->title = $validated['title'];
+                    $news->slug = Str::slug($validated['title']);
                 }
 
                 if (!is_null($validated['content'])) {
@@ -148,7 +151,7 @@ class NewsController extends Controller
                     // Store the new photo
                     $news->photo_path = $request->file('photo')->store('newsImage', 'public');
                 }
-
+         
                 $news->setUpdatedAt(Carbon::now('Asia/Jakarta'));
 
                 $news->save();
@@ -192,5 +195,16 @@ class NewsController extends Controller
             Log::error('Error deleting news ' . $e->getMessage());
             return Redirect::back()->with('error', 'cannot delete the news');
         }
+    }
+
+    public function flash(){
+        return [
+            'info' => session('info'),
+            'success' => session('success'),
+            'danger' => session('danger'),
+            'warning' => session('warning'),
+            'light' => session('light'),
+            'dark' => session('dark'),
+        ];
     }
 }

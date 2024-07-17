@@ -8,7 +8,7 @@ const NewsCard = ({img,date,title,body,to}) => {
             <div className="w-full aspect-video overflow-hidden">
                 
             <img
-                src={`${img}`}
+                 src={`http://localhost:8000/${img}`}
                 className="size-full group-hover:scale-105 scale-100 duration-300 ease-in-out object-cover"
                 alt="img-card"
                 draggable='false'
@@ -17,10 +17,10 @@ const NewsCard = ({img,date,title,body,to}) => {
             </div>
             <div className="flex-col gap-1 flex ">
                 <small className="text-text-dark-gray">{date}</small>
-                <h3 className="text-xl font-medium text-text-black h-14  line-clamp-2">
+                <h3 className="text-xl font-medium text-text-black h-fit  line-clamp-1">
                     {title}
                 </h3>
-                <div className="line-clamp-3 text-sm  h-20 prose-sm" dangerouslySetInnerHTML={{__html:body}}>
+                <div className="line-clamp-3 text-sm  h-16 " dangerouslySetInnerHTML={{__html:body}}>
                 
                 </div>
                 <Link  href={to}  className="text-primary-orange font-semibold text-xs mt-4 flex items-center gap-1 group-hover:gap-2 duration-150 ease-in-out">

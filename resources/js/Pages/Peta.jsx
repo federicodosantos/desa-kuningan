@@ -5,6 +5,7 @@ import { Head, Link } from '@inertiajs/react';
 import React, { useEffect, useRef, useState } from 'react';
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import Breadcrumbs from '@/Components/Breadcrumbs';
 
 const Peta = () => {
     const mapContainer = useRef(null);
@@ -86,15 +87,16 @@ const Peta = () => {
             <div>
                 <Navbar />
                 <section className="container py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
-                    <div className="w-full rounded-lg bg-outline-gray p-3 flex">
-                        <Link href={route('home')}>
-                            <Icon
-                                icon={"ic:round-home"}
-                                className="text-primary-orange text-2xl"
-                            />
-                        </Link>
-                        / Peta Digital
-                    </div>
+                  
+                    <Breadcrumbs
+                        items={[
+                            {
+                                href: route("home"),
+                                icon: "ic:round-home",
+                            },
+                            { label: "Peta Digital" },
+                        ]}
+                    />
                     <h3 className="text-4xl text-primary-orange font-semibold">
                         Peta Digital
                     </h3>

@@ -14,7 +14,7 @@ class FeController extends Controller
     {
 
         $news = News::latest()->take(6)->get()->map(function ($item) {
-            $item->photo_path = str_replace('public/', 'storage/', $item->photo_path);
+            $item->photo_path = 'storage/' . $item->photo_path;
             $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
             return $item;
         });
@@ -25,10 +25,10 @@ class FeController extends Controller
     public function allBerita()
     {
         
-        $news = News::all();
+        $news = News::paginate(6);
         
         $news->map(function ($item) {
-            $item->photo_path = str_replace('public/', 'storage/', $item->photo_path);
+            $item->photo_path = 'storage/' . $item->photo_path;
             $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
             return $item;
         });
@@ -40,8 +40,10 @@ class FeController extends Controller
     }
     public function detailBerita($slug)
     {
+
         $news = News::with('User')->where('slug', $slug)->first();
-        $news->photo_path = str_replace('public/', 'storage/', $news->photo_path);
+        
+        $news->photo_path = 'storage/' . $news->photo_path;
         $news->formatted_date = Carbon::parse($news->created_at)->format('d-m-Y H:i');
 
         return Inertia::render('DetailBerita', [

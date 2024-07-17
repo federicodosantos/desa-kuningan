@@ -8,7 +8,7 @@ export default function AuthenticatedSidebarLayout({ user, header, children }) {
 
     return (
         <div className="flex min-h-screen bg-gray-100">
-            <aside className="w-1/5 text-text-white bg-primary-orange flex flex-col justify-between">
+            <aside className="w-1/5 text-text-white bg-primary-orange h-screen sticky top-0 flex flex-col justify-between">
                 <div>
                     <div className="p-4  flex flex-col gap-3 items-center ">
                         <img
@@ -33,9 +33,7 @@ export default function AuthenticatedSidebarLayout({ user, header, children }) {
                             Dashboard
                             <Icon icon={"bxs:dashboard"} />
                         </Link>
-                        {/* <Link href={route('admin.users.index')} className={`block p-4  ${url.startsWith('/admin/users') ? 'bg-gray-200' : ''}`}>
-                        Users
-                        </Link> */}
+                      
                         <Link
                             href={route("admin.news.index")}
                             className={`p-4 flex items-center justify-between  ${
@@ -46,6 +44,17 @@ export default function AuthenticatedSidebarLayout({ user, header, children }) {
                         >
                             Berita
                             <Icon icon={"material-symbols:news-outline"} />
+                        </Link>
+                        <Link
+                            href={route("admin.news.index")}
+                            className={`p-4 flex items-center justify-between  ${
+                                url.startsWith("/admin/peta-digital")
+                                    ? "bg-gray-200 text-text-black"
+                                    : ""
+                            }`}
+                        >
+                            Peta Digital
+                            <Icon icon={"mdi:location"} />
                         </Link>
                         {/* <Link href={route('admin.settings.index')} className={`block p-4  ${url.startsWith('/admin/settings') ? 'bg-gray-200' : ''}`}>
                         Settings

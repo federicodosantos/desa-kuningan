@@ -5,10 +5,10 @@ import { Head, Link } from "@inertiajs/react";
 import React from "react";
 import Breadcrumbs from "@/Components/Breadcrumbs";
 import NewsCard from "@/Components/NewsCard";
-import Header from '../../assets/detailBerita.jpg'
+import Header from "../../assets/detailBerita.jpg";
+import Pagination from "@/Components/Pagination";
 
 const Berita = ({ news }) => {
-    console.log(news);
     return (
         <>
             <Head title="Kuningan | Tentang" />
@@ -32,7 +32,6 @@ const Berita = ({ news }) => {
                                 icon: "ic:round-home",
                             },
                             { label: "Berita" },
-                          
                         ]}
                     />
                     <h3 className="text-4xl text-primary-orange font-semibold">
@@ -40,13 +39,27 @@ const Berita = ({ news }) => {
                     </h3>
                 </section>
                 <main className="grid md:grid-cols-2 grid-cols-1  mx-auto lg:px-10 md:px-8 px-4 container lg:grid-cols-3 grid-rows-1 gap-8 py-8">
-                       {
-                        news.map((item,index)=>(
-                            <NewsCard key={index} img={item.photo_path} date={item.formatted_date} title={item.title} body={item.content} id={item.id} slug={item.slug} to={route('detailBerita',item.slug)}/>
-
-                        ))
-                       }
-                    </main>
+                    {news.data.map((item, index) => (
+                        <NewsCard
+                            key={index}
+                            img={item.photo_path}
+                            date={item.formatted_date}
+                            title={item.title}
+                            body={item.content}
+                            id={item.id}
+                            slug={item.slug}
+                            to={route("detailBerita", item.slug)}
+                        />
+                    ))}
+                </main>
+                <div className="mx-auto lg:px-10 md:px-8 px-4 container pb-8">
+                    <Pagination
+                        links={news.links}
+                        from={news.from}
+                        to={news.to}
+                        total={news.total}
+                    />
+                </div>
                 <Footer />
             </div>
         </>

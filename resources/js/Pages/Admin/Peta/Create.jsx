@@ -3,51 +3,17 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import ReactQuill from 'react-quill';
 import { useState } from 'react';
-import { z } from 'zod';
 import 'react-quill/dist/quill.snow.css';
-
-
-const newsSchema = z.object({
-  title: z.string().min(1, "Judul harus diisi").max(255, "Judul terlalu panjang"),
-  content: z.string().min(1, "Konten harus diisi"),
-  photo: z.instanceof(File)
-    .refine(
-      (file) => file.size <= 5000000,
-      "Ukuran file tidak boleh lebih dari 5MB"
-    )
-    .refine(
-      (file) => ['image/jpeg', 'image/png', 'image/jpg'].includes(file.type),
-      "Format file harus berupa JPEG, PNG, atau JPG"
-    )
-});
-
 export default function Create({ auth }) {
-    const { data, setData, post, processing, errors: inertiaErrors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         title: '',
         content: '',
         photo: null,
     });
 
-    const [errors, setErrors] = useState({});
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        try {
-    
-            newsSchema.parse(data);
-            
-       
-            post(route('news.store'));
-        } catch (error) {
-            if (error instanceof z.ZodError) {
-                const formattedErrors = {};
-                error.errors.forEach((err) => {
-                    formattedErrors[err.path[0]] = err.message;
-                });
-                setErrors(formattedErrors);
-            }
-        }
+        post(route('news.store'));
     };
 
     const handleContentChange = (value) => {
@@ -90,7 +56,6 @@ export default function Create({ auth }) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.title && <p className="text-red-500 text-xs italic">{errors.title}</p>}
-                                {inertiaErrors.title && <p className="text-red-500 text-xs italic">{inertiaErrors.title}</p>}
                             </div>
 
                             <div className="mb-4">
@@ -103,7 +68,6 @@ export default function Create({ auth }) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.content && <p className="text-red-500 text-xs italic">{errors.content}</p>}
-                                {inertiaErrors.content && <p className="text-red-500 text-xs italic">{inertiaErrors.content}</p>}
                             </div>
 
                             <div className="mb-4">
@@ -117,7 +81,6 @@ export default function Create({ auth }) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.photo && <p className="text-red-500 text-xs italic">{errors.photo}</p>}
-                                {inertiaErrors.photo && <p className="text-red-500 text-xs italic">{inertiaErrors.photo}</p>}
                             </div>
 
                             <div className="flex items-center justify-between">
