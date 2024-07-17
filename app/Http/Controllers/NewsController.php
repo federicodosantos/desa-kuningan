@@ -98,7 +98,7 @@ class NewsController extends Controller
             return Redirect::back()->with('error', 'news not found');
         }
 
-        return Inertia::render('News/Show', [
+        return Inertia::render('Admin/News/Show', [
             'news' => $news
         ]);
     }
@@ -125,37 +125,39 @@ class NewsController extends Controller
     public function update(NewsRequest $request, string $slug)
     {
         $validated = $request->validated();
+
         try {
             return DB::transaction(function () use ($request, $slug, $validated) {
                 $news = News::with('user')->where('slug', $slug)->first();
-
+                
                 if (is_null($news)) {
                     return Redirect::back()->with('error', 'news not found');
                 }
-
+                
                 if (!is_null($validated['title'])) {
                     $news->title = $validated['title'];
                     $news->slug = Str::slug($validated['title']);
                 }
-
+                
                 if (!is_null($validated['content'])) {
                     $news->content = $validated['content'];
                 }
-
+                
                 if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
                     // Delete the old photo if exists
                     if ($news->photo_path) {
                         Storage::delete($news->photo_path);
                     }
-
+                    
                     // Store the new photo
                     $news->photo_path = $request->file('photo')->store('newsImage', 'public');
                 }
          
                 $news->setUpdatedAt(Carbon::now('Asia/Jakarta'));
 
+                dd($news);
                 $news->save();
-
+                
                 return Redirect::route('admin.news.index', ['slug' => $slug])->with('success', 'success update news');
             });
         } catch (\Exception $e) {

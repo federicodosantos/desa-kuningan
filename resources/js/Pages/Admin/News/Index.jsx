@@ -109,9 +109,9 @@ const Index = ({ auth, news }) => {
                                             />
                                         </td>
                                         <td className="px-6 py-4   border-gray-200 text-sm flex   gap-1">
-                                            <button className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-gray-500 text-text-white rounded-lg">
+                                            <Link href={route('admin.news.show',item.slug)} className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-gray-500 text-text-white rounded-lg">
                                                 Lihat
-                                            </button>
+                                            </Link>
                                             <Link
                                                 href={route(
                                                     "admin.news.edit",

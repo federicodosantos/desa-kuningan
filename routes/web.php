@@ -42,6 +42,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'edit' => 'admin.news.edit',
         'update' => 'admin.news.update',
         'destroy' => 'admin.news.destroy',
+        'show' => 'admin.news.show',
     ]);
 
   

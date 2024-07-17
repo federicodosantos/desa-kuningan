@@ -2,20 +2,40 @@ import Breadcrumbs from '@/Components/Breadcrumbs';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import ReactQuill from 'react-quill';
+import { z } from 'zod';
 
 import 'react-quill/dist/quill.snow.css';
 
+// Skema validasi Zod
+const newsSchema = z.object({
+    title: z.string().max(255, "Judul tidak boleh lebih dari 255 karakter"),
+    content: z.string().min(1, "Konten tidak boleh kosong"),
+    _method: z.literal('PATCH'),
+});
+
 export default function Edit({ auth, news }) {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, setError, clearErrors } = useForm({
         title: news.title || '',
         content: news.content || '',
         photo: null,
-        _method: 'PATCH', // Add this line
+        _method: 'PATCH',
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('news.update', news.slug));
+        clearErrors();
+        
+        try {
+            newsSchema.parse(data);
+            post(route('news.update', news.slug));
+        } catch (err) {
+            if (err instanceof z.ZodError) {
+                err.errors.forEach((error) => {
+                    setError(error.path[0], error.message);
+                });
+            }
+        }
+        console.log(errors)
     };
 
     const handleContentChange = (value) => {
@@ -75,7 +95,7 @@ export default function Edit({ auth, news }) {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photo">
-                                    Photo
+                                    Photo (Opsional, maks. 5MB)
                                 </label>
                                 <input
                                     id="photo"

@@ -19,7 +19,7 @@ const Breadcrumbs = ({ items, className='bg-outline-gray' }) => {
                             {item.label}
                         </Link>
                     ) : (
-                        <p className="flex items-center gap-1">
+                        <p className="flex line-clamp-1 items-center gap-1">
                             {item.icon && (
                                 <Icon
                                     icon={item.icon}
