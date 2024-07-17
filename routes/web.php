@@ -6,6 +6,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FacilitiesController;
 use App\Http\Controllers\AttractionController;
 use App\Http\Controllers\UMKMController;
+use App\Http\Controllers\VillageOfficerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -48,7 +49,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'show' => 'admin.news.show',
     ]);
 
-  
+
 });
 
 Route::get('/dashboard', function () {
@@ -59,7 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     Route::prefix('/news')->group(function () {
         Route::get('', [NewsController::class, 'index'])->name('news.index');
         Route::get('/create', [NewsController::class, 'create'])->name('news.create');
@@ -97,6 +98,15 @@ Route::middleware('auth')->group(function () {
             'update' => 'umkm.update',
             'show' => 'umkm.show',
             'destroy' => 'umkm.destroy',
+        ]);
+
+        Route::resource('officer', VillageOfficerController::class)->names([
+            'index' => 'officer.index',
+            'create' => 'officer.create',
+            'store' => 'officer.store',
+            'edit' => 'officer.edit',
+            'update' => 'officer.update',
+            'destroy' => 'officer.destroy',
         ]);
     });
 });
