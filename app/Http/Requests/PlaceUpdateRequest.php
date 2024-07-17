@@ -24,7 +24,7 @@ class PlaceUpdateRequest extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'description' => 'required|string|max:255',
-            'photo' => 'nullable|image|size:5120'
+            'photo' => 'nullable|image|max:5120'
         ];
     }
 }

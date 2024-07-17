@@ -24,7 +24,7 @@ class PlacesRequest extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'description' => 'required|string|max:255',
-            'photo' => 'required|image|size:5120'
+            'photo' => 'required|image|max:5120'
         ];
     }
 }
