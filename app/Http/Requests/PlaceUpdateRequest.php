@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PlacesRequest extends FormRequest
+class PlaceUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class PlacesRequest extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'description' => 'required|string|max:255',
-            'photo' => 'required|image|size:5120'
+            'photo' => 'nullable|image|size:5120'
         ];
     }
 }
