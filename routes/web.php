@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\FacilitiesController;
+use App\Http\Controllers\AttractionController;
+use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +46,37 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', [NewsController::class, 'store'])->name('news.store');
         Route::patch('/{slug}', [NewsController::class, 'update'])->name('news.update');
         Route::delete('/{slug}', [NewsController::class, 'destroy'])->name('news.destroy');
+
+        Route::resource('facilities', FacilitiesController::class)->names([
+            'index' => 'facilities.index',
+            'create' => 'facilities.create',
+            'store' => 'facilities.store',
+            'edit' => 'facilities.edit',
+            'update' => 'facilities.update',
+            'show' => 'facilities.show',
+            'destroy' => 'facilities.destroy',
+        ]);
+
+        Route::resource('attractions', AttractionController::class)->names([
+            'index' => 'attractions.index',
+            'create' => 'attractions.create',
+            'store' => 'attractions.store',
+            'edit' => 'attractions.edit',
+            'update' => 'attractions.update',
+            'show' => 'attractions.show',
+            'destroy' => 'attractions.destroy',
+        ]);
+
+        Route::resource('umkm', UMKMController::class)->names([
+            'index' => 'umkm.index',
+            'create' => 'umkm.create',
+            'store' => 'umkm.store',
+            'edit' => 'umkm.edit',
+            'update' => 'umkm.update',
+            'show' => 'umkm.show',
+            'destroy' => 'umkm.destroy',
+        ]);
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
