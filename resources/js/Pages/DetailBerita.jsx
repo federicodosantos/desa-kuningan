@@ -3,24 +3,16 @@ import Navbar from "@/Components/Navbar";
 import { Icon } from "@iconify/react";
 import { Head, Link } from "@inertiajs/react";
 import React from "react";
-import Header from "../../assets/detailBerita.jpg";
+import HeaderIMG from "../../assets/InformasiPublik.jpg";
 import Breadcrumbs from "@/Components/Breadcrumbs";
+import Header from "@/Components/Header";
 const DetailBerita = ({ news }) => {
     return (
         <>
             <Head title="Kuningan | Tentang" />
             <div className="bg-text-white">
                 <Navbar />
-                <header className="relative h-[60vh] overflow-hidden ">
-                    <img
-                        src={Header}
-                        alt=""
-                        className="size-full object-cover"
-                    />
-                    <div className="absolute top-0 left-0 size-full bg-black text-6xl font-semibold text-text-white  flex justify-center items-center bg-opacity-50">
-                        Berita Desa Kuningan
-                    </div>
-                </header>
+                <Header img={HeaderIMG} title={'Berita Desa Kuningan'} />
                 <section className="container py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
                     <Breadcrumbs
                         items={[

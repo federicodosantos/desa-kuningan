@@ -28,7 +28,13 @@ Route::get('/berita/{slug}',[FeController::class,'detailBerita'])->name('detailB
 Route::get('/tentang-kami', function () {
     return Inertia::render('Tentang');
 })->name('tentang');
-Route::get('/data-penduduk', function () {
+Route::get('/sejarah', function () {
+    return Inertia::render('Sejarah');
+})->name('sejarah');
+Route::get('/visi-misi', function () {
+    return Inertia::render('VisiMisi');
+})->name('visiMisi');
+Route::get('/demografis-penduduk', function () {
     return Inertia::render('DataPenduduk');
 })->name('demografis');
 Route::get('/peta-digital', function () {

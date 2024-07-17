@@ -10,6 +10,7 @@ import kepsek from "../../assets/kepsek.jpg";
 import Footer from "@/Components/Footer";
 import { Icon } from "@iconify/react";
 import NewsCard from "@/Components/NewsCard";
+import Geografis from "@/Section/Home/Geografis";
 
 const carouselItem = [
     {
@@ -85,23 +86,16 @@ const Home = ({news}) => {
                             <h2 className="text-5xl text-primary-orange font-semibold">
                                 Sambutan Kepala Desa
                             </h2>
-                            <div className="prose-sm">
+                            <h5 className="text-lg font-semibold">Bapak Sholkan</h5>
+                            <div className="prose-sm text-justify">
                                 <p>
                                     Assalamu'alaikum Warahmatullahi Wabarakatuh,
                                 </p>
 
                                 <p>
-                                    Alhamdulillah, puji Syukur kita panjatkan
-                                    kehadirat Allah SWT, karena atas limpahan
-                                    Rahmat dan Hidayah-Nya, sehingga Pemerintah
-                                    Desa Pao-Pao dapat mempersembahkan pelayanan
-                                    masyarakat berbasis digital kepada seluruh
-                                    masyarakat Desa Pao-Pao. Kami bangga bahwa
-                                    Pelayanan yang kami persembahkan adalah
-                                    merupakan Visi Desa Pao-Pao Tahun 2017-2023
-                                    yaitu Meningkatkan Daya Saing Menuju
-                                    Masyarakat Desa Pao-Pao yang Mandiri
-                                    Bernafaskan Keagamaan.
+                                Dengan rasa syukur yang mendalam, saya selaku Kepala Desa Kuningan, Kecamatan Kanigoro, Kabupaten Blitar, menyambut kehadiran Anda di website resmi Desa Kuningan. Website ini kami dedikasikan sebagai sarana informasi dan komunikasi yang efektif bagi seluruh warga desa serta para pengunjung yang ingin mengenal lebih dekat Desa Kuningan. Melalui platform ini, kami berharap dapat memberikan layanan yang transparan dan mudah diakses, serta mendukung keterbukaan informasi publik yang akan meningkatkan partisipasi aktif masyarakat dalam pembangunan desa.
+                                </p>
+                                <p>Desa Kuningan memiliki potensi dan kekayaan budaya yang luar biasa, serta masyarakat yang ramah dan bersemangat dalam menjaga kearifan lokal. Dengan adanya website ini, kami berharap dapat lebih mengoptimalkan potensi desa, baik dari segi pariwisata, ekonomi, maupun sosial. Semoga website ini menjadi jembatan penghubung yang efektif antara pemerintah desa dan masyarakat, serta menjadi sumber inspirasi bagi kita semua untuk terus bekerja sama membangun Desa Kuningan yang lebih maju dan sejahtera. Terima kasih atas dukungan dan partisipasinya.
                                 </p>
 
                                 <p>
@@ -109,13 +103,7 @@ const Home = ({news}) => {
                                     Wabarakatuh.
                                 </p>
 
-                                <p>Hormat kami,</p>
-
-                                <p>
-                                    <strong>Federico Roberto Dos Santos</strong>
-                                    <br />
-                                    Kepala Desa Kuningan, Jawa Timur
-                                </p>
+                               
                             </div>
                         </div>
                     </main>
@@ -125,7 +113,7 @@ const Home = ({news}) => {
                         <h1 className="text-4xl font-semibold text-primary-orange">
                             Berita Terkini
                         </h1>
-                        <p>Lorem ipsum dolor sit amet consectetur.</p>
+                        <p>Baca berita terkini tentang Desa Kuningan dan dapatkan informasi terbaru.</p>
                     </div>
                     <main className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 grid-rows-1 gap-8 py-8">
                        {
@@ -139,9 +127,9 @@ const Home = ({news}) => {
                 <section className="container mx-auto lg:px-10 md:px-8 px-4">
                     <div className="flex flex-col gap-3 border-b pb-4">
                         <h1 className="text-4xl font-semibold text-primary-orange">
-                            Perangkat Desa
+                            Struktur Lembaga Desa
                         </h1>
-                        <p>Lorem ipsum dolor sit amet consectetur.</p>
+                        <p>Struktur Organisasi dan Tata Kerja Desa Kuningan</p>
                     </div>
                     <Splide
                         className="py-8"
@@ -197,31 +185,9 @@ const Home = ({news}) => {
                         </SplideSlide>
                     </Splide>
                 </section>
-                <section className="container mx-auto lg:px-10 md:px-8 px-4">
-                    <div className="flex flex-col gap-3 border-b pb-4 ">
-                        <h1 className="text-4xl font-semibold text-primary-orange">
-                            Geografis Desa
-                        </h1>
-                        <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    </div>
-                    <main className="py-8">
-                        Lorem ipsum dolor sit amet consectetur. Blandit enim
-                        vulputate fringilla mattis. Nisl donec id sed proin in.
-                        Odio aliquet faucibus maecenas adipiscing volutpat eget.
-                        Nunc feugiat libero purus aliquam nibh. Morbi facilisis
-                        blandit quis sagittis gravida auctor lobortis ut.
-                        Praesent mi tempor nisl sed in dictumst viverra nam.
-                        Lorem suspendisse pretium posuere vivamus odio proin
-                        non. Ultrices vitae metus hendrerit sagittis turpis
-                        aenean elit nec. Vulputate faucibus penatibus cum
-                        egestas parturient. Hac nisi euismod sapien tempor odio
-                        odio massa phasellus. Vitae molestie diam sit viverra at
-                        nulla. Sit risus eu quisque sed gravida. Sed sit amet ut
-                        vulputate diam dignissim ultricies scelerisque. In
-                        interdum eu morbi laoreet sed pharetra id. Vitae ut urna
-                        consequat in fermentum scelerisque amet donec.
-                    </main>
-                </section>
+                <Geografis/>
+                
+              
                 <Footer />
             </div>
         </>

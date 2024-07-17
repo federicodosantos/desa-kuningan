@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../../assets/logo-desa.png";
 import { Link } from "@inertiajs/react";
+import { Icon } from "@iconify/react";
 
 
 
@@ -57,45 +58,47 @@ const Navbar = ({ scrollInteraction = false }) => {
                 </div>
                 <ul className="flex gap-8 font-semibold relative">
                     <li
-                        className={`relative group`}
+                        className={`relative group  flex gap-1 items-center`}
                     >
+                        <p>
                         Profil Desa
-                        <ul className="absolute left-0  w-48 bg-white text-black shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
-                            <Link   href={route('tentang')} className="px-4 py-2 hover:bg-gray-100">Tentang Kami</Link>
-                            <li className="px-4 py-2 hover:bg-gray-100">Visi Misi</li>
-                            <li className="px-4 py-2 hover:bg-gray-100">Sejarah</li>
-                            <li className="px-4 py-2 hover:bg-gray-100">Geografis</li>
+                        </p>
+                        <Icon icon={'ri:arrow-up-s-fill'} className="rotate-180 group-hover:rotate-0 duration-500 ease-in-out text-xl"/>
+                        <ul className="absolute bottom-0 translate-y-full left-0 flex flex-col  w-48 bg-white text-black shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
+                            <Link   href={route('tentang')} className="px-4 py-2  hover:bg-gray-100">Tentang Kami</Link>
+                            <Link href={route('visiMisi')} className="px-4 py-2 hover:bg-gray-100">Visi Misi</Link>
+                            <Link href={route('sejarah')} className="px-4 py-2 hover:bg-gray-100">Sejarah</Link>
+    
                             <Link href={route('demografis')} className="px-4 py-2 hover:bg-gray-100">Demografis</Link>
                         </ul>
                     </li>
+                  
                     <li
-                        className={`relative group `}
-                    >
-                        Struktur
-                        <ul className="absolute left-0 w-48 bg-white text-black shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
-                            <li className="px-4 py-2 hover:bg-gray-100">Struktur Organisasi</li>
-                            <li className="px-4 py-2 hover:bg-gray-100">Perangkat Desa</li>
-                        </ul>
-                    </li>
-                    <li
-                        className={`relative group`}
-                    >
-                        Informasi Publik
-                        <ul className="absolute left-0 w-48 bg-white text-black shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
+                        className={`relative group flex gap-1 items-center`}
+                    >  <p>
+                   Informasi Publik
+                    </p>
+                    <Icon icon={'ri:arrow-up-s-fill'} className="rotate-180 group-hover:rotate-0 duration-500 ease-in-out text-xl"/>
+                        <ul className="absolute bottom-0 translate-y-full  left-0 flex flex-col w-48 bg-white text-black shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
                             <li className="px-4 py-2 hover:bg-gray-100">Sarana dan Prasarana</li>
                             <Link href={route('berita')} className="px-4 py-2 hover:bg-gray-100">Berita Desa</Link>
                         </ul>
                     </li>
                     <li
-                        className={`relative group`}
+                        className={`relative group flex gap-1 items-center`}
                     >
+                        <p>
                         Potensi
-                        <ul className="absolute right-0 w-48 bg-white text-black shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
+                        </p>
+                        <Icon icon={'ri:arrow-up-s-fill'} className="rotate-180 group-hover:rotate-0 duration-500 ease-in-out text-xl"/>
+                        <ul className="absolute bottom-0 translate-y-full  right-0 flex flex-col w-48 bg-white text-black shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
                             <Link href={route('peta')} className="px-4 py-2 hover:bg-gray-100">Peta Digital</Link>
                             <li className="px-4 py-2 hover:bg-gray-100">Tempat Wisata</li>
                             <li className="px-4 py-2 hover:bg-gray-100">UMKM</li>
                         </ul>
                     </li>
+                    <p>Struktur</p>
+                    <p>Pengaduan</p>
                 </ul>
             </div>
         </nav>
