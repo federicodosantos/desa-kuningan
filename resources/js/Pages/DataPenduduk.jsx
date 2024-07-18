@@ -14,6 +14,9 @@ import {
 } from "chart.js";
 import Footer from "@/Components/Footer";
 import { Icon } from "@iconify/react";
+import Header from "@/Components/Header";
+import ImgHeader from "../../assets/ProfileDesaHeader.jpg";
+import Breadcrumbs from "@/Components/Breadcrumbs";
 
 ChartJS.register(
     CategoryScale,
@@ -151,24 +154,27 @@ const DataPenduduk = () => {
             <Head title="Kuningan | Data Penduduk" />
             <div className="bg-text-white">
                 <Navbar />
+                <Header img={ImgHeader} title={"Tentang Desa Kuningan"} />
                 <section className="container py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
-                    <div className="w-full rounded-lg bg-outline-gray p-3 flex">
-                        <Link href={route('home')}>
-                            <Icon
-                                icon={"ic:round-home"}
-                                className="text-primary-orange text-2xl"
-                            />
-                        </Link>
-                        / Peta Digital
-                    </div>
+                <Breadcrumbs
+                        items={[
+                            {
+                                href: route("home"),
+                                icon: "ic:round-home",
+                            },
+                            { label: "Profil Desa" },
+                            { label: "Demografis Penduduk" },
+                        ]}
+                    />
                     <h3 className="text-4xl text-primary-orange font-semibold">
-                        Peta Digital
+                       Demografi Penduduk
                     </h3>
+                    <p>Memberikan informasi lengkap mengenai karakteristik demografi penduduk suatu wilayah. Mulai dari jumlah penduduk, usia, jenis kelamin, pekerjaan, yang menggambarkan komposisi populasi secara rinci.    </p>
                 </section>
                 <div className="flex gap-5 container justify-between mx-auto lg:px-10 md:px-8 px-4 py-10 ">
                     <aside className="w-[25%] h-fit rounded-md shadow p-3 gap-2 flex flex-col divide-y-2  bg-white">
-                        <button className="p-2 text-left font-semibold" onClick={() => setFilterType("rentang")}>Rentang umur</button>
-                        <button className="p-2 text-left font-semibold" onClick={() => setFilterType("kategori")}>Kategori umur</button>
+                        <button className="p-2 text-left font-semibold" onClick={() => setFilterType("rentang")}>Rentang Umur</button>
+                        <button className="p-2 text-left font-semibold" onClick={() => setFilterType("kategori")}>Kategori Umur</button>
                         <button className="p-2 text-left font-semibold" onClick={() => setFilterType("gender")}>Jenis Kelamin</button>
                         <button className="p-2 text-left font-semibold" onClick={() => setFilterType("pekerjaan")}>Pekerjaan</button>
                     </aside>

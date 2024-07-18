@@ -3,6 +3,10 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\FacilitiesController;
+use App\Http\Controllers\AttractionController;
+use App\Http\Controllers\PetaController;
+use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\VillageOfficerController;
 use App\Http\Controllers\ProfileController;
@@ -27,12 +31,19 @@ Route::get('/berita/{slug}',[FeController::class,'detailBerita'])->name('detailB
 Route::get('/tentang-kami', function () {
     return Inertia::render('Tentang');
 })->name('tentang');
-Route::get('/data-penduduk', function () {
+Route::get('/sejarah', function () {
+    return Inertia::render('Sejarah');
+})->name('sejarah');
+Route::get('/visi-misi', function () {
+    return Inertia::render('VisiMisi');
+})->name('visiMisi');
+Route::get('/demografis-penduduk', function () {
     return Inertia::render('DataPenduduk');
 })->name('demografis');
-Route::get('/peta-digital', function () {
-    return Inertia::render('Peta');
-})->name('peta');
+Route::get('/struktur', function () {
+    return Inertia::render('Struktur');
+})->name('struktur');
+Route::get('/peta-digital', [FeController::class,'Peta'])->name('peta');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -45,6 +56,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'update' => 'admin.news.update',
         'destroy' => 'admin.news.destroy',
         'show' => 'admin.news.show',
+    ]);
+    Route::resource('peta', PetaController::class)->names([
+        'index' => 'admin.peta.index',
+        'create' => 'admin.peta.create',
+        'store' => 'admin.peta.store',
+        'edit' => 'admin.peta.edit',
+        'update' => 'admin.peta.update',
+        'destroy' => 'admin.peta.destroy',
+        'show' => 'admin.peta.show',
     ]);
 
 
@@ -69,13 +89,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{slug}', [NewsController::class, 'destroy'])->name('news.destroy');
 
         Route::resource('place', PlaceController::class)->names([
-            'index' => 'place.index',
-            'create' => 'place.create',
-            'store' => 'place.store',
-            'show' => 'place.show',
-            'edit' => 'place.edit',
-            'update' => 'place.update',
-            'destroy' => 'place.destroy',
+            'index' => 'admin.place.index',
+            'create' => 'admin.place.create',
+            'store' => 'admin.place.store',
+            'edit' => 'admin.place.edit',
+            'update' => 'admin.place.update',
+            'destroy' => 'admin.place.destroy',
+            'show' => 'admin.place.show',
         ]);
         Route::delete('/place/{placeID}/photo/{photoID}', [PlaceController::class, 'deletePhoto'])->name(
             'place.deletePhoto'

@@ -54,6 +54,7 @@ class PlaceController extends Controller
     {
         $validated = $request->validated();
 
+
         try {
             $photo_paths = [];
 
@@ -95,7 +96,7 @@ class PlaceController extends Controller
                 ]);
             }
 
-            return Redirect::route('place.index')->with('success', 'success add new place');
+            return Redirect::route('admin.place.index')->with('success', 'success add new place');
         } catch (\Exception $e) {
             Log::error('cannot store place value to database: ' . $e);
             return Redirect::back()->with('error', 'cannot store place value to database');
@@ -204,9 +205,12 @@ class PlaceController extends Controller
             return DB::transaction(function () use ($id) {
                 $place = Places::with('photo')->where('id', $id)->first();
 
+            
+
                 if (is_null($place)) {
                     return Redirect::back()->with('error', 'place not found');
                 }
+                DB::table('place_photos')->where('place_id', $id)->delete();
 
                 foreach ($place->Photo as $photo) {
                     Storage::disk('public')->delete($photo->photo_path);

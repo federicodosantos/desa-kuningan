@@ -23,6 +23,8 @@ class PlacesRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
+            'latitude' => 'required',
+            'longitude' => 'required',
             'description' => 'required|string',
             'address' => 'required|string|max:255',
             'social_media' => 'nullable|string|max:100',

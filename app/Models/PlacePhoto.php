@@ -22,5 +22,6 @@ class PlacePhoto extends Model
     public function Place(): BelongsTo
     {
         return $this->belongsTo(Places::class, 'place_id', 'id');
+        
     }
 }

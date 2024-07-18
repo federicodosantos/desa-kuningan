@@ -1,7 +1,11 @@
+import Breadcrumbs from "@/Components/Breadcrumbs";
 import Footer from "@/Components/Footer";
+import Header from "@/Components/Header";
 import Navbar from "@/Components/Navbar";
+import ImgHeader from "../../assets/ProfileDesaHeader.jpg";
 import { Icon } from "@iconify/react";
 import { Head, Link } from "@inertiajs/react";
+
 import React from "react";
 
 const Tentang = () => {
@@ -10,60 +14,29 @@ const Tentang = () => {
             <Head title="Kuningan | Tentang" />
             <div>
                 <Navbar />
+                <Header img={ImgHeader} title={"Tentang Desa Kuningan"} />
                 <section className="container py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
-                    <div className="w-full rounded-lg bg-outline-gray p-3 flex">
-                        <Link href={route('home')}>
-                        <Icon
-                            icon={"ic:round-home"}
-                            className="text-primary-orange text-2xl"
-                            />
-                            </Link>
-                        / Tentang Kami
-                    </div>
+                <Breadcrumbs
+                        items={[
+                            {
+                                href: route("home"),
+                                icon: "ic:round-home",
+                            },
+                            { label: "Profil Desa" },
+                            { label: "Tentang Kami" },
+                        ]}
+                    />
+
                     <h3 className="text-4xl text-primary-orange font-semibold">
                         Tentang Kami
                     </h3>
-                </section>
-                <main className="container gap-4 mx-auto lg:px-10 md:px-8 px-4 py-10 prose-base prose-ul:list-disc">
-                    <h2>Tentang Desa Kuningan</h2>
-                    <p>
-                        Desa Kuningan terletak di Kecamatan Kanigoro, Kabupaten
-                        Blitar, Jawa Timur. Desa ini dikenal dengan pemandangan
-                        alam yang asri dan suasana pedesaan yang damai.
-                        Masyarakatnya yang ramah dan penuh kekeluargaan
-                        menjadikan desa ini tempat yang nyaman untuk dikunjungi.
-                    </p>
-                    <p>
-                        Desa Kuningan memiliki berbagai potensi alam yang
-                        memikat, mulai dari persawahan yang hijau hingga
-                        perkebunan yang subur. Keindahan alamnya tidak hanya
-                        memanjakan mata, tetapi juga memberikan banyak sumber
-                        penghidupan bagi warganya.
-                    </p>
-                    <h2>Keunggulan Desa Kuningan</h2>
-                    <ul>
-                        <li>
-                            Potensi pertanian dan perkebunan yang sangat besar
-                        </li>
-                        <li>Kebudayaan dan tradisi yang masih terjaga</li>
-                        <li>Masyarakat yang ramah dan gotong royong</li>
-                        <li>Keindahan alam yang memikat</li>
-                    </ul>
-                    <h2>
-                        Kegiatan dan Acara
-                    </h2>
-                    <p >
-                        Desa Kuningan memiliki berbagai kegiatan dan acara yang
-                        menjadi daya tarik tersendiri, mulai dari festival
-                        budaya, acara panen raya, hingga kegiatan gotong royong
-                        yang melibatkan seluruh warga.
-                    </p>
-                    <p >
-                        Kegiatan-kegiatan ini tidak hanya mempererat tali
-                        silaturahmi antar warga, tetapi juga memperkenalkan
-                        kebudayaan desa kepada pengunjung dari luar.
-                    </p>
+                <main className=" prose-sm">
+                    <p>Desa Kuningan, terletak di Kabupaten Blitar, adalah sebuah desa yang kaya akan sejarah dan budaya. Dikenal sebagai salah satu desa yang memadukan keindahan alam dengan kearifan lokal, Kuningan menawarkan tempat wisata religi, serta tradisi yang masih terjaga dengan baik. Desa ini merupakan tempat yang sempurna bagi mereka yang ingin merasakan ketenangan pedesaan sambil menikmati pesona wisata religi dan perkebunan.</p>
+                    <p>Di Desa Kuningan, pengunjung dapat menemukan berbagai situs bersejarah dan tempat ibadah yang menarik untuk dikunjungi, seperti makam-makam yang memiliki nilai historis dan pondok-pondok pesantren yang terkenal. Selain itu, desa ini juga menawarkan kesempatan untuk menikmati keindahan perkebunan lokal, di mana pengunjung dapat melihat langsung proses bercocok tanam yang menjadi bagian penting dari kehidupan sehari-hari masyarakat setempat.</p>
+                    <p>Tidak hanya itu, Desa Kuningan juga sedang mengembangkan potensi pariwisata dan UMKM melalui digitalisasi. Dengan adanya peta digital dan website informatif, pengunjung dapat dengan mudah menemukan berbagai destinasi menarik, mulai dari UMKM lokal hingga homestay yang nyaman. Melalui program-program ini, Desa Kuningan berkomitmen untuk menjadi desa yang berkelanjutan dan semakin dikenal di mata dunia.</p>
                 </main>
+                </section>
+
                 <Footer />
             </div>
         </>
