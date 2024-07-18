@@ -6,6 +6,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\VillageOfficerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ComplaintController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -71,6 +72,7 @@ Route::middleware('auth')->group(function () {
             'index' => 'place.index',
             'create' => 'place.create',
             'store' => 'place.store',
+            'show' => 'place.show',
             'edit' => 'place.edit',
             'update' => 'place.update',
             'destroy' => 'place.destroy',
@@ -86,6 +88,14 @@ Route::middleware('auth')->group(function () {
             'edit' => 'officer.edit',
             'update' => 'officer.update',
             'destroy' => 'officer.destroy',
+        ]);
+
+        Route::resource('complaint', ComplaintController::class)->names([
+            'index' => 'complaint.index',
+            'create' => 'complaint.create',
+            'store' => 'complaint.store',
+            'show' => 'complaint.show',
+            'destroy' => 'complaint.destroy',
         ]);
     });
 });
