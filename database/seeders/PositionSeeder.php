@@ -16,5 +16,29 @@ class PositionSeeder extends Seeder
         Position::create([
             'name' => 'Kepala Desa'
         ]);
+
+        Position::create([
+            'name' => 'Sekretaris Desa'
+        ]);
+
+        Position::create([
+            'name' => 'Kaur Tata Usaha Umum dan Perencanaan'
+        ]);
+
+        Position::create([
+            'name' => 'Kaur Keuangan'
+        ]);
+
+        Position::create([
+            'name' => 'Kasi Pemerintahan'
+        ]);
+
+        Position::create([
+            'name' => 'Kasi Kesra dan Pelayanan'
+        ]);
+
+        Position::create([
+            'name' => 'Karyawan Desa'
+        ]);
     }
 }

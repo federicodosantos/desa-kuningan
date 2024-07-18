@@ -16,14 +16,14 @@ class CategorySeeder extends Seeder
     {
         Category::create([
             'id' => 1,
-            'name' => 'Facility',
+            'name' => 'Sarana dan Prasarana',
             'created_at' => Carbon::now('Asia/Jakarta'),
             'updated_at' => Carbon::now('Asia/Jakarta'),
         ]);
 
         Category::create([
             'id' => 2,
-            'name' => 'Attraction',
+            'name' => 'Pariwisata',
             'created_at' => Carbon::now('Asia/Jakarta'),
             'updated_at' => Carbon::now('Asia/Jakarta'),
         ]);
@@ -31,6 +31,13 @@ class CategorySeeder extends Seeder
         Category::create([
             'id' => 3,
             'name' => 'UMKM',
+            'created_at' => Carbon::now('Asia/Jakarta'),
+            'updated_at' => Carbon::now('Asia/Jakarta'),
+        ]);
+
+        Category::create([
+            'id' => 4,
+            'name' => 'Homestay',
             'created_at' => Carbon::now('Asia/Jakarta'),
             'updated_at' => Carbon::now('Asia/Jakarta'),
         ]);
