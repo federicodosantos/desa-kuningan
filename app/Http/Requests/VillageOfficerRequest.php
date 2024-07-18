@@ -23,8 +23,8 @@ class VillageOfficerRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'position' => 'required',
-            'photo' => 'required|image|max:5120'
+            'position_id' => 'required',
+            'photo' => 'required|image|max:2048'
         ];
     }
 }

@@ -17,7 +17,7 @@ class VillageOfficerResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'photo_path' => $this->photo_path,
+            'photo_path' => 'storage/' . $this->photo_path,
             'position' => $this->whenLoaded('position', function () {
                 return [
                     'id' => $this->position->id,

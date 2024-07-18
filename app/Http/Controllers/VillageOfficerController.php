@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\VillageOfficerRequest;
 use App\Http\Resources\VillageOfficerResource;
+use App\Models\Position;
 use App\Models\VillageOfficer;
 use Carbon\Carbon;
 use Exception;
@@ -37,7 +38,11 @@ class VillageOfficerController extends Controller
      */
     public function create()
     {
-        return Inertia::render('VillageOfficer/Create');
+        $position = Position::all();
+
+        return Inertia::render('VillageOfficer/Create',[
+            'position' => $position
+        ]);
     }
 
     /**
@@ -84,12 +89,15 @@ class VillageOfficerController extends Controller
         $officer = VillageOfficer::with('position')->
         where('id', $id)->first();
 
-        if (is_null($officer)) {
-            return Redirect::back()->with('error', 'officer value is null');
+        $position = Position::all();
+
+        if (is_null($officer) || is_null($position)) {
+            return Redirect::back()->with('error', 'officer or position value is null');
         }
 
         return Inertia::render('VillageOfficer/Edit', [
-            'officer' => new VillageOfficerResource($officer)
+            'officer' => new VillageOfficerResource($officer),
+            'position' => $position
         ]);
     }
 
