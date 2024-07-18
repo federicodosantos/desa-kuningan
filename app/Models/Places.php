@@ -26,6 +26,7 @@ class Places extends Model
     public function Category():BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+        
     }
 
     public function Photo(): HasMany

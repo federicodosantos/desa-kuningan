@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Places;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,7 +14,13 @@ class PetaController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Peta/Index');
+        $places = Places::with(['photo','category'])->get();
+        $categories = Category::all();
+    
+        return Inertia::render('Admin/Peta/Index',[
+            'places'=>$places,
+            'categories'=>$categories,
+        ]);
     }
 
     /**

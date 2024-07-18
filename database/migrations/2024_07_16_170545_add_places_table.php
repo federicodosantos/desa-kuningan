@@ -22,7 +22,6 @@ return new class extends Migration
             $table->decimal('longitude', 9, 6)->nullable(false);
             $table->unsignedInteger('category_id');
             $table->timestamps();
-
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }

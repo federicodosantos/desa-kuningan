@@ -28,7 +28,7 @@ class PlaceUpdateRequest extends FormRequest
             'social_media' => 'nullable|string|max:100',
             'phone_number' => 'sometimes|required|string|max:13',
             'category_id' => 'sometimes|required',
-            'photos' => 'nullable|array',
+            'photos' => 'nullable|array|max:3',
             'photos.*' => 'image|mimes:jpeg,jpg,png|max:2048'
         ];
     }

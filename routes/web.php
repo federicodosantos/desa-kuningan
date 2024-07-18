@@ -42,9 +42,7 @@ Route::get('/demografis-penduduk', function () {
 Route::get('/struktur', function () {
     return Inertia::render('Struktur');
 })->name('struktur');
-Route::get('/peta-digital', function () {
-    return Inertia::render('Peta');
-})->name('peta');
+Route::get('/peta-digital', [FeController::class,'Peta'])->name('peta');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -90,12 +88,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{slug}', [NewsController::class, 'destroy'])->name('news.destroy');
 
         Route::resource('place', PlaceController::class)->names([
-            'index' => 'place.index',
-            'create' => 'place.create',
-            'store' => 'place.store',
-            'edit' => 'place.edit',
-            'update' => 'place.update',
-            'destroy' => 'place.destroy',
+            'index' => 'admin.place.index',
+            'create' => 'admin.place.create',
+            'store' => 'admin.place.store',
+            'edit' => 'admin.place.edit',
+            'update' => 'admin.place.update',
+            'destroy' => 'admin.place.destroy',
+            'show' => 'admin.place.show',
         ]);
         Route::delete('/place/{placeID}/photo/{photoID}', [PlaceController::class, 'deletePhoto'])->name(
             'place.deletePhoto'

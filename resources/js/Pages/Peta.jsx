@@ -8,12 +8,14 @@ import Breadcrumbs from "@/Components/Breadcrumbs";
 import { polygonCoordinates } from "@/Data/polygon";
 
 
-const Peta = () => {
+const Peta = ({places}) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng] = useState(112.1828);
     const [lat] = useState(-8.115194);
     const [zoom] = useState(13.5);
+
+    console.log(places)
 
     const locations = [
         {
@@ -96,7 +98,7 @@ const Peta = () => {
                 },
             });
 
-            locations.forEach((location) => {
+            places.forEach((location) => {
                 console.log(`Adding marker for ${location.name}`);
 
                 const el = document.createElement("div");
@@ -112,16 +114,15 @@ const Peta = () => {
             <div class="text-sm font-semibold p-3">${location.name}</div>
             <div class="p-3 ">
                 <div class="popup-info text-xs  ">
-                    <p><span class="popup-label">Alamat:</span> ${location.alamat}</p>
-                    <p><span class="popup-label">Kontak:</span> ${location.kontak}</p>
-                    <p><span class="popup-label">Kategori:</span> ${location.kategori}</p>
+                    <p><span class="popup-label">Alamat:</span> ${location.address}</p>
+
                 </div>
             </div>
         </div>
                     `);
 
                 new maplibregl.Marker(el)
-                    .setLngLat([location.lng, location.lat])
+                    .setLngLat([location.longitude, location.latitude])
                     .setPopup(popup)
                     .addTo(map.current);
             });
