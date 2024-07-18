@@ -3,7 +3,6 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\FacilitiesController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\VillageOfficerController;
 use App\Http\Controllers\ProfileController;
