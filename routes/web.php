@@ -5,6 +5,7 @@ use App\Http\Controllers\FeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FacilitiesController;
 use App\Http\Controllers\AttractionController;
+use App\Http\Controllers\PetaController;
 use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -37,6 +38,9 @@ Route::get('/visi-misi', function () {
 Route::get('/demografis-penduduk', function () {
     return Inertia::render('DataPenduduk');
 })->name('demografis');
+Route::get('/struktur', function () {
+    return Inertia::render('Struktur');
+})->name('struktur');
 Route::get('/peta-digital', function () {
     return Inertia::render('Peta');
 })->name('peta');
@@ -52,6 +56,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'update' => 'admin.news.update',
         'destroy' => 'admin.news.destroy',
         'show' => 'admin.news.show',
+    ]);
+    Route::resource('peta', PetaController::class)->names([
+        'index' => 'admin.peta.index',
+        'create' => 'admin.peta.create',
+        'store' => 'admin.peta.store',
+        'edit' => 'admin.peta.edit',
+        'update' => 'admin.peta.update',
+        'destroy' => 'admin.peta.destroy',
+        'show' => 'admin.peta.show',
     ]);
 
   

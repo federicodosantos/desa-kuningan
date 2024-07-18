@@ -111,7 +111,6 @@ const Peta = () => {
                           <div class=" rounded-lg ">
             <div class="text-sm font-semibold p-3">${location.name}</div>
             <div class="p-3 ">
-              
                 <div class="popup-info text-xs  ">
                     <p><span class="popup-label">Alamat:</span> ${location.alamat}</p>
                     <p><span class="popup-label">Kontak:</span> ${location.kontak}</p>

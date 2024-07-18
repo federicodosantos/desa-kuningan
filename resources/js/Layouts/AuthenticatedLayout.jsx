@@ -46,7 +46,7 @@ export default function AuthenticatedSidebarLayout({ user, header, children }) {
                             <Icon icon={"material-symbols:news-outline"} />
                         </Link>
                         <Link
-                            href={route("admin.news.index")}
+                            href={route("admin.peta.index")}
                             className={`p-4 flex items-center justify-between  ${
                                 url.startsWith("/admin/peta-digital")
                                     ? "bg-gray-200 text-text-black"

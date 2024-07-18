@@ -1,32 +1,116 @@
-import Breadcrumbs from "@/Components/Breadcrumbs";
+import React, { useEffect, useRef, useState } from "react";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import React, { useEffect, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import Breadcrumbs from "@/Components/Breadcrumbs";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { polygonCoordinates } from "@/Data/polygon";
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
+import { point, polygon } from '@turf/helpers';
 import Toast from "@/Components/Toast";
-import Pagination from "@/Components/Pagination";
 
-const Index = ({ auth, news }) => {
+const Index = ({ auth }) => {
     const { delete: destroy } = useForm();
     const page = usePage();
-    const flashMessage = page.props.flash
-    const [toast, setToast] = useState(null);
-
-    console.log(news)
+    const mapContainer = useRef(null);
+    const map = useRef(null);
+    const [lng] = useState(112.1828);
+    const [lat] = useState(-8.115194);
+    const [zoom] = useState(13.5);
+    const [clickedLat, setClickedLat] = useState('');
+    const [clickedLng, setClickedLng] = useState('');
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        if (flashMessage.success) {
-            setToast({ message: flashMessage.success, type: 'success' });
-        } else if (flashMessage.error) {
-            setToast({ message: flashMessage.error, type: 'error' });
-        }
-    }, [flashMessage]);
+        if (map.current) return;
 
-    const handleDelete = (e, slug) => {
-        e.preventDefault();
-        if (confirm('Are you sure you want to delete this news?')) {
-            destroy(route('admin.news.destroy', slug));
-        }
-    };
+        map.current = new maplibregl.Map({
+            container: mapContainer.current,
+            style: "https://api.maptiler.com/maps/streets-v2/style.json?key=YmglSdeu70rPkyfsU97H",
+            center: [lng, lat],
+            zoom: zoom,
+        });
+
+        map.current.on("load", () => {
+            map.current.addSource("kuningan-polygon", {
+                type: "geojson",
+                data: {
+                    type: "Feature",
+                    geometry: {
+                        type: "Polygon",
+                        coordinates: [polygonCoordinates],
+                    },
+                },
+            });
+
+            map.current.addLayer({
+                id: "kuningan-polygon",
+                type: "fill",
+                source: "kuningan-polygon",
+                layout: {},
+                paint: {
+                    "fill-color": "#de5828",
+                    "fill-opacity": 0.5,
+                },
+            });
+
+            map.current.addLayer({
+                id: "kuningan-polygon-outline",
+                type: "line",
+                source: "kuningan-polygon",
+                layout: {},
+                paint: {
+                    "line-color": "#de5828",
+                    "line-width": 2,
+                },
+            });
+
+           
+            map.current.on('click', (e) => {
+                const clickPoint = point([e.lngLat.lng, e.lngLat.lat]);
+                const polygonArea = polygon([polygonCoordinates]);
+
+                if (!booleanPointInPolygon(clickPoint, polygonArea)) {
+                    setError('Pilih area di dalam area warna orange');
+                    return;
+                }
+
+                setClickedLat(e.lngLat.lat.toFixed(6));
+                setClickedLng(e.lngLat.lng.toFixed(6));
+                setError('');
+
+           
+                if (map.current.getLayer('clicked-point')) {
+                    map.current.removeLayer('clicked-point');
+                }
+                if (map.current.getSource('clicked-point')) {
+                    map.current.removeSource('clicked-point');
+                }
+
+             
+                map.current.addSource('clicked-point', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [e.lngLat.lng, e.lngLat.lat]
+                        }
+                    }
+                });
+
+                map.current.addLayer({
+                    'id': 'clicked-point',
+                    'type': 'circle',
+                    'source': 'clicked-point',
+                    'paint': {
+                        'circle-radius': 6,
+                        'circle-color': '#FF0000'
+                    }
+                });
+            });
+        });
+    }, [lng, lat, zoom]);
 
     return (
         <AuthenticatedLayout
@@ -38,15 +122,8 @@ const Index = ({ auth, news }) => {
             }
         >
             <Head title="Dashboard" />
-            {toast && (
-                <Toast
-                    message={toast.message}
-                    type={toast.type}
-                    onClose={() => setToast(null)}
-                />
-            )}
           
-            <section className="py-6 px-8  flex flex-col gap-3">
+            <section className="py-6 px-8 flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"
                     items={[
@@ -54,98 +131,45 @@ const Index = ({ auth, news }) => {
                             href: route("admin.dashboard"),
                             icon: "ic:round-home",
                         },
-                        { label: "Berita" },
+                        { label: "Peta Digital" },
                     ]}
                 />
-                <Link
-                    href={route("admin.news.create")}
-                    className="bg-primary-orange text-text-white rounded-md w-fit px-5 py-2"
-                >
-                    Tambah Berita
-                </Link>
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border border-gray-200">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    #
-                                </th>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    Judul
-                                </th>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    Isi
-                                </th>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    Gambar
-                                </th>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    Aksi
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white">
-                            {news.data.length > 0 ? (
-                                news.data.map((item, i) => (
-                                    <tr key={i} className="border-b">
-                                        <td className="px-6 py-4   border-gray-200">
-                                            {i + 1}
-                                        </td>
-                                        <td className="px-6 py-4   border-gray-200">
-                                            {item.title}
-                                        </td>
-                                        <td
-                                            className="px-6 py-4  line-clamp-6  border-gray-200 prose-sm line-cla"
-                                            dangerouslySetInnerHTML={{
-                                                __html: item.content,
-                                            }}
-                                        ></td>
-                                        <td className="px-6 py-4  w-1/6  border-gray-200">
-                                            <img
-                                                draggable="false"
-                                                src={`http://localhost:8000/${item.photo_path}`}
-                                                className="w-full aspect-square object-contain"
-                                                alt={item.id}
-                                            />
-                                        </td>
-                                        <td className="px-6 py-4   border-gray-200 text-sm flex   gap-1">
-                                            <Link href={route('admin.news.show',item.slug)} className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-gray-500 text-text-white rounded-lg">
-                                                Lihat
-                                            </Link>
-                                            <Link
-                                                href={route(
-                                                    "admin.news.edit",
-                                                    item.slug
-                                                )}
-                                                className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-yellow-500 text-text-white rounded-lg"
-                                            >
-                                                Edit
-                                            </Link>
-                                            <button
-                                                onClick={(e) => handleDelete(e, item.slug)}
-                                                className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-red-500 text-text-white rounded-lg"
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan={5} className="text-center p-2">
-                                        tidak ada data
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-                <Pagination
-        links={news.links}
-        from={news.from}
-        to={news.to}
-        total={news.total}
-      />
+                <main className="flex gap-4">
+                    <aside ref={mapContainer} className="w-2/5 map-container aspect-square bg-white rounded-lg">
+                    </aside>
+                    <div className="w-3/5 p-3 bg-white rounded-md">
+       
+                        {error && <Toast  type="error" autoHide={false} message={error}/>}
+                        <form action="">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="flex flex-col gap-2">
+                                    <label htmlFor="latitude">Latitude</label>
+                                    <input 
+                                        type="text" 
+                                        id="latitude"
+                                        name="latitude"
+                                        disabled
+                                        value={clickedLat}
+                                    
+                                        className="border rounde p-2"
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <label htmlFor="longitude">Longitude</label>
+                                    <input 
+                                        type="text" 
+                                        id="longitude"
+                                        name="longitude"
+                                        disabled
+                                        value={clickedLng}
+                                    
+                                        className="border rounded p-2"
+                                    />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </main>
             </section>
         </AuthenticatedLayout>
     );

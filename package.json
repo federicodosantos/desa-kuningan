@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "@splidejs/react-splide": "^0.7.12",
+        "@turf/turf": "^7.0.0",
         "maplibre-gl": "^4.5.0",
         "react-chartjs-2": "^5.2.0",
         "react-quill": "^2.0.0",
