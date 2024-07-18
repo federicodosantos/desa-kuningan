@@ -202,23 +202,18 @@ class PlaceController extends Controller
     {
         try {
             return DB::transaction(function () use ($id) {
-                $place = Places::where('id', $id)->first();
+                $place = Places::with('photo')->where('id', $id)->first();
 
                 if (is_null($place)) {
                     return Redirect::back()->with('error', 'place not found');
                 }
 
-                if ($place->photo_path) {
-                    $delete_path = 'storage/app/' . $place->photo_path;
-                    Storage::disk('public')->delete($delete_path);
+                foreach ($place->Photo as $photo) {
+                    Storage::disk('public')->delete($photo->photo_path);
+                    $photo->delete();
                 }
 
-                $success = $place->delete();
-
-                if (!$success) {
-                    return Redirect::back()->with('error', 'cannot delete place');
-                }
-
+                $place->delete();
                 return Redirect::route('place.index')->with('success', 'success delete place');
             });
         } catch (\Exception $e) {
