@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\PlacePhoto;
 use App\Models\Places;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -9,7 +10,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class AttractionSeeder extends Seeder
+class PariwisataSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,26 +21,24 @@ class AttractionSeeder extends Seeder
         $imagePath2 = 'public/bolaApi.jpg';
 
         $photoPath1 = Storage::disk('public')->putFile('placeImages', $imagePath1);
-        $photoPath2 = Storage::disk('public')->putFile('placeImages', $imagePath2);
 
-        Places::create([
+        $place = Places::create([
             'id' => Str::uuid()->toString(),
             'name' => 'Makam Syech Abu Hasan',
             'description' => 'Deskripsi Makam Syech Abu Hasan',
-            'photo_path' => $photoPath1,
+            'address' => 'RT.4/RW.4, Jl syech Abu Hasan Kuningan, Selatan, Ds. Kuningan, Kec. Kanigoro, Kabupaten Blitar, Jawa Timur',
+            'social_media' => 'instagram: @pokdarwiskuningan',
+            'phone_number' => '085732464004',
+            'latitude' => -8.118288,
+            'longitude' => 112.182243,
             'category_id' => 2,
             'created_at' => Carbon::now('Asia/Jakarta'),
             'updated_at' => Carbon::now('Asia/Jakarta')
         ]);
 
-        Places::create([
-            'id' => Str::uuid()->toString(),
-            'name' => 'Bola Api',
-            'description' => 'Deskripsi Bola Api',
-            'photo_path' => $photoPath2,
-            'category_id' => 2,
-            'created_at' => Carbon::now('Asia/Jakarta'),
-            'updated_at' => Carbon::now('Asia/Jakarta')
+        PlacePhoto::create([
+            'place_id' => $place->id,
+            'photo_path' => $photoPath1
         ]);
     }
 }

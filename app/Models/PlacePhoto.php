@@ -4,23 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Category extends Model
+class PlacePhoto extends Model
 {
     use HasFactory;
 
-    protected $table = 'categories';
+    protected $table = 'place_photos';
     protected $primaryKey = 'id';
     protected $keyType = 'int';
-    public $incrementing = false;
+    public $incrementing = true;
     public $timestamps = true;
     protected $fillable = [
-        'id', 'name'
+        'place_id', 'photo_path'
     ];
 
-    public function Place():HasMany
+    public function Place(): BelongsTo
     {
-        return $this->hasMany(Places::class, 'category_id', 'id');
+        return $this->belongsTo(Places::class, 'place_id', 'id');
     }
 }

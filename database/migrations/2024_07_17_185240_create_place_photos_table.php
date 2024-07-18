@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->unsignedInteger('id')->primary();
-            $table->string('name', 50)->nullable(false);
+        Schema::create('place_photos', function (Blueprint $table) {
+            $table->id();
+            $table->char('place_id', 36);
+            $table->string('photo_path', 255)->nullable(false);
             $table->timestamps();
+
+            $table->foreign('place_id')->references('id')->on('places');
         });
     }
 
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('place_photos');
     }
 };

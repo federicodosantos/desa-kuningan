@@ -19,8 +19,9 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             CategorySeeder::class,
             FacilitiesSeeder::class,
-            AttractionSeeder::class,
-            UMKMSeeder::class
+            PariwisataSeeder::class,
+            UMKMSeeder::class,
+            VillageOfficerSeeder::class
             ]);
     }
 }

@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->char('id', 36)->primary();
             $table->string('name', 100)->nullable(false);
-            $table->string('description', 255)->nullable(false);
-            $table->string('photo_path', 255)->nullable();
+            $table->text('description')->nullable(false);
+            $table->string('address', 255)->nullable(false);
+            $table->string('social_media', 100)->nullable();
+            $table->string('phone_number', 13)->nullable(false);
+            $table->decimal('latitude', 9, 6)->nullable(false);
+            $table->decimal('longitude', 9, 6)->nullable(false);
             $table->unsignedInteger('category_id');
             $table->timestamps();
 

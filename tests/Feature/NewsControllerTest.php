@@ -41,7 +41,8 @@ class NewsControllerTest extends TestCase
         $response = $this->actingAs($this->user)->post('/news/store',[
             'title' => 'Title test',
             'content' => 'content test',
-            'photo' => UploadedFile::fake()->image('testImage.jpg')
+            'header_photo' => UploadedFile::fake()->image('headerImage.jpg'),
+            'content_photo' => UploadedFile::fake()->image('contentImage.jpg')
         ]);
 
         $response->assertRedirect('/news');
@@ -66,7 +67,8 @@ class NewsControllerTest extends TestCase
         $response = $this->actingAs($this->user)->patch('/news/'. $news->slug, [
             'title' => 'Updated news title',
             'content' => 'Updated content',
-            'photo' => UploadedFile::fake()->image('updated.jpg')
+            'header_photo_path' => UploadedFile::fake()->image('updated_header.jpg'),
+            'content_photo_path' => UploadedFile::fake()->image('updated_content.jpg')
         ]);
 
         $response->assertRedirect('/news/' . $news->slug);
@@ -76,12 +78,15 @@ class NewsControllerTest extends TestCase
         ]);
 
         $updatedNews = News::where('slug', 'test-title')->first();
-        $this->assertNotNull($updatedNews->photo_path);
+        $this->assertNotNull($updatedNews->header_photo_path);
+        $this->assertNotNull($updatedNews->content_photo_path);
 
-        Log::info('Expected path: ' . $updatedNews->photo_path);
+        Log::info('Expected path: ' . $updatedNews->header_photo_path);
+        Log::info('Expected path: ' . $updatedNews->content_photo_path);
         Log::info('Stored files: ' . json_encode(Storage::disk('public')->allFiles()));
 
-        $this->assertTrue(Storage::disk('public')->exists($updatedNews->photo_path));
+        $this->assertTrue(Storage::disk('public')->exists($updatedNews->header_photo_path));
+        $this->assertTrue(Storage::disk('public')->exists($updatedNews->content_photo_path));
     }
 
     public function test_destroy()
