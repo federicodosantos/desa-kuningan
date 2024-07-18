@@ -24,12 +24,13 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::paginate(5);
-       
+
         $news->map(function ($item) {
             $item->photo_path = 'storage/' . $item->photo_path;
             $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
             return $item;
         });
+
         return Inertia::render('Admin/News/Index', [
             'news' => $news,
             'flash' => $this->flash()
@@ -49,7 +50,7 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $request)
     {
-     
+
         $validated = $request->validated();
 
         $slug = Str::slug($validated['title']);
@@ -67,8 +68,6 @@ class NewsController extends Controller
         }
 
         try {
-
-            
             $news = [
                 'id' => Str::uuid()->toString(),
                 'title' => $validated['title'],
@@ -131,35 +130,34 @@ class NewsController extends Controller
         try {
             return DB::transaction(function () use ($request, $slug, $validated) {
                 $news = News::with('user')->where('slug', $slug)->first();
-                
+
                 if (is_null($news)) {
                     return Redirect::back()->with('error', 'news not found');
                 }
-                
+
                 if (!is_null($validated['title'])) {
                     $news->title = $validated['title'];
                     $news->slug = Str::slug($validated['title']);
                 }
-                
+
                 if (!is_null($validated['content'])) {
                     $news->content = $validated['content'];
                 }
-                
+
                 if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
                     // Delete the old photo if exists
                     if ($news->photo_path) {
-                        $delete_path = 'storage/app/' . $news->photo_path;
-                        Storage::delete($delete_path);
+                        Storage::disk('public')->delete($news->photo_path);
                     }
-                    
+
                     // Store the new photo
                     $news->photo_path = $request->file('photo')->store('newsImage', 'public');
                 }
-         
+
                 $news->setUpdatedAt(Carbon::now('Asia/Jakarta'));
 
                 $news->save();
-                
+
                 return Redirect::route('admin.news.index', ['slug' => $slug])->with('success', 'success update news');
             });
         } catch (\Exception $e) {
@@ -184,8 +182,7 @@ class NewsController extends Controller
                 }
 
                 if ($news->photo_path) {
-                    $delete_path = 'storage/app/' . $news->photo_path;
-                    Storage::delete($delete_path);
+                    Storage::disk('public')->delete($news->photo_path);
                 }
 
                 $success = $news->delete();
