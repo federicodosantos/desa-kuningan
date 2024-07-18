@@ -23,8 +23,13 @@ class PlacesRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'description' => 'required|string|max:255',
-            'photo' => 'required|image|max:5120'
+            'description' => 'required|string',
+            'address' => 'required|string|max:255',
+            'social_media' => 'nullable|string|max:100',
+            'phone_number' => 'required|string|max:13',
+            'category_id' => 'required',
+            'photos' => 'required|array',
+            'photos.*' => 'image|mimes:jpeg,jpg,png|max:2048'
         ];
     }
 }

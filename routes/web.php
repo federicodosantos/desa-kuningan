@@ -4,11 +4,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FacilitiesController;
-use App\Http\Controllers\AttractionController;
-use App\Http\Controllers\UMKMController;
+use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\VillageOfficerController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -70,35 +68,17 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{slug}', [NewsController::class, 'update'])->name('news.update');
         Route::delete('/{slug}', [NewsController::class, 'destroy'])->name('news.destroy');
 
-        Route::resource('facilities', FacilitiesController::class)->names([
-            'index' => 'facilities.index',
-            'create' => 'facilities.create',
-            'store' => 'facilities.store',
-            'edit' => 'facilities.edit',
-            'update' => 'facilities.update',
-            'show' => 'facilities.show',
-            'destroy' => 'facilities.destroy',
+        Route::resource('place', PlaceController::class)->names([
+            'index' => 'place.index',
+            'create' => 'place.create',
+            'store' => 'place.store',
+            'edit' => 'place.edit',
+            'update' => 'place.update',
+            'destroy' => 'place.destroy',
         ]);
-
-        Route::resource('attractions', AttractionController::class)->names([
-            'index' => 'attractions.index',
-            'create' => 'attractions.create',
-            'store' => 'attractions.store',
-            'edit' => 'attractions.edit',
-            'update' => 'attractions.update',
-            'show' => 'attractions.show',
-            'destroy' => 'attractions.destroy',
-        ]);
-
-        Route::resource('umkm', UMKMController::class)->names([
-            'index' => 'umkm.index',
-            'create' => 'umkm.create',
-            'store' => 'umkm.store',
-            'edit' => 'umkm.edit',
-            'update' => 'umkm.update',
-            'show' => 'umkm.show',
-            'destroy' => 'umkm.destroy',
-        ]);
+        Route::delete('/place/{placeID}/photo/{photoID}', [PlaceController::class, 'deletePhoto'])->name(
+            'place.deletePhoto'
+        );
 
         Route::resource('officer', VillageOfficerController::class)->names([
             'index' => 'officer.index',

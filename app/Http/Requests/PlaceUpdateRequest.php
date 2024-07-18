@@ -22,9 +22,14 @@ class PlaceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:100',
-            'description' => 'required|string|max:255',
-            'photo' => 'nullable|image|max:5120'
+            'name' => 'sometimes|required|string|max:100',
+            'description' => 'sometimes|required|string',
+            'address' => 'sometimes|required|string|max:255',
+            'social_media' => 'nullable|string|max:100',
+            'phone_number' => 'sometimes|required|string|max:13',
+            'category_id' => 'sometimes|required',
+            'photos' => 'nullable|array',
+            'photos.*' => 'image|mimes:jpeg,jpg,png|max:2048'
         ];
     }
 }
