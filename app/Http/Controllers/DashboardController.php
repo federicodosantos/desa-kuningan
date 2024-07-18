@@ -10,8 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalNews = News::count(); 
-        
+        $totalNews = News::count();
+
         return Inertia::render('Admin/Dashboard', [
             'totalNews' => $totalNews
         ]);
