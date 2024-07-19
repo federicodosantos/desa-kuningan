@@ -13,7 +13,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalNews = News::count(); 
+        $totalNews = News::count();
+
         $sapras = Places::with('category')->where('category_id',1)->count();
         $pariwisata = Places::with('category')->where('category_id',2)->count();
         $umkm = Places::with('category')->where('category_id',3)->count();

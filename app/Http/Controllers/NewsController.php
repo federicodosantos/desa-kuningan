@@ -55,6 +55,10 @@ class NewsController extends Controller
 
         $slug = Str::slug($validated['title']);
 
+        $exist = News::where('slug', $slug)->exist();
+        if ($exist) {
+            return Redirect::back()->with('error', 'news value duplicate');
+        }
 
         try {
             if (!$request->hasFile('photo') || !$request->file('photo')->isValid()) {

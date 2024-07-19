@@ -23,11 +23,8 @@ return new class extends Migration
             $table->string('email', )->unique()->nullable(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable(false);
-            $table->unsignedBigInteger('position_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
-            $table->foreign('position_id')->references('id')->on('positions');
         });
     }
 

@@ -88,7 +88,7 @@ class VillageOfficerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
         $officer = VillageOfficer::with('position')->
         where('id', $id)->first();
@@ -108,7 +108,11 @@ class VillageOfficerController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(VillageOfficerUpdateRequest $request, int $id)
+
+
+
     {
      
         $validated = $request->validated();

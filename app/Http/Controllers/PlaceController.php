@@ -61,6 +61,12 @@ class PlaceController extends Controller
     {
         $validated = $request->validated();
 
+        $exist = Places::where('latitude', $validated['latitude'])->
+        where('longitude', $validated['longitude'])->exist();
+
+        if ($exist) {
+            return Redirect::back()->with('error', 'A place with the same coordinates already exists.');
+        }
 
         try {
             $photo_paths = [];
@@ -150,6 +156,15 @@ class PlaceController extends Controller
     {
         $validated = $request->validated();
 
+        $exist = Places::where('latitude', $validated['latitude'])->
+        where('longitude', $validated['longitude'])
+            ->where('id', '!=', $id)
+            ->exist();
+
+        if ($exist) {
+            return Redirect::back()->with('error', 'A place with the same coordinates already exists.');
+        }
+
         try {
             return DB::transaction(function () use ($request, $id, $validated) {
                 $place = Places::where('id', $id)->first();
@@ -211,27 +226,19 @@ class PlaceController extends Controller
     {
         try {
             return DB::transaction(function () use ($id) {
-                $place = Places::where('id', $id)->first();
-
-            
+                $place = Places::with('photo')->where('id', $id)->first();
 
                 if (is_null($place)) {
                     return Redirect::back()->with('error', 'place not found');
                 }
-                DB::table('place_photos')->where('place_id', $id)->delete();
 
-                if ($place->photo_path) {
-                    $delete_path = 'storage/app/' . $place->photo_path;
-                    Storage::disk('public')->delete($delete_path);
+                foreach ($place->Photo as $photo) {
+                    Storage::disk('public')->delete($photo->photo_path);
+                    $photo->delete();
                 }
-         
-                
-                $success = $place->delete();
 
 
-                if (!$success) {
-                    return Redirect::back()->with('error', 'cannot delete place');
-                }
+                $place->delete();
 
                 return Redirect::route('admin.place.index')->with('success', 'success delete place');
             });

@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             FacilitiesSeeder::class,
             PariwisataSeeder::class,
             UMKMSeeder::class,
-            VillageOfficerSeeder::class
+            VillageOfficerSeeder::class,
+            ComplaintSeeder::class
             ]);
     }
 }

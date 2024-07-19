@@ -3,13 +3,11 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\FacilitiesController;
-use App\Http\Controllers\AttractionController;
 use App\Http\Controllers\PetaController;
-use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\VillageOfficerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ComplaintController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
