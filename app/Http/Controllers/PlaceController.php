@@ -25,15 +25,22 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        $places = Places::with('category')->with('photo')->paginate(5);
+       
 
+        $places = Places::with(['photo','category'])->paginate(4);
+        $categories = Category::all();
+    
         if (is_null($places)) {
             return Redirect::back()->with('error', 'places value is null');
         }
-
-        return Inertia::render('Place/Index', [
-            'places' => PlaceResource::collection($places)
+        return Inertia::render('Admin/Peta/Index',[
+            'places'=>$places,
+            'categories'=>$categories,
+            'flash' => $this->flash(),
         ]);
+
+
+       
     }
 
     /**
@@ -96,6 +103,7 @@ class PlaceController extends Controller
                 ]);
             }
 
+    
             return Redirect::route('admin.place.index')->with('success', 'success add new place');
         } catch (\Exception $e) {
             Log::error('cannot store place value to database: ' . $e);
@@ -225,7 +233,7 @@ class PlaceController extends Controller
                     return Redirect::back()->with('error', 'cannot delete place');
                 }
 
-                return Redirect::route('place.index')->with('success', 'success delete place');
+                return Redirect::route('admin.place.index')->with('success', 'success delete place');
             });
         } catch (\Exception $e) {
             Log::error('cannot delete place: ' . $e);
@@ -253,10 +261,24 @@ class PlaceController extends Controller
                 $photo->delete();
 
                 return Redirect::route('place.index')->with('success', 'Success delete photo');
+                
             });
         } catch (\Exception $e) {
             Log::error('cannot delete photo: '. $e->getMessage());
             return Redirect::back()->with('error', 'cannot delete photo');
         }
+
+
+    }
+
+    public function flash(){
+        return [
+            'info' => session('info'),
+            'success' => session('success'),
+            'danger' => session('danger'),
+            'warning' => session('warning'),
+            'light' => session('light'),
+            'dark' => session('dark'),
+        ];
     }
 }

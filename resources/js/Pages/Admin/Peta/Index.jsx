@@ -10,9 +10,10 @@ import { point, polygon } from "@turf/helpers";
 import Toast from "@/Components/Toast";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+import Pagination from "@/Components/Pagination";
+import PlaceList from "@/Components/PlaceList";
 
-const Index = ({ auth, places, categories }) => {
-    console.log(places)
+const Index = ({ auth, places, categories ,flash}) => {
     const {
         data,
         setData,
@@ -31,14 +32,18 @@ const Index = ({ auth, places, categories }) => {
         category_id: "",
         photos: [],
     });
-
+    
     const page = usePage();
+    console.log(page)
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng] = useState(112.1828);
     const [lat] = useState(-8.115194);
     const [zoom] = useState(13.5);
     const [error, setError] = useState("");
+    const [toast, setToast] = useState(null);
+
+   
 
     useEffect(() => {
         if (map.current) return;
@@ -84,7 +89,7 @@ const Index = ({ auth, places, categories }) => {
                 },
             });
 
-            places.forEach((location) => {
+            places.data.forEach((location) => {
                 const el = document.createElement("div");
                 el.className = "marker";
 
@@ -150,18 +155,25 @@ const Index = ({ auth, places, categories }) => {
                 });
             });
         });
-    }, []);
+    }, [places]);
 
-    const handleDelete = (e, id) => {
-        e.preventDefault();
-        if (confirm("Are you sure you want to delete this place?")) {
-            destroy(route("admin.place.destroy", id));
+ 
+    useEffect(() => {
+        if (flash.success) {
+            setToast({ message: flash.success, type: 'success' });
+        } else if (flash.error) {
+            setToast({ message: flash.error, type: 'error' });
         }
-    };
+    }, [flash]);
+
+  
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("admin.place.store"));
+        post(route('admin.place.store'), {
+            preserveState: true,
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -199,6 +211,14 @@ const Index = ({ auth, places, categories }) => {
                                 message={error}
                             />
                         )}
+                        {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast(null)}
+                />
+            )}
+
 
                         <form onSubmit={handleSubmit}>
                             <div className="grid grid-cols-2 gap-4">
@@ -438,130 +458,16 @@ const Index = ({ auth, places, categories }) => {
                         </form>
                     </div>
                 </main>
-                <section className=" grid grid-cols-2 grid-rows-1 gap-3">
-                    {places.map((item, i) => (
-                        <div key={i} className="w-full bg-white rounded-md  flex">
-                            <Splide className="w-2/5   flex items-center">
-                                {item.photo.map((item, i) => (
-                                    <SplideSlide key={i} className="size-full aspect-square p-5">
-                                        <img
-                                            src={"http://localhost:8000/storage/"+item.photo_path}
-                                            className="size-full object-contain "
-                                            alt=""
-                                        />
-                                    </SplideSlide>
-                                ))}
-                            </Splide>
-                            <div className="w-3/5 text-base  flex flex-col gap-1 p-2">
-                            <h1  className="font-semibold">{item.name}</h1>
-                            <p  className="line-clamp-2 text-xs">Desc : {item.description}</p>
-                            <p  className="line-clamp-2 text-xs">Kategori : {item.category.name}</p>
-                            <p  className="line-clamp-2 text-xs">Koordinat : {item.latitude},{item.longitude}</p>
-                            <p  className="line-clamp-2 text-xs">Alamat : {item.address}</p>
-                            <p  className="line-clamp-2 text-xs">{item.social_media}</p>
-                            <p  className="line-clamp-2 text-xs">Cp : {item.phone_number}</p>
-                            <div className="px-6 py-4   border-gray-200 text-sm flex   gap-1">
-                                        <Link
-                                            href={route(
-                                                "admin.place.show",
-                                                item.id
-                                            )}
-                                            className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-gray-500 text-text-white rounded-lg"
-                                        >
-                                            Lihat
-                                        </Link>
-                                        <Link
-                                            href={route(
-                                                "admin.place.edit",
-                                                item.id
-                                            )}
-                                            className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-yellow-500 text-text-white rounded-lg"
-                                        >
-                                            Edit
-                                        </Link>
-                                        <button
-                                            onClick={(e) =>
-                                                handleDelete(e, item.id)
-                                            }
-                                            className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-red-500 text-text-white rounded-lg"
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
-                            
-                            </div>
-                        </div>
-                    ))}
-                </section>
-                {/* <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border border-gray-200">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    #
-                                </th>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    Nama
-                                </th>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    Longitude
-                                </th>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    Latitude
-                                </th>
-                                <th className="px-6 py-3 border-b-2 border-gray-200 text-left leading-4  tracking-wider">
-                                    Aksi
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white">
-                            {places.map((item, i) => (
-                                <tr key={i} className="border-b">
-                                    <td className="px-6 py-4   border-gray-200">
-                                        {i + 1}
-                                    </td>
-                                    <td className="px-6 py-4   border-gray-200">
-                                        {item.name}
-                                    </td>
-                                    <td className="px-6 py-4    border-gray-200 prose-sm line-cla">
-                                        {item.longitude}
-                                    </td>
-                                    <td className="px-6 py-4 border-gray-200">
-                                        {item.latitude}
-                                    </td>
-                                    <td className="px-6 py-4   border-gray-200 text-sm flex   gap-1">
-                                        <Link
-                                            href={route(
-                                                "admin.place.show",
-                                                item.id
-                                            )}
-                                            className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-gray-500 text-text-white rounded-lg"
-                                        >
-                                            Lihat
-                                        </Link>
-                                        <Link
-                                            href={route(
-                                                "admin.place.edit",
-                                                item.id
-                                            )}
-                                            className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-yellow-500 text-text-white rounded-lg"
-                                        >
-                                            Edit
-                                        </Link>
-                                        <button
-                                            onClick={(e) =>
-                                                handleDelete(e, item.id)
-                                            }
-                                            className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-red-500 text-text-white rounded-lg"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div> */}
+                <PlaceList places={places.data}/>
+              
+
+                <Pagination
+        links={places.links}
+        from={places.from}
+        to={places.to}
+        total={places.total}
+      />
+                
             </section>
         </AuthenticatedLayout>
     );

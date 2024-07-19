@@ -46,7 +46,7 @@ export default function AuthenticatedSidebarLayout({ user, header, children }) {
                             <Icon icon={"material-symbols:news-outline"} />
                         </Link>
                         <Link
-                            href={route("admin.peta.index")}
+                            href={route("admin.place.index")}
                             className={`p-4 flex items-center justify-between  ${
                                 url.startsWith("/admin/peta-digital")
                                     ? "bg-gray-200 text-text-black"
@@ -55,6 +55,17 @@ export default function AuthenticatedSidebarLayout({ user, header, children }) {
                         >
                             Peta Digital
                             <Icon icon={"mdi:location"} />
+                        </Link>
+                        <Link
+                            href={route("admin.officer.index")}
+                            className={`p-4 flex items-center justify-between  ${
+                                url.startsWith("/admin/perangkat-desa")
+                                    ? "bg-gray-200 text-text-black"
+                                    : ""
+                            }`}
+                        >
+                            Perangkat Desa
+                            <Icon icon={"ic:round-people"} />
                         </Link>
                         {/* <Link href={route('admin.settings.index')} className={`block p-4  ${url.startsWith('/admin/settings') ? 'bg-gray-200' : ''}`}>
                         Settings

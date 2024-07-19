@@ -6,7 +6,6 @@ import { z } from 'zod';
 
 import 'react-quill/dist/quill.snow.css';
 
-// Skema validasi Zod
 const newsSchema = z.object({
     title: z.string().max(255, "Judul tidak boleh lebih dari 255 karakter"),
     content: z.string().min(1, "Konten tidak boleh kosong"),

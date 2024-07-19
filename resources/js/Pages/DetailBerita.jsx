@@ -26,19 +26,19 @@ const DetailBerita = ({ news }) => {
                             { label: `${news.slug}`, icon: "" }, 
                         ]}
                     />
-                    <h3 className="text-4xl text-primary-orange font-semibold">
-                        Berita Terkini
+                    <h3 className="lg:text-5xl text-3xl text-primary-orange font-semibold">
+                    Berita Terkini
                     </h3>
                 </section>
                 <section className="container gap-4 mx-auto lg:px-10 md:px-8 px-4 pb-10 ">
-                    <div className="w-4/6 flex flex-col gap-6 mx-auto">
+                    <div className="lg:w-4/6 flex flex-col gap-6 mx-auto">
                         <img
                             src={`http://localhost:8000/${news.photo_path}`}
                             alt="header"
                             draggable="false"
                             className="rounded-md mx-auto aspect-video  w-full object-cover "
                         />
-                        <h1 className="text-2xl  text-text-black  font-semibold">
+                        <h1 className="lg:text-2xl text-xl  text-text-black  font-semibold">
                             {news.title}
                         </h1>
                         <div className="flex justify-between">
@@ -53,7 +53,7 @@ const DetailBerita = ({ news }) => {
                         </div>
                         <hr className="border-text-black" />
                         <main
-                            className="prose-base prose-ul:list-disc"
+                            className="lg:prose-base prose-sm prose-ul:list-disc"
                             dangerouslySetInnerHTML={{ __html: news.content }}
                         ></main>
                     </div>

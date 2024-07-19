@@ -50,7 +50,7 @@ export default function Dashboard(params) {
                                     Perangkat Desa
                                 </h3>
                                 <p className="text-xl font-semibold">
-                                    10 Postingan
+                                    {params.perangkatDesa} Orang
                                 </p>
                             </div>
                             <div className="w-full aspect-square  rounded p-3 flex flex-col gap-2">

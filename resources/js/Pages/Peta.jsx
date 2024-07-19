@@ -134,7 +134,7 @@ const Peta = ({places}) => {
             <Head title="Kuningan | Peta Digital" />
             <div>
                 <Navbar />
-                <section className="container py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
+                <section className="container py-4 lg:py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
                     <Breadcrumbs
                         items={[
                             {
@@ -144,15 +144,16 @@ const Peta = ({places}) => {
                             { label: "Peta Digital" },
                         ]}
                     />
-                    <h3 className="text-4xl text-primary-orange font-semibold">
+                    <h3 className="lg:text-5xl text-3xl  text-primary-orange font-semibold">
                         Peta Digital
                     </h3>
                 </section>
                 <main className="container gap-4 mx-auto lg:px-10 md:px-8 px-4 py-10">
                     <div
                         ref={mapContainer}
-                        className="map-container"
+                        className="map-container h-screen"
                         style={{ height: "500px" }}
+            
                     />
                 </main>
                 <Footer />

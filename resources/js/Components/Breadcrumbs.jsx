@@ -13,7 +13,7 @@ const Breadcrumbs = ({ items, className='bg-outline-gray' }) => {
                             {item.icon && (
                                 <Icon
                                     icon={item.icon}
-                                    className="text-primary-orange text-2xl"
+                                    className="text-primary-orange text-xs md:text-xl lg:text-2xl"
                                 />
                             )}
                             {item.label}
@@ -23,7 +23,7 @@ const Breadcrumbs = ({ items, className='bg-outline-gray' }) => {
                             {item.icon && (
                                 <Icon
                                     icon={item.icon}
-                                    className="text-primary-orange text-2xl"
+                                    className="text-primary-orange text-xs md:text-xl lg:text-2xl"
                                 />
                             )}
                             {item.label}

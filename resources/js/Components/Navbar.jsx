@@ -74,7 +74,7 @@ const Navbar = ({ scrollInteraction = false }) => {
                         <p>Informasi Publik</p>
                         <Icon icon={'ri:arrow-up-s-fill'} className="rotate-180 group-hover:rotate-0 duration-500 ease-in-out text-xl"/>
                         <ul className="absolute bottom-0 translate-y-full left-0 flex flex-col w-48 bg-white text-black shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
-                            <li className="px-4 py-2 hover:bg-gray-100">Sarana dan Prasarana</li>
+                            <Link href={route('sarana')} className="px-4 py-2 hover:bg-gray-100">Sarana dan Prasarana</Link>
                             <Link href={route('berita')} className="px-4 py-2 hover:bg-gray-100">Berita Desa</Link>
                         </ul>
                     </li>
@@ -83,8 +83,8 @@ const Navbar = ({ scrollInteraction = false }) => {
                         <Icon icon={'ri:arrow-up-s-fill'} className="rotate-180 group-hover:rotate-0 duration-500 ease-in-out text-xl"/>
                         <ul className="absolute bottom-0 translate-y-full right-0 flex flex-col w-48 bg-white text-black shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
                             <Link href={route('peta')} className="px-4 py-2 hover:bg-gray-100">Peta Digital</Link>
-                            <li className="px-4 py-2 hover:bg-gray-100">Tempat Wisata</li>
-                            <li className="px-4 py-2 hover:bg-gray-100">UMKM</li>
+                            <Link href={route('pariwisata')} className="px-4 py-2 hover:bg-gray-100">Tempat Wisata</Link>
+                            <Link href={route('umkm')} className="px-4 py-2 hover:bg-gray-100">UMKM</Link>
                         </ul>
                     </li>
                     <Link href={route('struktur')} className="px-4">Struktur</Link>

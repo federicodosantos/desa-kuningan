@@ -15,25 +15,16 @@ import Geografis from "@/Section/Home/Geografis";
 const carouselItem = [
     {
         image: carousel1,
-        headline: "Selamat Datang di Website Resmi Desa Kuningan Jawa Timur",
-        paragraph: "Akses informasi terbaru tentang Desa Kuningan",
-    },
+   },
     {
         image: carousel2,
-        headline:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor quidem delectus quaerat laudantium eaque, assumenda fugiat voluptate doloribus est deserunt!",
-        paragraph: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
         image: carousel3,
-        headline:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint dignissimos, accusantium inventore tenetur eos porro recusandae placeat odit?",
-        paragraph:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia!",
     },
 ];
-const Home = ({ news }) => {
-    console.log(news);
+const Home = ({ news ,perangkatDesa}) => {
+    console.log(perangkatDesa);
     return (
         <>
             <Head title="Kuningan | Home" />
@@ -183,51 +174,27 @@ const Home = ({ news }) => {
                             },
                         }}
                     >
-                        <SplideSlide>
-                            <div className="bg-gray-300 aspect-[10/14] rounded-lg">
+                        {
+                            perangkatDesa.data.map((item,i)=>(
+
+                        <SplideSlide key={i}>
+                            <div className="bg-gray-300 overflow-hidden aspect-[10/14] relative rounded-lg">
                                 <img
-                                    src={kepsek}
-                                    className="size-full object-cover"
-                                    alt=""
+                                    src={item.photo_path}
+                                    className="size-full  object-cover"
+                                    alt={'foto '+item.name}
+                                    draggable='false'
                                 />
+                                <div className="p-3 bg-primary-orange w-full bg-opacity-70 flex flex-col gap-1 absolute bottom-0 right-0">
+                                    <h1 className="text-base font-semibold text-text-white text-center">{item.name}</h1>
+                                    <p className="text-xs  text-text-white text-center">{item.position.name}</p>
+
+                                </div>
                             </div>
                         </SplideSlide>
-                        <SplideSlide>
-                            <div className="bg-gray-300 aspect-[10/14] rounded-lg">
-                                <img
-                                    src={kepsek}
-                                    className="size-full object-cover"
-                                    alt=""
-                                />
-                            </div>
-                        </SplideSlide>
-                        <SplideSlide>
-                            <div className="bg-gray-300 aspect-[10/14] rounded-lg">
-                                <img
-                                    src={kepsek}
-                                    className="size-full object-cover"
-                                    alt=""
-                                />
-                            </div>
-                        </SplideSlide>
-                        <SplideSlide>
-                            <div className="bg-gray-300 aspect-[10/14] rounded-lg">
-                                <img
-                                    src={kepsek}
-                                    className="size-full object-cover"
-                                    alt=""
-                                />
-                            </div>
-                        </SplideSlide>
-                        <SplideSlide>
-                            <div className="bg-gray-300 aspect-[10/14] rounded-lg">
-                                <img
-                                    src={kepsek}
-                                    className="size-full object-cover"
-                                    alt=""
-                                />
-                            </div>
-                        </SplideSlide>
+                            ))
+                        }
+                  
                     </Splide>
                 </section>
                 <Geografis />

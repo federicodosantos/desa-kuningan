@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PlaceResource;
+use App\Http\Resources\VillageOfficerResource;
 use App\Models\News;
 use App\Models\Places;
+use App\Models\VillageOfficer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,8 +22,57 @@ class FeController extends Controller
             $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
             return $item;
         });
+        $perangkatDesa = VillageOfficer::with('position')->
+        orderBy('position_id')->get();
+
         return Inertia::render('Home', [
-            'news' => $news
+            'news' => $news,
+            'perangkatDesa' => VillageOfficerResource::collection($perangkatDesa),
+        ]);
+    }
+    public function sarana()
+    {
+
+        $sarana = Places::with(['photo','category'])->where('category_id',1)->paginate(9);
+
+        return Inertia::render('SaranaPrasarana', [
+            'sarana' => PlaceResource::collection($sarana),
+          
+        ]);
+    }
+    public function umkm()
+    {
+
+        $umkm = Places::with(['photo','category'])->where('category_id',3)->paginate(9);
+
+        return Inertia::render('Umkm', [
+            'umkm' => PlaceResource::collection($umkm),
+          
+        ]);
+    }
+    public function umkmDetail(String $id)
+    {
+        $umkm = Places::with(['photo','category'])->findOrFail($id);
+        
+        return Inertia::render('UmkmDetail', [
+            'umkm' => New PlaceResource($umkm),
+        ]);
+    }
+    public function pariwisata()
+    {
+
+        $pariwisata = Places::with(['photo','category'])->where('category_id',2)->paginate(9);
+
+        return Inertia::render('Pariwisata', [
+            'pariwisata' => PlaceResource::collection($pariwisata),
+          
+        ]);
+    }
+    public function pariwisataDetail(String $id)
+    {
+        $pariwisata = Places::with(['photo','category'])->findOrFail($id);
+        return Inertia::render('PariwisataDetail', [
+            'pariwisata' => New PlaceResource($pariwisata),
         ]);
     }
     public function allBerita()
@@ -53,6 +105,7 @@ class FeController extends Controller
     {
 
         $news = News::with('User')->where('slug', $slug)->first();
+      
 
         $news->photo_path = 'storage/' . $news->photo_path;
         $news->formatted_date = Carbon::parse($news->created_at)->format('d-m-Y H:i');

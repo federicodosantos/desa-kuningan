@@ -14,12 +14,13 @@ class PetaController extends Controller
      */
     public function index()
     {
-        $places = Places::with(['photo','category'])->get();
+        $places = Places::with(['photo','category'])->paginate(4);
         $categories = Category::all();
     
         return Inertia::render('Admin/Peta/Index',[
             'places'=>$places,
             'categories'=>$categories,
+            'flash' => $this->flash(),
         ]);
     }
 
@@ -69,5 +70,15 @@ class PetaController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function flash(){
+        return [
+            'info' => session('info'),
+            'success' => session('success'),
+            'danger' => session('danger'),
+            'warning' => session('warning'),
+            'light' => session('light'),
+            'dark' => session('dark'),
+        ];
     }
 }

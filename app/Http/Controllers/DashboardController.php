@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Models\PlacePhoto;
 use App\Models\Places;
+use App\Models\VillageOfficer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,6 +18,7 @@ class DashboardController extends Controller
         $pariwisata = Places::with('category')->where('category_id',2)->count();
         $umkm = Places::with('category')->where('category_id',3)->count();
         $homestay= Places::with('category')->where('category_id',4)->count();
+        $perangkatDesa= VillageOfficer::count();
         $lokasi= Places::count();
      
         
@@ -27,6 +29,7 @@ class DashboardController extends Controller
             'totalHomestay' => $homestay,
             'totalPariwisata' => $pariwisata,
             'total' => $lokasi,
+            'perangkatDesa' =>$perangkatDesa
         ]);
     }
 }

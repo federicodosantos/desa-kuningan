@@ -14,7 +14,7 @@ const VisiMisi = () => {
             <Head title="Kuningan | Visi Misi" />
             <div className="bg-text-white">
                 <Navbar />
-                <Header img={ImgHeader} title={"Tentang Desa Kuningan"} />
+                <Header img={ImgHeader} title={"Profil Desa"} />
                 <section className="container py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
                     <Breadcrumbs
                         items={[
@@ -27,8 +27,8 @@ const VisiMisi = () => {
                         ]}
                     />
 
-                    <main className="flex justify-between items-center">
-                        <div className="w-2/6 flex flex-col  gap-4">
+                    <main className="flex lg:flex-row flex-col container mx-auto lg:px-10 md:px-8 px-4 justify-between gap-5 items-center">
+                        <div className="lg:w-2/6 flex flex-col gap-2  lg:gap-4">
                             <img
                                 src={Logo}
                                 alt="logo"
@@ -39,28 +39,28 @@ const VisiMisi = () => {
                                 Desa Kuningan
                             </h2>
                             <div>
-                            <p className="font-semibold text-lg text-center">
+                            <p className="font-semibold lg:text-lg md:text-base text-sm text-center">
                                 Kecamatan Kanigoro, Kabupaten Blitar, 
                             </p>
-                            <p className="font-semibold text-lg text-center">Provinsi Jawa Timur</p>
+                            <p className="font-semibold lg:text-lg md:text-base text-sm text-center">Provinsi Jawa Timur</p>
 
                             </div>
                         </div>
-                        <div className="w-3/5 flex flex-col gap-6 ">
+                        <div className="lg:w-3/5 flex flex-col gap-6 ">
                             <div className="text-center flex flex-col gap-3">
-                                <h1 className="text-4xl   font-semibold text-primary-orange">
+                                <h1 className="lg:text-4xl text-2xl   font-semibold text-primary-orange">
                                     Visi
                                 </h1>
-                                <p className="text-base">
+                                <p className="text-xs lg:text-base">
                                     Mewujudkan Masyarakat Desa Kuningan yang
                                     maju dan sejahtera
                                 </p>
                             </div>
                             <div className="flex flex-col gap-3">
-                                <h1 className="text-4xl text-center  font-semibold text-primary-orange">
+                                <h1 className="lg:text-4xl text-2xl text-center  font-semibold text-primary-orange">
                                     Misi
                                 </h1>
-                                <ol className="text-base list-decimal text-justify">
+                                <ol className="text-xs lg:text-base list-decimal text-justify">
                                     <li>
                                         Mewujudkan Tata Kelola Pemerintah Desa
                                         yang baik

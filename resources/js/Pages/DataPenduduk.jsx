@@ -24,8 +24,7 @@ ChartJS.register(
     BarElement,
     ArcElement,
     Title,
-    Tooltip,
-  
+    Tooltip
 );
 
 const DataPenduduk = () => {
@@ -58,7 +57,7 @@ const DataPenduduk = () => {
         { label: "Laki Laki", data: 1512 },
         { label: "Perempuan", data: 1513 },
     ];
-    
+
     const dataPekerjaan = [
         { label: "Belum/Tidak Bekerja", data: 673 },
         { label: "Mengurus Rumah Tangga", data: 462 },
@@ -100,18 +99,15 @@ const DataPenduduk = () => {
         { label: "Pedagang", data: 111 },
         { label: "Perangkat Desa", data: 5 },
         { label: "Kepala Desa", data: 3 },
-        { label: "Wiraswasta", data: 296 }
+        { label: "Wiraswasta", data: 296 },
     ];
-    
-    
 
     const filteredData = useMemo(() => {
         if (filterType === "rentang") {
             return dataRentangUmur;
-        } else if(filterType==='gender'){
+        } else if (filterType === "gender") {
             return dataJenisKelamin;
-        } 
-        else if(filterType==='pekerjaan'){
+        } else if (filterType === "pekerjaan") {
             return dataPekerjaan;
         } else {
             return dataKategoriUmur;
@@ -128,9 +124,18 @@ const DataPenduduk = () => {
                 label: "Jumlah",
                 data: dataValues,
                 backgroundColor: [
-                    "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF",
-                    "#FF9F40", "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0",
-                    "#9966FF", "#FF9F40",
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56",
+                    "#4BC0C0",
+                    "#9966FF",
+                    "#FF9F40",
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56",
+                    "#4BC0C0",
+                    "#9966FF",
+                    "#FF9F40",
                 ],
             },
         ],
@@ -144,7 +149,9 @@ const DataPenduduk = () => {
             },
             title: {
                 display: true,
-                text: `Data Penduduk Berdasarkan ${filterType === "rentang" ? "Rentang Umur" : "Kategori Umur"}`,
+                text: `Data Penduduk Berdasarkan ${
+                    filterType === "rentang" ? "Rentang Umur" : "Kategori Umur"
+                }`,
             },
         },
     };
@@ -154,9 +161,9 @@ const DataPenduduk = () => {
             <Head title="Kuningan | Data Penduduk" />
             <div className="bg-text-white">
                 <Navbar />
-                <Header img={ImgHeader} title={"Tentang Desa Kuningan"} />
+                <Header img={ImgHeader} title={"Profil Desa"} />
                 <section className="container py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
-                <Breadcrumbs
+                    <Breadcrumbs
                         items={[
                             {
                                 href: route("home"),
@@ -166,39 +173,72 @@ const DataPenduduk = () => {
                             { label: "Demografis Penduduk" },
                         ]}
                     />
-                    <h3 className="text-4xl text-primary-orange font-semibold">
-                       Demografi Penduduk
+                    <h3 className="lg:text-5xl text-3xl text-primary-orange font-semibold">
+                        Demografi Penduduk
                     </h3>
-                    <p>Memberikan informasi lengkap mengenai karakteristik demografi penduduk suatu wilayah. Mulai dari jumlah penduduk, usia, jenis kelamin, pekerjaan, yang menggambarkan komposisi populasi secara rinci.    </p>
+                    <p className="lg:text-base text-sm">
+                        Memberikan informasi lengkap mengenai karakteristik
+                        demografi penduduk suatu wilayah. Mulai dari jumlah
+                        penduduk, usia, jenis kelamin, pekerjaan, yang
+                        menggambarkan komposisi populasi secara rinci.{" "}
+                    </p>
                 </section>
-                <div className="flex gap-5 container justify-between mx-auto lg:px-10 md:px-8 px-4 py-10 ">
-                    <aside className="w-[25%] h-fit rounded-md shadow p-3 gap-2 flex flex-col divide-y-2  bg-white">
-                        <button className="p-2 text-left font-semibold" onClick={() => setFilterType("rentang")}>Rentang Umur</button>
-                        <button className="p-2 text-left font-semibold" onClick={() => setFilterType("kategori")}>Kategori Umur</button>
-                        <button className="p-2 text-left font-semibold" onClick={() => setFilterType("gender")}>Jenis Kelamin</button>
-                        <button className="p-2 text-left font-semibold" onClick={() => setFilterType("pekerjaan")}>Pekerjaan</button>
+                <div className="flex gap-5 container lg:flex-row flex-col justify-between mx-auto lg:px-10 md:px-8 px-4 py-10 ">
+                    <aside className="lg:w-[25%] h-fit rounded-md shadow p-3 gap-2 flex flex-col divide-y-2  bg-white">
+                        <button
+                            className="p-2 text-left lg:text-base text-sm font-semibold"
+                            onClick={() => setFilterType("rentang")}
+                        >
+                            Rentang Umur
+                        </button>
+                        <button
+                            className="p-2 text-left lg:text-base text-sm font-semibold"
+                            onClick={() => setFilterType("kategori")}
+                        >
+                            Kategori Umur
+                        </button>
+                        <button
+                            className="p-2 text-left lg:text-base text-sm font-semibold"
+                            onClick={() => setFilterType("gender")}
+                        >
+                            Jenis Kelamin
+                        </button>
+                        <button
+                            className="p-2 text-left lg:text-base text-sm font-semibold"
+                            onClick={() => setFilterType("pekerjaan")}
+                        >
+                            Pekerjaan
+                        </button>
                     </aside>
-                    <main className="w-[70%]  flex flex-col  ">
+                    <main className="lg:w-[70%]  flex flex-col  ">
                         <div className="flex gap-3">
                             <button
-                                className={`py-1 rounded-md  px-5 duration-200 ease-in-out border ${chartType === "bar" ? 'bg-secondary-orange text-text-white' : "text-secondary-orange  border-secondary-orange"}`}
+                                className={`py-1 rounded-md  px-5 duration-200 ease-in-out border ${
+                                    chartType === "bar"
+                                        ? "bg-secondary-orange text-text-white"
+                                        : "text-secondary-orange  border-secondary-orange"
+                                }`}
                                 onClick={() => setChartType("bar")}
                             >
                                 Bar
                             </button>
                             <button
-                                className={`py-1 rounded-md  px-5 duration-200 ease-in-out border ${chartType === "pie" ? 'bg-secondary-orange text-text-white' : "text-secondary-orange  border-secondary-orange"}`}
+                                className={`py-1 rounded-md  px-5 duration-200 ease-in-out border ${
+                                    chartType === "pie"
+                                        ? "bg-secondary-orange text-text-white"
+                                        : "text-secondary-orange  border-secondary-orange"
+                                }`}
                                 onClick={() => setChartType("pie")}
                             >
                                 Pie
                             </button>
                         </div>
                         {chartType === "bar" ? (
-                            <div className="w-4/5 mx-auto ">
+                            <div className="lg:w-4/5 mx-auto container md:px-0 px-4 ">
                                 <Bar data={data} options={options} />
                             </div>
                         ) : (
-                            <div className="w-2/5 mx-auto ">
+                            <div className="lg:w-2/5 container mx-auto md:px-0 px-4 ">
                                 <Doughnut data={data} options={options} />
                             </div>
                         )}

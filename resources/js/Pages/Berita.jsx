@@ -15,8 +15,8 @@ const Berita = ({ news }) => {
             <Head title="Kuningan | Tentang" />
             <div className="bg-text-white">
                 <Navbar />
-                <Header img={HeaderIMG} title={'Berita Desa Kuningan'} />
-                <section className="container py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
+                <Header img={HeaderIMG} title={'Informasi Publik'} />
+                <section className="container py-4 lg:py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
                     <Breadcrumbs
                         items={[
                             {
@@ -26,7 +26,7 @@ const Berita = ({ news }) => {
                             { label: "Berita" },
                         ]}
                     />
-                    <h3 className="text-4xl text-primary-orange font-semibold">
+                    <h3 className="lg:text-5xl text-3xl text-primary-orange font-semibold">
                         Berita Terkini
                     </h3>
                 </section>

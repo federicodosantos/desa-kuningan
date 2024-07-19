@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VillageOfficerRequest extends FormRequest
+class VillageOfficerUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class VillageOfficerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:100',
-            'position' => 'required',
-            'photo' => 'required|image|max:2048'
+            'name' => 'sometimes|required|string|max:100',
+            'position' => 'sometimes|required',
+            'photo' => 'nullable|image|max:2048'
         ];
     }
 }

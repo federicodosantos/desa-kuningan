@@ -43,6 +43,11 @@ Route::get('/struktur', function () {
     return Inertia::render('Struktur');
 })->name('struktur');
 Route::get('/peta-digital', [FeController::class,'Peta'])->name('peta');
+Route::get('/sarana-dan-prasarana', [FeController::class,'sarana'])->name('sarana');
+Route::get('/pariwisata', [FeController::class,'pariwisata'])->name('pariwisata');
+Route::get('/pariwisata/{id}', [FeController::class,'pariwisataDetail'])->name('pariwisataDetail');
+Route::get('/umkm', [FeController::class,'umkm'])->name('umkm');
+Route::get('/umkm/{id}', [FeController::class,'umkmDetail'])->name('umkmDetail');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -56,15 +61,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.news.destroy',
         'show' => 'admin.news.show',
     ]);
-    Route::resource('peta', PetaController::class)->names([
-        'index' => 'admin.peta.index',
-        'create' => 'admin.peta.create',
-        'store' => 'admin.peta.store',
-        'edit' => 'admin.peta.edit',
-        'update' => 'admin.peta.update',
-        'destroy' => 'admin.peta.destroy',
-        'show' => 'admin.peta.show',
-    ]);
+    // Route::resource('peta', PetaController::class)->names([
+    //     'index' => 'admin.peta.index',
+    //     'create' => 'admin.peta.create',
+    //     'store' => 'admin.peta.store',
+    //     'edit' => 'admin.peta.edit',
+    //     'update' => 'admin.peta.update',
+    //     'destroy' => 'admin.peta.destroy',
+    //     'show' => 'admin.peta.show',
+    // ]);
 
 
 });
@@ -78,15 +83,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('/news')->group(function () {
-        Route::get('', [NewsController::class, 'index'])->name('news.index');
-        Route::get('/create', [NewsController::class, 'create'])->name('news.create');
-        Route::get('/{slug}', [NewsController::class, 'show'])->name('news.show');
-        Route::get('/edit/{slug}', [NewsController::class, 'edit'])->name('news.edit');
-        Route::post('/store', [NewsController::class, 'store'])->name('news.store');
-        Route::patch('/{slug}', [NewsController::class, 'update'])->name('news.update');
-        Route::delete('/{slug}', [NewsController::class, 'destroy'])->name('news.destroy');
-
+    Route::prefix('/places')->group(function(){
         Route::resource('place', PlaceController::class)->names([
             'index' => 'admin.place.index',
             'create' => 'admin.place.create',
@@ -99,15 +96,31 @@ Route::middleware('auth')->group(function () {
         Route::delete('/place/{placeID}/photo/{photoID}', [PlaceController::class, 'deletePhoto'])->name(
             'place.deletePhoto'
         );
-
+    });
+    
+    Route::prefix('/officers')->group(function(){
         Route::resource('officer', VillageOfficerController::class)->names([
-            'index' => 'officer.index',
-            'create' => 'officer.create',
-            'store' => 'officer.store',
-            'edit' => 'officer.edit',
-            'update' => 'officer.update',
-            'destroy' => 'officer.destroy',
+            'index' => 'admin.officer.index',
+            'create' => 'admin.officer.create',
+            'store' => 'admin.officer.store',
+            'edit' => 'admin.officer.edit',
+            'update' => 'admin.officer.update',
+            'destroy' => 'admin.officer.destroy',
+            'show' => 'admin.officer.show',
         ]);
+    });
+
+    Route::prefix('/news')->group(function () {
+        Route::get('', [NewsController::class, 'index'])->name('news.index');
+        Route::get('/create', [NewsController::class, 'create'])->name('news.create');
+        Route::get('/{slug}', [NewsController::class, 'show'])->name('news.show');
+        Route::get('/edit/{slug}', [NewsController::class, 'edit'])->name('news.edit');
+        Route::post('/store', [NewsController::class, 'store'])->name('news.store');
+        Route::patch('/{slug}', [NewsController::class, 'update'])->name('news.update');
+        Route::delete('/{slug}', [NewsController::class, 'destroy'])->name('news.destroy');
+
+
+       
     });
 });
 

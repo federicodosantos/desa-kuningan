@@ -14,7 +14,7 @@ const Sejarah = () => {
             <Head title="Kuningan | Tentang" />
             <div>
                 <Navbar />
-                <Header img={ImgHeader} title={"Tentang Desa Kuningan"} />
+                <Header img={ImgHeader} title={"Profil Desa"} />
                 <section className="container py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
                     <Breadcrumbs
                         items={[
@@ -27,7 +27,7 @@ const Sejarah = () => {
                         ]}
                     />
 
-                    <h3 className="text-4xl text-primary-orange font-semibold">
+                    <h3 className="lg:text-5xl text-3xl text-primary-orange font-semibold">
                     Sejarah
                     </h3>
                 <main className=" prose-sm">

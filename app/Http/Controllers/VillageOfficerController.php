@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VillageOfficerRequest;
+use App\Http\Requests\VillageOfficerUpdateRequest;
 use App\Http\Resources\VillageOfficerResource;
 use App\Models\Position;
 use App\Models\VillageOfficer;
@@ -28,8 +29,9 @@ class VillageOfficerController extends Controller
             return Redirect::back()->with('error', 'officers value is null');
         }
 
-        return Inertia::render('VillageOfficer/Index', [
-            'officers' => VillageOfficerResource::collection($officers)
+        return Inertia::render('Admin/Officer/Index', [
+            'officers' => VillageOfficerResource::collection($officers),
+            'flash'=> $this->flash()
         ]);
     }
 
@@ -40,8 +42,10 @@ class VillageOfficerController extends Controller
     {
         $position = Position::all();
 
-        return Inertia::render('VillageOfficer/Create',[
-            'position' => $position
+        
+
+        return Inertia::render('Admin/Officer/Create',[
+            'positions' => $position
         ]);
     }
 
@@ -52,17 +56,17 @@ class VillageOfficerController extends Controller
     {
         $validated = $request->validated();
 
+        
         try {
             if (!$request->hasFile('photo') || !$request->file('photo')->isValid()) {
                 return Redirect::back()->with('error', 'Invalid photo officer');
             }
-
+            
             $photo_path = $request->file('photo')->store('officerImages', 'public');
         } catch (\Exception $e) {
             Log::error('Failed to upload photo officer: ' . $e);
             return Redirect::back()->with('error', 'cannot upload photo officer');
         }
-
         try {
             $officer = [
                 'name' => $validated['name'],
@@ -71,10 +75,10 @@ class VillageOfficerController extends Controller
                 'created_at' => Carbon::now('Asia/Jakarta'),
                 'updated_at' => Carbon::now('Asia/Jakarta')
             ];
-
+            
             VillageOfficer::create($officer);
-
-            return Redirect::route('officer.index')->with('success', 'success to add officer');
+            
+            return Redirect::route('admin.officer.index')->with('success', 'success to add officer');
         } catch (Exception $e) {
             Log::error('cannot store officer value to database: ' . $e);
             return Redirect::back()->with('error', 'cannot store officer value to database');
@@ -95,18 +99,21 @@ class VillageOfficerController extends Controller
             return Redirect::back()->with('error', 'officer or position value is null');
         }
 
-        return Inertia::render('VillageOfficer/Edit', [
+        return Inertia::render('Admin/Officer/Edit', [
             'officer' => new VillageOfficerResource($officer),
-            'position' => $position
+            'positions' => $position
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(VillageOfficerRequest $request, string $id)
+    public function update(VillageOfficerUpdateRequest $request, int $id)
     {
+     
         $validated = $request->validated();
+
+
 
         try {
             return DB::transaction(function () use ($request, $id, $validated) {
@@ -137,7 +144,7 @@ class VillageOfficerController extends Controller
 
                 $officer->save();
 
-                return Redirect::route('officer.show', ['id' => $officer->id])->with('success', 'success update officer');
+                return Redirect::route('admin.officer.index')->with('success', 'success update officer');
             });
         } catch (\Exception $e) {
             Log::error('cannot update officer values: '. $e);
@@ -148,7 +155,7 @@ class VillageOfficerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
         try {
             return DB::transaction(function () use ($id) {
@@ -175,5 +182,15 @@ class VillageOfficerController extends Controller
             Log::error('Error deleting officer value ' . $e->getMessage());
             return Redirect::back()->with('error', 'cannot delete officer value');
         }
+    }
+    public function flash(){
+        return [
+            'info' => session('info'),
+            'success' => session('success'),
+            'danger' => session('danger'),
+            'warning' => session('warning'),
+            'light' => session('light'),
+            'dark' => session('dark'),
+        ];
     }
 }
