@@ -3,10 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\FacilitiesController;
-use App\Http\Controllers\AttractionController;
 use App\Http\Controllers\PetaController;
-use App\Http\Controllers\UMKMController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\VillageOfficerController;
 use App\Http\Controllers\ProfileController;
@@ -66,8 +63,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.peta.destroy',
         'show' => 'admin.peta.show',
     ]);
-
-
 });
 
 Route::get('/dashboard', function () {
@@ -88,35 +83,42 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{slug}', [NewsController::class, 'update'])->name('news.update');
         Route::delete('/{slug}', [NewsController::class, 'destroy'])->name('news.destroy');
 
-        Route::resource('place', PlaceController::class)->names([
-            'index' => 'admin.place.index',
-            'create' => 'admin.place.create',
-            'store' => 'admin.place.store',
-            'edit' => 'admin.place.edit',
-            'update' => 'admin.place.update',
-            'destroy' => 'admin.place.destroy',
-            'show' => 'admin.place.show',
-        ]);
-        Route::delete('/place/{placeID}/photo/{photoID}', [PlaceController::class, 'deletePhoto'])->name(
-            'place.deletePhoto'
-        );
+        Route::prefix('/place')->group(function () {
+            Route::resource('place', PlaceController::class)->names([
+                'index' => 'admin.place.index',
+                'create' => 'admin.place.create',
+                'store' => 'admin.place.store',
+                'edit' => 'admin.place.edit',
+                'update' => 'admin.place.update',
+                'destroy' => 'admin.place.destroy',
+                'show' => 'admin.place.show',
+            ]);
+            Route::delete('/place/{placeID}/photo/{photoID}', [PlaceController::class, 'deletePhoto'])->name(
+                'place.deletePhoto');
+        });
 
-        Route::resource('officer', VillageOfficerController::class)->names([
-            'index' => 'officer.index',
-            'create' => 'officer.create',
-            'store' => 'officer.store',
-            'edit' => 'officer.edit',
-            'update' => 'officer.update',
-            'destroy' => 'officer.destroy',
-        ]);
+        Route::prefix('/officer')->group(function () {
+            Route::resource('officer', VillageOfficerController::class)->names([
+                'index' => 'officer.index',
+                'create' => 'officer.create',
+                'store' => 'officer.store',
+                'edit' => 'officer.edit',
+                'update' => 'officer.update',
+                'destroy' => 'officer.destroy',
+            ]);
+        });
 
-        Route::resource('complaint', ComplaintController::class)->names([
-            'index' => 'complaint.index',
-            'create' => 'complaint.create',
-            'store' => 'complaint.store',
-            'show' => 'complaint.show',
-            'destroy' => 'complaint.destroy',
-        ]);
+        Route::prefix('/complaint')->group(function () {
+            Route::resource('complaint', ComplaintController::class)->names([
+                'index' => 'complaint.index',
+                'create' => 'complaint.create',
+                'store' => 'complaint.store',
+                'show' => 'complaint.show',
+                'destroy' => 'complaint.destroy',
+            ])->except('store');
+            Route::post('/store', [ComplaintController::class, 'store'])
+                ->middleware('throttle:10,1')->name('complaint.store');
+        });
     });
 });
 
