@@ -20,11 +20,6 @@ class Position extends Model
         'name'
     ];
 
-    public function User(): HasMany
-    {
-        return  $this->hasMany(User::class, 'position_id', 'id');
-    }
-
     public function VillageOfficer(): HasMany
     {
         return $this->hasMany(VillageOfficer::class, 'position_id', 'id');
