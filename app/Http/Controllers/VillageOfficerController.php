@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VillageOfficerRequest;
+use App\Http\Requests\VillageOfficerUpdateRequest;
 use App\Http\Resources\VillageOfficerResource;
 use App\Models\Position;
 use App\Models\VillageOfficer;
@@ -84,7 +85,7 @@ class VillageOfficerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
         $officer = VillageOfficer::with('position')->
         where('id', $id)->first();
@@ -104,7 +105,7 @@ class VillageOfficerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(VillageOfficerRequest $request, string $id)
+    public function update(VillageOfficerUpdateRequest $request, string $id)
     {
         $validated = $request->validated();
 

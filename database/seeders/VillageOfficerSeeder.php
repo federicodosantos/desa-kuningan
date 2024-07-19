@@ -16,9 +16,9 @@ class VillageOfficerSeeder extends Seeder
     {
         $photo_loc = 'public/testImage.jpg';
 
-        $photo_path = Storage::putFile('public', $photo_loc);
+        $photo_path = Storage::disk('public')->putFile('officerImages', $photo_loc);
 
-        VillageOfficer::create([
+        VillageOfficer::create ([
             'name' => 'Sholkan',
             'position_id' => 1,
             'photo_path' => $photo_path
