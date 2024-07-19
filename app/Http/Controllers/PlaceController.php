@@ -54,6 +54,12 @@ class PlaceController extends Controller
     {
         $validated = $request->validated();
 
+        $exist = Places::where('latitude', $validated['latitude'])->
+        where('longitude', $validated['longitude'])->exist();
+
+        if ($exist) {
+            return Redirect::back()->with('error', 'A place with the same coordinates already exists.');
+        }
 
         try {
             $photo_paths = [];
@@ -141,6 +147,15 @@ class PlaceController extends Controller
     public function update(PlaceUpdateRequest $request, string $id)
     {
         $validated = $request->validated();
+
+        $exist = Places::where('latitude', $validated['latitude'])->
+        where('longitude', $validated['longitude'])
+            ->where('id', '!=', $id)
+            ->exist();
+
+        if ($exist) {
+            return Redirect::back()->with('error', 'A place with the same coordinates already exists.');
+        }
 
         try {
             return DB::transaction(function () use ($request, $id, $validated) {
