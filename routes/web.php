@@ -22,9 +22,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/',[FeController::class,'index'])->name('home');
-Route::get('/berita',[FeController::class,'allBerita'])->name('berita');
-Route::get('/berita/{slug}',[FeController::class,'detailBerita'])->name('detailBerita');
+Route::get('/', [FeController::class, 'index'])->name('home');
+Route::get('/berita', [FeController::class, 'allBerita'])->name('berita');
+Route::get('/berita/{slug}', [FeController::class, 'detailBerita'])->name('detailBerita');
 Route::get('/tentang-kami', function () {
     return Inertia::render('Tentang');
 })->name('tentang');
@@ -40,12 +40,12 @@ Route::get('/demografis-penduduk', function () {
 Route::get('/struktur', function () {
     return Inertia::render('Struktur');
 })->name('struktur');
-Route::get('/peta-digital', [FeController::class,'Peta'])->name('peta');
-Route::get('/sarana-dan-prasarana', [FeController::class,'sarana'])->name('sarana');
-Route::get('/pariwisata', [FeController::class,'pariwisata'])->name('pariwisata');
-Route::get('/pariwisata/{id}', [FeController::class,'pariwisataDetail'])->name('pariwisataDetail');
-Route::get('/umkm', [FeController::class,'umkm'])->name('umkm');
-Route::get('/umkm/{id}', [FeController::class,'umkmDetail'])->name('umkmDetail');
+Route::get('/peta-digital', [FeController::class, 'Peta'])->name('peta');
+Route::get('/sarana-dan-prasarana', [FeController::class, 'sarana'])->name('sarana');
+Route::get('/pariwisata', [FeController::class, 'pariwisata'])->name('pariwisata');
+Route::get('/pariwisata/{id}', [FeController::class, 'pariwisataDetail'])->name('pariwisataDetail');
+Route::get('/umkm', [FeController::class, 'umkm'])->name('umkm');
+Route::get('/umkm/{id}', [FeController::class, 'umkmDetail'])->name('umkmDetail');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -81,7 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('/places')->group(function(){
+    Route::prefix('/places')->group(function () {
         Route::resource('place', PlaceController::class)->names([
             'index' => 'admin.place.index',
             'create' => 'admin.place.create',
@@ -95,8 +95,8 @@ Route::middleware('auth')->group(function () {
             'place.deletePhoto'
         );
     });
-    
-    Route::prefix('/officers')->group(function(){
+
+    Route::prefix('/officers')->group(function () {
         Route::resource('officer', VillageOfficerController::class)->names([
             'index' => 'admin.officer.index',
             'create' => 'admin.officer.create',
@@ -117,8 +117,20 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{slug}', [NewsController::class, 'update'])->name('news.update');
         Route::delete('/{slug}', [NewsController::class, 'destroy'])->name('news.destroy');
 
+    });
 
-       
+    Route::prefix('/complaint')->group(function () {
+        Route::resource('complaint', ComplaintController::class)->names([
+            'index' => 'admin.complaint.index',
+            'create' => 'admin.complaint.create',
+            'store' => 'admin.complaint.store',
+            'edit' => 'admin.complaint.edit',
+            'update' => 'admin.complaint.update',
+            'destroy' => 'admin.complaint.destroy',
+            'show' => 'admin.complaint.show',
+        ])->except('store');
+        Route::post('/store', [ComplaintController::class, 'store'])
+            ->middleware('throttle:10,1')->name('admin.complaint.store');
     });
 });
 
