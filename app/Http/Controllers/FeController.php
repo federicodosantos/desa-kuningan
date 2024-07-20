@@ -18,7 +18,7 @@ class FeController extends Controller
     {
 
         $news = News::latest()->take(6)->get()->map(function ($item) {
-            $item->photo_path = 'storage/' . $item->photo_path;
+            $item->photo_path = asset('storage/' . $item->photo_path);
             $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
             return $item;
         });
@@ -37,7 +37,7 @@ class FeController extends Controller
 
         return Inertia::render('SaranaPrasarana', [
             'sarana' => PlaceResource::collection($sarana),
-          
+
         ]);
     }
     public function umkm()
@@ -47,13 +47,13 @@ class FeController extends Controller
 
         return Inertia::render('Umkm', [
             'umkm' => PlaceResource::collection($umkm),
-          
+
         ]);
     }
     public function umkmDetail(String $id)
     {
         $umkm = Places::with(['photo','category'])->findOrFail($id);
-        
+
         return Inertia::render('UmkmDetail', [
             'umkm' => New PlaceResource($umkm),
         ]);
@@ -65,7 +65,7 @@ class FeController extends Controller
 
         return Inertia::render('Pariwisata', [
             'pariwisata' => PlaceResource::collection($pariwisata),
-          
+
         ]);
     }
     public function pariwisataDetail(String $id)
@@ -81,7 +81,7 @@ class FeController extends Controller
         $news = News::paginate(6);
 
         $news->map(function ($item) {
-            $item->photo_path = 'storage/' . $item->photo_path;
+            $item->photo_path = asset('storage/' . $item->photo_path);
             $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
             return $item;
         });
@@ -105,9 +105,9 @@ class FeController extends Controller
     {
 
         $news = News::with('User')->where('slug', $slug)->first();
-      
 
-        $news->photo_path = 'storage/' . $news->photo_path;
+
+        $news->photo_path = asset('storage/' . $news->photo_path);
         $news->formatted_date = Carbon::parse($news->created_at)->format('d-m-Y H:i');
 
         return Inertia::render('DetailBerita', [
