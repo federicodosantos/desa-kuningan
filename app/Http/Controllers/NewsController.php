@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\NewsUpdateRequest;
+use App\Http\Resources\NewsResource;
 use App\Models\News;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -25,14 +26,8 @@ class NewsController extends Controller
     {
         $news = News::paginate(5);
 
-        $news->map(function ($item) {
-            $item->photo_path = 'storage/' . $item->photo_path;
-            $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
-            return $item;
-        });
-
         return Inertia::render('Admin/News/Index', [
-            'news' => $news,
+            'news' => NewsResource::collection($news),
             'flash' => $this->flash()
         ]);
     }
@@ -104,7 +99,7 @@ class NewsController extends Controller
         }
 
         return Inertia::render('Admin/News/Show', [
-            'news' => $news
+            'news' => new NewsResource($news),
         ]);
     }
 
