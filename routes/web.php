@@ -3,7 +3,6 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\PetaController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\VillageOfficerController;
 use App\Http\Controllers\ProfileController;
@@ -59,17 +58,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.news.destroy',
         'show' => 'admin.news.show',
     ]);
-    // Route::resource('peta', PetaController::class)->names([
-    //     'index' => 'admin.peta.index',
-    //     'create' => 'admin.peta.create',
-    //     'store' => 'admin.peta.store',
-    //     'edit' => 'admin.peta.edit',
-    //     'update' => 'admin.peta.update',
-    //     'destroy' => 'admin.peta.destroy',
-    //     'show' => 'admin.peta.show',
-    // ]);
-
-
 });
 
 Route::get('/dashboard', function () {
