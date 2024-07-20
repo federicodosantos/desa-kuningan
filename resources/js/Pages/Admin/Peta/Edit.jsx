@@ -2,6 +2,7 @@ import Breadcrumbs from '@/Components/Breadcrumbs';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import ReactQuill from 'react-quill';
+import React from "react";
 
 import 'react-quill/dist/quill.snow.css';
 export default function Edit({ auth ,news}) {

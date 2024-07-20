@@ -62,7 +62,7 @@ class PlaceController extends Controller
         $validated = $request->validated();
 
         $exist = Places::where('latitude', $validated['latitude'])->
-        where('longitude', $validated['longitude'])->exist();
+        where('longitude', $validated['longitude'])->exists();
 
         if ($exist) {
             return Redirect::back()->with('error', 'A place with the same coordinates already exists.');

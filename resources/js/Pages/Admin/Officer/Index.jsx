@@ -3,7 +3,6 @@ import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Toast from "@/Components/Toast";
-import Pagination from "@/Components/Pagination";
 import { Icon } from "@iconify/react";
 
 const Index = ({ auth, officers }) => {
@@ -12,10 +11,7 @@ const Index = ({ auth, officers }) => {
     const flashMessage = page.props.flash
     const [toast, setToast] = useState(null);
 
-    console.log(officers)
-
-
-
+    console.log(officers);
 
     useEffect(() => {
         if (flashMessage.success) {
@@ -25,10 +21,11 @@ const Index = ({ auth, officers }) => {
         }
     }, [flashMessage]);
 
-    const handleDelete = (e, slug) => {
+    const handleDelete = (e, id) => {
         e.preventDefault();
-        if (confirm('Are you sure you want to delete this news?')) {
-            destroy(route('admin.officer.destroy', slug));
+        
+        if (confirm('Are you sure you want to delete this officer?')) {
+            destroy(route('admin.officer.destroy', id));
         }
     };
 
@@ -70,6 +67,7 @@ const Index = ({ auth, officers }) => {
                 <section className="grid grid-cols-5 grid-rows-1 gap-4">
                             {officers.data.length > 0 ? (
                                 officers.data.map((item, i) => (
+                                  
                                  <div key={i} className="w-full bg-white rounded-xl  relative aspect-[5/7]">
                                     <img src={item.photo_path} className="size-full object-cover" draggable='false'  alt={'foto '+item.name} />
                                     <div className="flex  gap-3 top-2 right-2 absolute">
@@ -77,7 +75,7 @@ const Index = ({ auth, officers }) => {
                                     <Icon icon={'material-symbols:edit-outline'} className=" bg-white text-2xl text-black rounded-md"/>
                                         </Link>
                                       
-                                    <Icon icon={'material-symbols:delete-outline'} className=" bg-white text-2xl text-red-500 rounded-md"/>
+                                    <Icon icon={'material-symbols:delete-outline'} onClick={(e)=>handleDelete(e, item.id)} className="cursor-pointer bg-white text-2xl text-red-500 rounded-md"/>
 
                                     </div>
                                     <div className="w-full text-text-white absolute bottom-0 left-0 bg-black bg-opacity-40 p-2 flex flex-col gap-2">

@@ -8,8 +8,6 @@ import { polygonCoordinates } from "@/Data/polygon";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import { point, polygon } from "@turf/helpers";
 import Toast from "@/Components/Toast";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/react-splide/css";
 import Pagination from "@/Components/Pagination";
 import PlaceList from "@/Components/PlaceList";
 

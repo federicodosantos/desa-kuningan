@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import ReactQuill from 'react-quill';
 import { z } from 'zod';
+import React from "react";
 
 import 'react-quill/dist/quill.snow.css';
 

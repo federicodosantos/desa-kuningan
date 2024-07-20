@@ -163,8 +163,10 @@ class VillageOfficerController extends Controller
     {
         try {
             return DB::transaction(function () use ($id) {
-
-                $officer = VillageOfficer::with('user')->where('id', $id)->first();
+                
+                $officer = VillageOfficer::with('position')->where('id', $id)->first();
+              
+                
 
                 if (is_null($officer)) {
                     return Redirect::back()->with('error', 'officer not found');
@@ -180,7 +182,7 @@ class VillageOfficerController extends Controller
                     return Redirect::back()->with('error', 'cannot delete officer value');
                 }
 
-                return Redirect::route('officer.index')->with('success', 'success delete officer value');
+                return Redirect::route('admin.officer.index')->with('success', 'success delete officer value');
             });
         } catch (\Exception $e) {
             Log::error('Error deleting officer value ' . $e->getMessage());

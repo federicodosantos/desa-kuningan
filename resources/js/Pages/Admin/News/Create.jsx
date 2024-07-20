@@ -5,6 +5,7 @@ import ReactQuill from 'react-quill';
 import { useState } from 'react';
 import { z } from 'zod';
 import 'react-quill/dist/quill.snow.css';
+import React from "react";
 
 
 const newsSchema = z.object({

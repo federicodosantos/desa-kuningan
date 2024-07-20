@@ -54,8 +54,9 @@ class NewsController extends Controller
         $validated = $request->validated();
 
         $slug = Str::slug($validated['title']);
-
-        $exist = News::where('slug', $slug)->exist();
+        
+        $exist = News::where('slug', $slug)->exists();
+    
         if ($exist) {
             return Redirect::back()->with('error', 'news value duplicate');
         }
