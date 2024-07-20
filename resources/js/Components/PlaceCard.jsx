@@ -36,18 +36,7 @@ const PlaceCard = ({ item }) => {
                 <p className="line-clamp-2 text-xs">{item.social_media}</p>
                 <p className="line-clamp-2 text-xs">Cp: {item.phone_number}</p>
                 <div className="px-6 py-4 border-gray-200 text-sm flex gap-1">
-                    <Link
-                        href={route("admin.place.show", item.id)}
-                        className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-gray-500 text-white rounded-lg"
-                    >
-                        Lihat
-                    </Link>
-                    <Link
-                        href={route("admin.place.edit", item.id)}
-                        className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-yellow-500 text-white rounded-lg"
-                    >
-                        Edit
-                    </Link>
+             
                     <button
                         onClick={(e) => handleDelete(e, item.id)}
                         className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-red-500 text-white rounded-lg"

@@ -2,8 +2,10 @@ import Breadcrumbs from '@/Components/Breadcrumbs';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import ReactQuill from 'react-quill';
-import { useState } from 'react';
+
 import 'react-quill/dist/quill.snow.css';
+import React from "react";
+
 export default function Create({ auth }) {
     const { data, setData, post, processing, errors } = useForm({
         title: '',

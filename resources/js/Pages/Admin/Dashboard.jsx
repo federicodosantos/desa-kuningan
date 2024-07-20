@@ -3,6 +3,8 @@ import { Head } from "@inertiajs/react";
 import Logo from "../../../assets/logo-desa.png";
 import Breadcrumbs from "@/Components/Breadcrumbs";
 import { Icon } from "@iconify/react";
+import React from "react";
+
 export default function Dashboard(params) {
     return (
         <AuthenticatedLayout

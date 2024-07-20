@@ -1,9 +1,8 @@
 import Breadcrumbs from "@/Components/Breadcrumbs";
-import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import React, { useEffect, useState } from "react";
+import { Head, Link,  usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import Toast from "@/Components/Toast";
-import Pagination from "@/Components/Pagination";
+import React from "react";
+
 
 const Show = ({ auth, news }) => {
     const page = usePage();

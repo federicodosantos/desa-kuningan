@@ -3,6 +3,8 @@ import { Link } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
 import Logo from "../../assets/logo-desa.png";
 import Dropdown from "@/Components/Dropdown";
+import React from "react";
+
 export default function AuthenticatedSidebarLayout({ user, header, children }) {
     const { url } = usePage();
 
