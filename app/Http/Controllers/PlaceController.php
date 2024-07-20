@@ -61,7 +61,7 @@ class PlaceController extends Controller
     {
         $validated = $request->validated();
 
-        $exist = Places::where('latitude', $validated['latitude'])->
+        $exists = Places::where('latitude', $validated['latitude'])->
         where('longitude', $validated['longitude'])->exists();
 
         if ($exists) {
