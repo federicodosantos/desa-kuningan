@@ -25,11 +25,11 @@ class PlaceController extends Controller
      */
     public function index()
     {
-       
+
 
         $places = Places::with(['photo','category'])->paginate(4);
         $categories = Category::all();
-    
+
         if (is_null($places)) {
             return Redirect::back()->with('error', 'places value is null');
         }
@@ -40,7 +40,7 @@ class PlaceController extends Controller
         ]);
 
 
-       
+
     }
 
     /**
@@ -62,9 +62,9 @@ class PlaceController extends Controller
         $validated = $request->validated();
 
         $exist = Places::where('latitude', $validated['latitude'])->
-        where('longitude', $validated['longitude'])->exist();
+        where('longitude', $validated['longitude'])->exists();
 
-        if ($exist) {
+        if ($exists) {
             return Redirect::back()->with('error', 'A place with the same coordinates already exists.');
         }
 
@@ -109,7 +109,7 @@ class PlaceController extends Controller
                 ]);
             }
 
-    
+
             return Redirect::route('admin.place.index')->with('success', 'success add new place');
         } catch (\Exception $e) {
             Log::error('cannot store place value to database: ' . $e);
@@ -156,12 +156,12 @@ class PlaceController extends Controller
     {
         $validated = $request->validated();
 
-        $exist = Places::where('latitude', $validated['latitude'])->
+        $exists = Places::where('latitude', $validated['latitude'])->
         where('longitude', $validated['longitude'])
             ->where('id', '!=', $id)
-            ->exist();
+            ->exists();
 
-        if ($exist) {
+        if ($exists) {
             return Redirect::back()->with('error', 'A place with the same coordinates already exists.');
         }
 
@@ -268,7 +268,7 @@ class PlaceController extends Controller
                 $photo->delete();
 
                 return Redirect::route('place.index')->with('success', 'Success delete photo');
-                
+
             });
         } catch (\Exception $e) {
             Log::error('cannot delete photo: '. $e->getMessage());

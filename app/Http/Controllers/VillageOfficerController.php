@@ -42,7 +42,7 @@ class VillageOfficerController extends Controller
     {
         $position = Position::all();
 
-        
+
 
         return Inertia::render('Admin/Officer/Create',[
             'positions' => $position
@@ -56,12 +56,12 @@ class VillageOfficerController extends Controller
     {
         $validated = $request->validated();
 
-        
+
         try {
             if (!$request->hasFile('photo') || !$request->file('photo')->isValid()) {
                 return Redirect::back()->with('error', 'Invalid photo officer');
             }
-            
+
             $photo_path = $request->file('photo')->store('officerImages', 'public');
         } catch (\Exception $e) {
             Log::error('Failed to upload photo officer: ' . $e);
@@ -75,9 +75,9 @@ class VillageOfficerController extends Controller
                 'created_at' => Carbon::now('Asia/Jakarta'),
                 'updated_at' => Carbon::now('Asia/Jakarta')
             ];
-            
+
             VillageOfficer::create($officer);
-            
+
             return Redirect::route('admin.officer.index')->with('success', 'success to add officer');
         } catch (Exception $e) {
             Log::error('cannot store officer value to database: ' . $e);
@@ -110,14 +110,8 @@ class VillageOfficerController extends Controller
      */
 
     public function update(VillageOfficerUpdateRequest $request, int $id)
-
-
-
     {
-     
         $validated = $request->validated();
-
-
 
         try {
             return DB::transaction(function () use ($request, $id, $validated) {
