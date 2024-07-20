@@ -8,7 +8,6 @@ use App\Models\News;
 use App\Models\Places;
 use App\Models\VillageOfficer;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class FeController extends Controller
@@ -18,7 +17,7 @@ class FeController extends Controller
     {
 
         $news = News::latest()->take(6)->get()->map(function ($item) {
-            $item->photo_path = asset('storage/' . $item->photo_path);
+            $item->photo_path = 'storage/' . $item->photo_path;
             $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
             return $item;
         });
@@ -81,7 +80,7 @@ class FeController extends Controller
         $news = News::paginate(6);
 
         $news->map(function ($item) {
-            $item->photo_path = asset('storage/' . $item->photo_path);
+            $item->photo_path = 'storage/' . $item->photo_path;
             $item->formatted_date = Carbon::parse($item->created_at)->format('d-m-Y H:i');
             return $item;
         });
