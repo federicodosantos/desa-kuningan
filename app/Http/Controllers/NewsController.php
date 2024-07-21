@@ -30,6 +30,11 @@ class NewsController extends Controller
     });
         
 
+        $news->getCollection()->transform(function ($item) {
+            $item->photo_path = 'storage/' . $item->photo_path;
+            return $item;
+        });
+
         return Inertia::render('Admin/News/Index', [
             'news' => $news,
             'flash' => $this->flash()

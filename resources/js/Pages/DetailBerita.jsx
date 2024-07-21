@@ -23,7 +23,7 @@ const DetailBerita = ({ news }) => {
                             { label: "Berita" ,
                                 href: route("berita")
                             },
-                            { label: `${news.slug}`, icon: "" }, 
+                            { label: `${news.slug}`, icon: "" },
                         ]}
                     />
                     <h3 className="lg:text-5xl text-3xl text-primary-orange font-semibold">
