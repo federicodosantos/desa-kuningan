@@ -26,6 +26,7 @@
         "@splidejs/react-splide": "^0.7.12",
         "@turf/boolean-point-in-polygon": "^7.0.0",
         "@turf/turf": "^7.0.0",
+        "aos": "^2.3.4",
         "maplibre-gl": "^4.5.0",
         "react-chartjs-2": "^5.2.0",
         "react-quill": "^2.0.0",

@@ -1,7 +1,7 @@
 import Footer from "@/Components/Footer";
 import Navbar from "@/Components/Navbar";
 import { Icon } from "@iconify/react";
-import { Head, Link } from "@inertiajs/react";
+import { Head} from "@inertiajs/react";
 import React from "react";
 import HeaderIMG from "../../assets/InformasiPublik.jpg";
 import Breadcrumbs from "@/Components/Breadcrumbs";

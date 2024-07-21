@@ -1,20 +1,21 @@
 import { Icon } from "@iconify/react";
 import React from "react";
 import logoKuningan from "../../assets/logo-desa.png";
-import logoBlitar from "../../assets/logo-blitar.png";
+import { Link } from "@inertiajs/react";
 const Footer = () => {
     return (
-        <footer className="bg-primary-orange">
-            <main className="flex lg:flex-row flex-col container mx-auto lg:px-10 md:px-8 px-4 gap-4 lg:gap-0 justify-between items-center py-10 text-text-white">
+        <footer data-aos="fade-up"
+        data-aos-duration="500" className="bg-primary-orange">
+            <main className="flex lg:flex-row flex-col container mx-auto lg:px-10 md:px-8 px-4 gap-4 lg:gap-0 justify-between lg:items-center py-10 text-text-white">
                 <div className="flex  flex-col gap-5  lg:w-2/5">
                     <div className="flex gap-5 items-center">
                         <img
                             src={logoKuningan}
                             className="w-[25%]"
-                            draggable='false'
+                            draggable="false"
                             alt="logo_kanigoro"
                         />
-                    
+
                         <div className="flex flex-col gap-1 text-xl lg:text-3xl font-medium">
                             <h3 className="">Desa Kuningan</h3>
                         </div>
@@ -40,12 +41,12 @@ const Footer = () => {
                         </div>
 
                         <ul className="flex flex-col gap-2 lg:text-base text-sm">
-                            <li className="flex items-center">Profil Desa</li>
-                            <li className="flex items-center">Struktur Desa</li>
-                            <li className="flex items-center">
+                            <Link href={route('tentang')} className="flex items-center">Profil Desa</Link>
+                            <Link href={route('struktur')} className="flex items-center">Struktur Desa</Link>
+                            <Link href={route('sarana')} className="flex items-center">
                                 Informasi Publik
-                            </li>
-                            <li className="flex items-center">Potensi Desa</li>
+                            </Link>
+                            <Link href={route('peta')} className="flex items-center">Potensi Desa</Link>
                         </ul>
                     </div>
                     <div className="flex flex-col lg:gap-4 gap-2 ">
@@ -55,8 +56,8 @@ const Footer = () => {
                         </div>
 
                         <ul className="flex flex-col gap-2 lg:text-base text-sm">
-                            <li className="flex items-center">Jadesta</li>
-                            <li className="flex items-center">Berita</li>
+                            <a target="_blank" href='https://jadesta.kemenparekraf.go.id/desa/kuningan' className="flex items-center">Jadesta</a>
+                            <Link href={route('berita')} className="flex items-center">Berita</Link>
                             <li className="flex items-center">Galeri</li>
                         </ul>
                     </div>
@@ -69,14 +70,14 @@ const Footer = () => {
                         </div>
 
                         <ul className="flex flex-col gap-2">
-                            <li className="flex items-center">
+                            <li className="flex items-center gap-3">
                                 <Icon
                                     className="text-2xl"
                                     icon={"mdi:telephone"}
                                 />
                                 0858-5512-8982
                             </li>
-                            <li className="flex items-center">
+                            <li className="flex items-center gap-3">
                                 <Icon
                                     className="text-2xl"
                                     icon={"ic:outline-email"}
@@ -87,6 +88,12 @@ const Footer = () => {
                     </div>
                 </div>
             </main>
+            <div className="container mx-auto lg:px-10 md:px-8 px-4">
+                <hr />
+                <div className="text-sm text-text-white py-2 text-center">
+                    © 2024. All Rights Reserved. Made by MMD 13 FILKOM UB 2024
+                </div>
+            </div>
         </footer>
     );
 };

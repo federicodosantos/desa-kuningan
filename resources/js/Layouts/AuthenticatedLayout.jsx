@@ -50,7 +50,7 @@ export default function AuthenticatedSidebarLayout({ user, header, children }) {
                         <Link
                             href={route("admin.place.index")}
                             className={`p-4 flex items-center justify-between  ${
-                                url.startsWith("/admin/peta-digital")
+                                url.startsWith("/places")
                                     ? "bg-gray-200 text-text-black"
                                     : ""
                             }`}
@@ -61,13 +61,24 @@ export default function AuthenticatedSidebarLayout({ user, header, children }) {
                         <Link
                             href={route("admin.officer.index")}
                             className={`p-4 flex items-center justify-between  ${
-                                url.startsWith("/admin/perangkat-desa")
+                                url.startsWith("/officers")
                                     ? "bg-gray-200 text-text-black"
                                     : ""
                             }`}
                         >
                             Perangkat Desa
                             <Icon icon={"ic:round-people"} />
+                        </Link>
+                        <Link
+                            href={route("admin.complaint.index")}
+                            className={`p-4 flex items-center justify-between  ${
+                                url.startsWith("/complaint")
+                                    ? "bg-gray-200 text-text-black"
+                                    : ""
+                            }`}
+                        >
+                           Pengaduan
+                            <Icon icon={"hugeicons:complaint"} />
                         </Link>
                         {/* <Link href={route('admin.settings.index')} className={`block p-4  ${url.startsWith('/admin/settings') ? 'bg-gray-200' : ''}`}>
                         Settings

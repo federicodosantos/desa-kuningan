@@ -176,7 +176,7 @@ const DataPenduduk = () => {
                     <h3 className="lg:text-5xl text-3xl text-primary-orange font-semibold">
                         Demografi Penduduk
                     </h3>
-                    <p className="lg:text-base text-sm">
+                    <p className="lg:text-base text-sm  text-justify ">
                         Memberikan informasi lengkap mengenai karakteristik
                         demografi penduduk suatu wilayah. Mulai dari jumlah
                         penduduk, usia, jenis kelamin, pekerjaan, yang

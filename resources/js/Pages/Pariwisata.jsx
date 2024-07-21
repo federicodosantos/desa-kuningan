@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 const Pariwisata = ({ pariwisata }) => {
-    
     return (
         <>
             <Head title="Kuningan | Sarana dan Prasarana" />
@@ -33,41 +32,46 @@ const Pariwisata = ({ pariwisata }) => {
                         Pariwisata
                     </h3>
                     <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {
-                            pariwisata.data.length>0?(
-                                pariwisata.data.map((item, i) => (
-                                    <Link href={route('pariwisataDetail',item.id)} key={i} className="w-full relative aspect-video  rounded bg-white">
-                                    <Splide className="size-full"
-                                    
-                                    options={{
-                                        arrows:false
-                                    }}>
-                                        {
-                                            item.photos.map((item,i)=>(
-                                                <SplideSlide className="size-full aspect-video object-cover">
-                                                    <img src={item.photo_path}  className='size-full object-cover' alt={'carousel image'+(i+1)} />
-                                                </SplideSlide>
-                                            ))
-                                        }
+                        {pariwisata.data.length > 0 ? (
+                            pariwisata.data.map((item, i) => (
+                                <Link
+                                    href={route("pariwisataDetail", item.id)}
+                                    key={i}
+                                    className="w-full relative aspect-video  rounded bg-white"
+                                >
+                                    <Splide
+                                        className="size-full"
+                                        options={{
+                                            arrows: false,
+                                            autoplay: true,
+                                            interval: 2500,
+                                            rewind: true,
+                                        }}
+                                    >
+                                        {item.photos.map((item, i) => (
+                                            <SplideSlide key={i} className="size-full aspect-video object-cover">
+                                                <img
+                                                    src={item.photo_path}
+                                                    className="size-full object-cover"
+                                                    alt={
+                                                        "carousel image" +
+                                                        (i + 1)
+                                                    }
+                                                />
+                                            </SplideSlide>
+                                        ))}
                                     </Splide>
                                     <div className="absolute size-full bg-black bg-opacity-20 flex items-center p-2 text-2xl font-semibold text-text-white top-0">
                                         {item.name}
                                     </div>
-                                   
                                 </Link>
-                                ))
-
-                            ):(
-                                <div className="text-center text-2xl col-span-3 font-semibold w-full">
-                                    belum ada data:)
-                                </div>
-
-                            )
-                        }
-                    
+                            ))
+                        ) : (
+                            <div className="text-center text-2xl col-span-3 font-semibold w-full">
+                                belum ada data:)
+                            </div>
+                        )}
                     </main>
-
-                   
                 </section>
 
                 <Footer />

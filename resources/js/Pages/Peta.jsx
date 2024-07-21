@@ -6,52 +6,26 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Breadcrumbs from "@/Components/Breadcrumbs";
 import { polygonCoordinates } from "@/Data/polygon";
+import TitleSection from "@/Components/TitleSection";
 
-
-const Peta = ({places}) => {
+const Peta = ({ places }) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng] = useState(112.1828);
     const [lat] = useState(-8.115194);
     const [zoom] = useState(13.5);
+    const [selectedCategory, setSelectedCategory] = useState('all');
 
-    console.log(places)
-
-    const locations = [
-        {
-            id: 1,
-            name: "Sumber Air Kuningan",
-            lat: -8.118431,
-            lng: 112.183151,
-            deskripsi:
-                "Sumber air di Desa Kuningan, Kanigoro, Blitar, Jawa Timur, terkenal karena keajaibannya yang tidak pernah surut meski musim kemarau.",
-            alamat: "RT.4/RW.4, Jl syech Abu Hasan Kuningan, Selatan, Ds. Kuningan, Kec. Kanigoro, Kabupaten Blitar, Jawa Timur",
-            kontak: "Pokdarwis",
-            kategori: "Pariwisata",
-        },
-        {
-            id: 2,
-            name: "Homestay Mewah",
-            lat: -8.120965,
-            lng: 112.181412,
-            deskripsi:
-                "Homestay Mewah di Kuningan, Kanigoro, Blitar, menawarkan akomodasi dengan fasilitas lengkap seperti Wi-Fi, sarapan, televisi, dan kamar mandi pribadi.",
-            alamat: "RT.4/RW.4, Jln. Syeikh Abu Hasan, Selatan, Ds. Kuningan, Kec. Kanigoro, Kabupaten Blitar, Jawa Timur",
-            kontak: "Pokdarwis",
-            kategori: "Homestay",
-        },
-        {
-            id: 3,
-            name: "Dhena Collection (Keset Kain Perca)",
-            lat: -8.110855,
-            lng: 112.18338,
-            deskripsi:
-                "Dhena Collection adalah usaha kerajinan kain perca yang menghasilkan berbagai produk unik seperti tas, dompet, dan aksesoris rumah tangga dari sisa kain yang tidak terpakai.",
-            alamat: "RT.3/RW.2, Jln. Kusnan Sastroharjo, Tengah, Ds. Kuningan, Kec. Kanigoro, Kabupaten Blitar, Jawa Timur",
-            kontak: "085235241004 - Siti Robikoh (Bu Obi) @dhenacollection_",
-            kategori: "UMKM",
-        },
-    ];
+    const filterMarkers = () => {
+        places.forEach((location) => {
+            const marker = document.querySelector(`.marker-${location.id}`);
+            if (marker) {
+                const isVisible = selectedCategory === 'all' || location.category.name.toLowerCase() === selectedCategory;
+                marker.style.display = isVisible ? 'block' : 'none';
+                console.log(`Location: ${location.name}, Category: ${location.category.name}, Visible: ${isVisible}`);
+            }
+        });
+    };
 
     useEffect(() => {
         if (map.current) return;
@@ -62,6 +36,8 @@ const Peta = ({places}) => {
             center: [lng, lat],
             zoom: zoom,
         });
+
+        map.current.addControl(new maplibregl.NavigationControl(), 'top-right');
 
         map.current.on("load", () => {
             console.log("Map loaded");
@@ -102,7 +78,7 @@ const Peta = ({places}) => {
                 console.log(`Adding marker for ${location.name}`);
 
                 const el = document.createElement("div");
-                el.className = "marker";
+                el.className = `marker marker-${location.id} ${location.category.name.toLowerCase()}`;
         
                 const popup = new maplibregl.Popup({
                     offset: 25,
@@ -110,24 +86,37 @@ const Peta = ({places}) => {
                     closeOnClick: false,
                     maxWidth: "none",
                 }).setHTML(`
-                          <div class=" rounded-lg ">
-            <div class="text-sm font-semibold p-3">${location.name}</div>
-            <div class="p-3 ">
-                <div class="popup-info text-xs  ">
-                    <p><span class="popup-label">Alamat:</span> ${location.address}</p>
-
-                </div>
-            </div>
-        </div>
-                    `);
+                    <div class="rounded-lg max-w-64">
+                      <div class="text-sm font-semibold p-3">${location.name}</div>
+                      <div class="p-3">
+                        <div class="text-xs">
+                          <p><span class="popup-label">Alamat:</span> ${location.address}</p>
+                          <p><span class="popup-label">Kategori:</span> ${location.category.name}</p>
+                          ${
+                            ['UMKM', 'Pariwisata'].includes(location.category.name) 
+                            ? `<a href="/${location.category.name.toLowerCase()}/${location.id}" class="text-blue-500 hover:underline">Selengkapnya</a>`
+                            : ''
+                          }
+                        </div>
+                      </div>
+                    </div>
+                `);
 
                 new maplibregl.Marker(el)
                     .setLngLat([location.longitude, location.latitude])
                     .setPopup(popup)
                     .addTo(map.current);
             });
+
+            filterMarkers(); 
         });
-    }, [locations, lng, lat, zoom]);
+    }, [places, lng, lat, zoom]);
+
+    useEffect(() => {
+        if (map.current) {
+            filterMarkers();
+        }
+    }, [selectedCategory]);
 
     return (
         <>
@@ -144,16 +133,29 @@ const Peta = ({places}) => {
                             { label: "Peta Digital" },
                         ]}
                     />
-                    <h3 className="lg:text-5xl text-3xl  text-primary-orange font-semibold">
-                        Peta Digital
-                    </h3>
+                
+                    <TitleSection title={'Peta Digital'} subTitle={'menyediakan peta interaktif dengan informasi lokasi penting seperti kantor desa, UMKM, pariwisata, dan homestay.'}/>
                 </section>
                 <main className="container gap-4 mx-auto lg:px-10 md:px-8 px-4 py-10">
+                    <div className="mb-4">
+                        <select 
+                            value={selectedCategory} 
+                            onChange={(e) => {
+                                setSelectedCategory(e.target.value);
+                            }}
+                            className="p-2 border rounded bg-primary-orange border-none text-text-white"
+                        >
+                            <option value="all">Semua Kategori</option>
+                            <option value="umkm">UMKM</option>
+                            <option value="pariwisata">Pariwisata</option>
+                            <option value="homestay">Homestay</option>
+                            <option value="sarana dan prasarana">Sarana dan Prasarana</option>
+                        </select>
+                    </div>
                     <div
                         ref={mapContainer}
                         className="map-container h-screen"
                         style={{ height: "500px" }}
-            
                     />
                 </main>
                 <Footer />

@@ -10,9 +10,6 @@ import React, { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 const PariwisataDetail = ({ pariwisata }) => {
-
-  
-
     return (
         <>
             <Head title="Kuningan | Sarana dan Prasarana" />
@@ -40,35 +37,51 @@ const PariwisataDetail = ({ pariwisata }) => {
                     </h3>
                     <main className="flex lg:flex-row flex-col gap-4">
                         <Splide className="lg:w-1/2">
-                            {
-                                pariwisata.data.photos.map((item,i)=>(
-                                    <SplideSlide className="w-1/2 aspect-video">
-                                        <img src={item.photo_path} className="size-full object-cover" alt="" />
-
-                                    </SplideSlide>
-                                ))
-                            }
+                            {pariwisata.data.photos.map((item, i) => (
+                                <SplideSlide
+                                    key={i}
+                                    className="w-1/2 aspect-video"
+                                >
+                                    <img
+                                        src={item.photo_path}
+                                        className="size-full object-cover"
+                                        alt=""
+                                    />
+                                </SplideSlide>
+                            ))}
                         </Splide>
                         <div className="lg:w-1/2 p-3 flex flex-col gap-3">
                             <div className="flex flex-col gap-2">
-                                <h1 className="lg:text-2xl text-xl font-semibold">Deskripsi</h1>
+                                <h1 className="lg:text-2xl text-xl font-semibold">
+                                    Deskripsi
+                                </h1>
                                 <p>{pariwisata.data.description}</p>
                             </div>
                             <div className="flex flex-col gap-2">
-                                <h1 className="lg:text-2xl text-xl font-semibold">Alamat</h1>
+                                <h1 className="lg:text-2xl text-xl font-semibold">
+                                    Alamat
+                                </h1>
                                 <p>{pariwisata.data.address}</p>
                             </div>
                             <div className="flex flex-col gap-2">
-                                <h1 className="lg:text-2xl text-xl font-semibold">Sosial Media</h1>
+                                <h1 className="lg:text-2xl text-xl font-semibold">
+                                    Sosial Media
+                                </h1>
                                 <p>{pariwisata.data.social_media}</p>
                             </div>
                             <div className="flex flex-col gap-2">
-                                <h1 className="lg:text-2xl text-xl font-semibold">Nomor Telepon</h1>
-                                <p>{pariwisata.data.phone_number}</p>
+                                <h1 className="lg:text-2xl text-xl font-semibold">
+                                    Nomor Telepon
+                                </h1>
+                                <a
+                                    className="flex gap-2 items-center"
+                                    href={`https://wa.me/${pariwisata.data.phone_number}`}
+                                >
+                                    <Icon icon={"ic:baseline-whatsapp"} />
+                                    <p> {pariwisata.data.phone_number}</p>
+                                </a>
                             </div>
-
                         </div>
-                      
                     </main>
                 </section>
 

@@ -43,7 +43,10 @@ const Umkm = ({ umkm }) => {
                                     <Splide className="size-full"
                                     
                                     options={{
-                                        arrows:false
+                                        arrows:false,
+                                        autoplay:true,
+                                        interval:2500,
+                                        rewind:true
                                     }}>
                                         {
                                             item.photos.map((item,i)=>(

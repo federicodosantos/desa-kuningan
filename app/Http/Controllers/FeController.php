@@ -27,6 +27,7 @@ class FeController extends Controller
         return Inertia::render('Home', [
             'news' => $news,
             'perangkatDesa' => VillageOfficerResource::collection($perangkatDesa),
+            'flash'=> $this->flash()
         ]);
     }
     public function sarana()
@@ -92,7 +93,8 @@ class FeController extends Controller
     }
     public function Peta()
     {
-        $places=Places::all();
+        $places=Places::with('category')->get();
+       
 
 
         return Inertia::render('Peta',[
@@ -112,5 +114,15 @@ class FeController extends Controller
         return Inertia::render('DetailBerita', [
             'news' => $news
         ]);
+    }
+    public function flash(){
+        return [
+            'info' => session('info'),
+            'success' => session('success'),
+            'danger' => session('danger'),
+            'warning' => session('warning'),
+            'light' => session('light'),
+            'dark' => session('dark'),
+        ];
     }
 }

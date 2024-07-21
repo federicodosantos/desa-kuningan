@@ -63,9 +63,17 @@ const UmkmDetail = ({ umkm }) => {
                                 <h1 className="lg:text-2xl text-xl font-semibold">Sosial Media</h1>
                                 <p>{umkm.data.social_media}</p>
                             </div>
-                            <div className="flex flex-col gap-2">
-                                <h1 className="lg:text-2xl text-xl font-semibold">Nomor Telepon</h1>
-                                <p>{umkm.data.phone_number}</p>
+                           <div className="flex flex-col gap-2">
+                                <h1 className="lg:text-2xl text-xl font-semibold">
+                                    Nomor Telepon
+                                </h1>
+                                <a
+                                    className="flex gap-2 items-center"
+                                    href={`https://wa.me/${umkm.data.phone_number}`}
+                                >
+                                    <Icon icon={"ic:baseline-whatsapp"} />
+                                    <p> {umkm.data.phone_number}</p>
+                                </a>
                             </div>
 
                         </div>

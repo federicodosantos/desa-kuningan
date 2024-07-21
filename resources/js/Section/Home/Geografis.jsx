@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { polygonCoordinates } from "@/Data/polygon";
+import TitleSection from "@/Components/TitleSection";
 
 const Geografis = () => {
     const mapContainer = useRef(null);
@@ -59,20 +60,24 @@ const Geografis = () => {
 
     return (
         <section className="container mx-auto lg:px-10 md:px-8 px-4">
-            <div className="flex flex-col gap-3 border-b pb-4 border-gray-300 ">
-                <h1 className="lg:text-5xl text-3xl font-semibold text-primary-orange">
-                    Geografis Desa
-                </h1>
-            </div>
+            <TitleSection title={"Geografis Desa"} />
             <main className="py-8 flex lg:flex-row flex-col-reverse gap-4 justify-between ">
                 <div className="lg:w-1/2 flex flex-col gap-5   pr-10">
                     <div>
-                        <h1 className="lg:text-3xl text-xl font-semibold mb-4">
+                        <h1
+                            data-aos="fade-down"
+                            data-aos-duration="1000"
+                            className="lg:text-3xl text-xl font-semibold mb-4"
+                        >
                             Batas Desa
                         </h1>
                         <div className="w-full flex  gap-4">
                             <div className="flex flex-col w-full gap-4 ">
-                                <div className="flex flex-col  gap-1 ">
+                                <div
+                                    data-aos="fade-right"
+                                    data-aos-duration="1500"
+                                    className="flex flex-col  gap-1 "
+                                >
                                     <h3 className="lg:text-xl text-base font-semibold">
                                         Utara
                                     </h3>
@@ -80,7 +85,11 @@ const Geografis = () => {
                                         Kelurahan Sananwetan
                                     </p>
                                 </div>
-                                <div className="flex flex-col   gap-1 ">
+                                <div
+                                    data-aos="fade-left"
+                                    data-aos-duration="1500"
+                                    className="flex flex-col   gap-1 "
+                                >
                                     <h3 className="lg:text-xl text-base font-semibold">
                                         Timur
                                     </h3>
@@ -90,13 +99,23 @@ const Geografis = () => {
                                 </div>
                             </div>
                             <div className="flex flex-col w-full gap-4 ">
-                                <div className="flex flex-col   gap-1 ">
+                                <div
+                                    data-aos="fade-right"
+                                    data-aos-duration="1500"
+                                    className="flex flex-col   gap-1 "
+                                >
                                     <h3 className="lg:text-xl text-base font-semibold">
                                         Selatan
                                     </h3>
-                                    <p className="lg:text-lg text-sm">Desa Jatinom</p>
+                                    <p className="lg:text-lg text-sm">
+                                        Desa Jatinom
+                                    </p>
                                 </div>
-                                <div className="flex flex-col   gap-1 ">
+                                <div
+                                    data-aos="fade-left"
+                                    data-aos-duration="1500"
+                                    className="flex flex-col   gap-1 "
+                                >
                                     <h3 className="lg:text-xl text-base font-semibold">
                                         Barat
                                     </h3>
@@ -108,18 +127,24 @@ const Geografis = () => {
                         </div>
                     </div>
                     <hr className="border-gray-400" />
-                    <div className="flex justify-between items-center">
-                        <h1 className="lg:text-3xl text-base font-semibold">Luas Desa</h1>
+                    <div data-aos="fade-right"
+                                data-aos-duration="1500" className="flex justify-between items-center">
+                        <h1 className="lg:text-3xl text-base font-semibold">
+                            Luas Desa
+                        </h1>
                         <p className="text-sm lg:text-lg font-semibold">
                             9.300.000m<sup>2</sup>
                         </p>
                     </div>
                     <hr className="border-gray-400" />
-                    <div className="flex justify-between items-center">
+                    <div data-aos="fade-left"
+                                data-aos-duration="1500" className="flex justify-between items-center">
                         <h1 className="lg:text-3xl text-base font-semibold">
                             Jumlah Penduduk
                         </h1>
-                        <p className="text-sm lg:text-lg font-semibold">3.025 Jiwa</p>
+                        <p className="text-sm lg:text-lg font-semibold">
+                            3.025 Jiwa
+                        </p>
                     </div>
                 </div>
                 <aside

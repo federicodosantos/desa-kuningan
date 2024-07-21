@@ -68,6 +68,7 @@ const MapComponent = ({ places }) => {
                 }).setHTML(`
                     <div class="rounded-lg">
                         <div class="text-sm font-semibold p-3">${location.name}</div>
+                        <link href={route('')}>Selengkapnya</link>
                     </div>
                 `);
 

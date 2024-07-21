@@ -35,7 +35,7 @@ Route::get('/visi-misi', function () {
 })->name('visiMisi');
 Route::get('/demografis-penduduk', function () {
     return Inertia::render('DataPenduduk');
-})->name('demografis');
+})->name('demografi');
 Route::get('/struktur', function () {
     return Inertia::render('Struktur');
 })->name('struktur');
@@ -117,11 +117,11 @@ Route::middleware('auth')->group(function () {
             'destroy' => 'admin.complaint.destroy',
             'show' => 'admin.complaint.show',
         ])->except('store');
-        Route::post('/store', [ComplaintController::class, 'store'])
-            ->middleware('throttle:10,1')->name('admin.complaint.store');
     });
     
 });
+Route::post('/store', [ComplaintController::class, 'store'])
+    ->middleware('throttle:10,1')->name('complaint.store');
 
 
 require __DIR__ . '/auth.php';
