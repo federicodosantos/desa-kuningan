@@ -33,6 +33,15 @@ class PlaceController extends Controller
         if (is_null($places)) {
             return Redirect::back()->with('error', 'places value is null');
         }
+
+        $places->getCollection()->transform(function ($place) {
+            $place->photo->transform(function ($photo) {
+                $photo->photo_path = asset('storage/' . $photo->photo_path);
+                return $photo;
+            });
+            return $place;
+        });
+
         return Inertia::render('Admin/Peta/Index',[
             'places'=>$places,
             'categories'=>$categories,
