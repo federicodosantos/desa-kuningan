@@ -33,7 +33,7 @@ const DetailBerita = ({ news }) => {
                 <section className="container gap-4 mx-auto lg:px-10 md:px-8 px-4 pb-10 ">
                     <div className="lg:w-4/6 flex flex-col gap-6 mx-auto">
                         <img
-                            src={`http://localhost:8000/${news.photo_path}`}
+                            src={news.photo_path}
                             alt="header"
                             draggable="false"
                             className="rounded-md mx-auto aspect-video  w-full object-cover "

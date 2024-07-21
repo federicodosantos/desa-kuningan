@@ -24,6 +24,11 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::paginate(5);
+        $news->getCollection()->transform(function ($item) {
+        $item->photo_path = asset('storage/' . $item->photo_path);
+        return $item;
+    });
+        
 
         return Inertia::render('Admin/News/Index', [
             'news' => $news,

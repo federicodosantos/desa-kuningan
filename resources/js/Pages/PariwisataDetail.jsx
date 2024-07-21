@@ -10,9 +10,8 @@ import React, { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 const PariwisataDetail = ({ pariwisata }) => {
-    const [isModalShow, setIsModalShow] = useState(false);
 
-    console.log(pariwisata.data.photos);
+  
 
     return (
         <>

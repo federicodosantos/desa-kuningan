@@ -11,6 +11,8 @@ const Index = ({ auth, news }) => {
     const flashMessage = page.props.flash
     const [toast, setToast] = useState(null);
 
+    console.log(news)
+
 
 
 
@@ -104,7 +106,7 @@ const Index = ({ auth, news }) => {
                                         <td className="px-6 py-4  w-1/6  border-gray-200">
                                             <img
                                                 draggable="false"
-                                                src={`http://localhost:8000/${item.photo_path}`}
+                                                src={item.photo_path}
                                                 className="w-full aspect-square object-contain"
                                                 alt={item.id}
                                             />
@@ -141,6 +143,7 @@ const Index = ({ auth, news }) => {
                         </tbody>
                     </table>
                 </div>
+
                 <Pagination
         links={news.links}
         from={news.from}

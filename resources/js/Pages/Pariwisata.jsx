@@ -10,23 +10,7 @@ import React, { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 const Pariwisata = ({ pariwisata }) => {
-    const [isModalShow, setIsModalShow] = useState(false);
     
-    console.log(pariwisata)
-
-    useEffect(() => {
-        console.log(isModalShow);
-    }, [isModalShow]);
-
-    const openModal = (item) => {
-        setModalContent(item);
-        setIsModalShow(true);
-    };
-    const closeModal = () => {
-        setIsModalShow(false);
-        setModalContent(null);
-    };
-
     return (
         <>
             <Head title="Kuningan | Sarana dan Prasarana" />

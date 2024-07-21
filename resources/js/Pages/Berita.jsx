@@ -9,7 +9,10 @@ import HeaderIMG from "../../assets/InformasiPublik.jpg";
 import Pagination from "@/Components/Pagination";
 import Header from "@/Components/Header";
 
+
 const Berita = ({ news }) => {
+
+
     return (
         <>
             <Head title="Kuningan | Tentang" />

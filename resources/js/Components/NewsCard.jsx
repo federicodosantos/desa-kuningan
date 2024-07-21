@@ -8,7 +8,7 @@ const NewsCard = ({img,date,title,body,to}) => {
             <div className="w-full aspect-video overflow-hidden">
                 
             <img
-                 src={`http://localhost:8000/${img}`}
+                 src={img}
                 className="size-full group-hover:scale-105 scale-100 duration-300 ease-in-out object-cover"
                 alt="img-card"
                 draggable='false'

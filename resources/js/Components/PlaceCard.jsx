@@ -19,7 +19,7 @@ const PlaceCard = ({ item }) => {
                 {item.photo.map((photoItem, j) => (
                     <SplideSlide key={j} className="w-full aspect-square p-5">
                         <img
-                            src={"http://localhost:8000/storage/" + photoItem.photo_path}
+                            src={photoItem.photo_path}
                             className="w-full h-full object-contain"
                             alt=""
                             loading="lazy"

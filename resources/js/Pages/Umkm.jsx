@@ -10,10 +10,7 @@ import React, { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 const Umkm = ({ umkm }) => {
-    const [isModalShow, setIsModalShow] = useState(false);
-    
-    console.log(umkm)
-
+ 
     
 
     

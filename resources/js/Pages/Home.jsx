@@ -24,7 +24,7 @@ const carouselItem = [
     },
 ];
 const Home = ({ news ,perangkatDesa}) => {
-    console.log(perangkatDesa);
+ 
     return (
         <>
             <Head title="Kuningan | Home" />
