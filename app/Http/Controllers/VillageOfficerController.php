@@ -25,10 +25,6 @@ class VillageOfficerController extends Controller
         $officers = VillageOfficer::with('position')->
         orderBy('position_id')->get();
 
-        if ($officers->isEmpty()) {
-            return Redirect::back()->with('error', 'officers value is null');
-        }
-
         return Inertia::render('Admin/Officer/Index', [
             'officers' => VillageOfficerResource::collection($officers),
             'flash'=> $this->flash()
@@ -157,10 +153,10 @@ class VillageOfficerController extends Controller
     {
         try {
             return DB::transaction(function () use ($id) {
-                
+
                 $officer = VillageOfficer::with('position')->where('id', $id)->first();
-              
-                
+
+
 
                 if (is_null($officer)) {
                     return Redirect::back()->with('error', 'officer not found');

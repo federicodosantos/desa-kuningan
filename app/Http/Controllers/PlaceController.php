@@ -25,8 +25,6 @@ class PlaceController extends Controller
      */
     public function index()
     {
-
-
         $places = Places::with(['photo','category'])->paginate(4);
         $categories = Category::all();
 

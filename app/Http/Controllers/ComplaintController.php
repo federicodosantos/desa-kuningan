@@ -17,10 +17,6 @@ class ComplaintController extends Controller
     {
         $complaints = Complaint::paginate(5);
 
-        if ($complaints->isEmpty()) {
-            return Redirect::back()->with('error', 'complaints value is null');
-        }
-
         return Inertia::render('Admin/Complaint/Index', [
             'complaints' => $complaints,
             'flash'=>$this->flash()
@@ -42,7 +38,7 @@ class ComplaintController extends Controller
     {
         $validated = $request->validated();
 
-    
+
 
         try {
             Complaint::create([
@@ -83,7 +79,7 @@ class ComplaintController extends Controller
     {
         try {
             $complaint = Complaint::where('id', $id)->first();
-       
+
 
             if (is_null($complaint)) {
                 return Redirect::back()->with('error', 'complaint value is null');
