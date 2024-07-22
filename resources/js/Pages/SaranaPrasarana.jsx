@@ -27,7 +27,7 @@ const SaranaPrasarana = ({ sarana }) => {
 
     return (
         <>
-            <Head title="Kuningan | Sarana dan Prasarana" />
+            <Head title={'Sarana Prasarana'}/>
             <div className="bg-text-white">
                 <Navbar />
                 <Header img={ImgHeader} title={"Informasi Publik"} />
@@ -64,7 +64,7 @@ const SaranaPrasarana = ({ sarana }) => {
                                                 className="absolute bottom-2 bg-black p-1 rounded-full text-white text-2xl right-2"
                                             />
                                         </div>
-        
+
                                         <div className="p-3 flex flex-col gap-2">
                                             <h3 className="text-xl text-primary-orange font-semibold">
                                                 {item.name}
@@ -88,7 +88,7 @@ const SaranaPrasarana = ({ sarana }) => {
 
                             )
                         }
-                    
+
                     </main>
 
                     {isModalShow && (
@@ -108,7 +108,7 @@ const SaranaPrasarana = ({ sarana }) => {
                                             draggable='false'
                                             className="w-full h-full object-cover aspect-video"
                                         />
-                                        
+
                                     ))
                                 }
 

@@ -79,7 +79,7 @@ const Peta = ({ places }) => {
 
                 const el = document.createElement("div");
                 el.className = `marker marker-${location.id} ${location.category.name.toLowerCase()}`;
-        
+
                 const popup = new maplibregl.Popup({
                     offset: 25,
                     closeButton: true,
@@ -93,7 +93,7 @@ const Peta = ({ places }) => {
                           <p><span class="popup-label">Alamat:</span> ${location.address}</p>
                           <p><span class="popup-label">Kategori:</span> ${location.category.name}</p>
                           ${
-                            ['UMKM', 'Pariwisata'].includes(location.category.name) 
+                            ['UMKM', 'Pariwisata'].includes(location.category.name)
                             ? `<a href="/${location.category.name.toLowerCase()}/${location.id}" class="text-blue-500 hover:underline">Selengkapnya</a>`
                             : ''
                           }
@@ -108,7 +108,7 @@ const Peta = ({ places }) => {
                     .addTo(map.current);
             });
 
-            filterMarkers(); 
+            filterMarkers();
         });
     }, [places, lng, lat, zoom]);
 
@@ -120,7 +120,7 @@ const Peta = ({ places }) => {
 
     return (
         <>
-            <Head title="Kuningan | Peta Digital" />
+            <Head title={'Peta'}/>
             <div>
                 <Navbar />
                 <section className="container py-4 lg:py-10 flex flex-col justify-center gap-4 mx-auto lg:px-10 md:px-8 px-4 ">
@@ -133,13 +133,13 @@ const Peta = ({ places }) => {
                             { label: "Peta Digital" },
                         ]}
                     />
-                
+
                     <TitleSection title={'Peta Digital'} subTitle={'menyediakan peta interaktif dengan informasi lokasi penting seperti kantor desa, UMKM, pariwisata, dan homestay.'}/>
                 </section>
                 <main className="container gap-4 mx-auto lg:px-10 md:px-8 px-4 py-10">
                     <div className="mb-4">
-                        <select 
-                            value={selectedCategory} 
+                        <select
+                            value={selectedCategory}
                             onChange={(e) => {
                                 setSelectedCategory(e.target.value);
                             }}

@@ -24,7 +24,7 @@ const carouselItem = [
 
 
 
-const Home = ({ news, perangkatDesa,flash }) => {
+const Home = ({ news, perangkatDesa,flash, kepalaDesa }) => {
 
     const page = usePage();
     const [toast, setToast] = useState(null);
@@ -40,7 +40,7 @@ const Home = ({ news, perangkatDesa,flash }) => {
 
 
 
-   
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -52,10 +52,10 @@ const Home = ({ news, perangkatDesa,flash }) => {
 
     return (
         <>
-            <Head />
-            <ModalForm 
-                isOpen={isModalOpen} 
-                onClose={toggleModal} 
+            <Head title={'Beranda'}/>
+            <ModalForm
+                isOpen={isModalOpen}
+                onClose={toggleModal}
                 onSubmitSuccess={(message, type) => {
                     setIsModalOpen(false);
                 }}
@@ -76,8 +76,8 @@ const Home = ({ news, perangkatDesa,flash }) => {
                 />
             )}
 
-              
-               
+
+
                 <div className="h-screen relative">
                     <Splide
                         className="h-screen"
@@ -126,7 +126,7 @@ const Home = ({ news, perangkatDesa,flash }) => {
                             className="lg:w-2/6 w-5/6"
                         >
                             <img
-                                src={kepsek}
+                                src={kepalaDesa.data.photo_path}
                                 className="w-full h-auto aspect-square rounded-full object-cover"
                                 alt="Kepala Desa"
                             />
@@ -200,7 +200,7 @@ const Home = ({ news, perangkatDesa,flash }) => {
                         {news.map((item, index) => (
                             <NewsCard
                                 key={index}
-                                delay={index * 200} 
+                                delay={index * 200}
                                 img={item.photo_path}
                                 date={item.formatted_date}
                                 title={item.title}

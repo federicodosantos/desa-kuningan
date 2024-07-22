@@ -56,7 +56,7 @@ export default function Create({ auth, positions }) {
                 </h2>
             }
         >
-            <Head title="Create News" />
+            <Head title={'Create Officer'}/>
             <section className="py-6 px-8 flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"

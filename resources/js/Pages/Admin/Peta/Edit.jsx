@@ -12,11 +12,10 @@ export default function Edit({ auth ,news}) {
         photo: news.photo,
     });
 
-    
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data)
         patch(route('news.update',news.slug));
     };
 
@@ -29,7 +28,7 @@ export default function Edit({ auth ,news}) {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create News</h2>}
         >
-            <Head title="Create News" />
+            <Head title={'Edit Peta'}/>
             <section className="py-6 px-8 flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"

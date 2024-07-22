@@ -39,7 +39,7 @@ const Index = ({ auth, news }) => {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title={'List News'}/>
             {toast && (
                 <Toast
                     message={toast.message}
@@ -47,7 +47,7 @@ const Index = ({ auth, news }) => {
                     onClose={() => setToast(null)}
                 />
             )}
-          
+
             <section className="py-6 px-8  flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"

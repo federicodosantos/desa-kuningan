@@ -158,7 +158,7 @@ const DataPenduduk = () => {
 
     return (
         <>
-            <Head title="Kuningan | Data Penduduk" />
+            <Head title={'Demografi'}/>
             <div className="bg-text-white">
                 <Navbar />
                 <Header img={ImgHeader} title={"Profil Desa"} />

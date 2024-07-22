@@ -25,8 +25,6 @@ export default function Edit({ auth, officer, positions }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         clearErrors();
-        console.log(data)
-    
 
         try {
             officerSchema.parse(data);
@@ -53,7 +51,7 @@ export default function Edit({ auth, officer, positions }) {
                 </h2>
             }
         >
-            <Head title="Edit officer" />
+            <Head title={'Edit Officer'}/>
             <section className="py-6 px-8 flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"
@@ -109,7 +107,7 @@ export default function Edit({ auth, officer, positions }) {
                                 <select
                                     id="position"
                                     name="position"
-                                    value={data.position} 
+                                    value={data.position}
                                     onChange={(e) =>
                                         setData("position", e.target.value)
                                     }

@@ -12,7 +12,7 @@ const newsSchema = z.object({
   title: z.string().min(1, "Judul harus diisi").max(255, "Judul terlalu panjang"),
   content: z.string().min(1, "Konten harus diisi"),
 
-  
+
 });
 
 export default function Create({ auth }) {
@@ -26,13 +26,12 @@ export default function Create({ auth }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data)
-        
+
         try {
-    
+
             newsSchema.parse(data);
-            
-       
+
+
             post(route('news.store'));
         } catch (error) {
             if (error instanceof z.ZodError) {
@@ -54,7 +53,7 @@ export default function Create({ auth }) {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create News</h2>}
         >
-            <Head title="Create News" />
+            <Head title={'Create News'}/>
             <section className="py-6 px-8 flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"

@@ -27,7 +27,7 @@ export default function Create({ auth }) {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create News</h2>}
         >
-            <Head title="Create News" />
+            <Head title={'Create Peta'}/>
             <section className="py-6 px-8 flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"

@@ -6,14 +6,6 @@ import React from "react";
 
 const Show = ({ auth, news }) => {
     const page = usePage();
- 
-
-    console.log(page)
-    console.log(news)
-
-
-
-
 
     return (
         <AuthenticatedLayout
@@ -24,9 +16,9 @@ const Show = ({ auth, news }) => {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
-           
-          
+            <Head title={'Officer Detail'}/>
+
+
             <section className="py-6 px-8  flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"
@@ -49,8 +41,8 @@ const Show = ({ auth, news }) => {
                 >
                     Tambah Berita
                 </Link>
-              
-                
+
+
             </section>
         </AuthenticatedLayout>
     );

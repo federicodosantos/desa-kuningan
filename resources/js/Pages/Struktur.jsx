@@ -12,7 +12,7 @@ import React from "react";
 const Struktur = () => {
     return (
         <>
-            <Head title="Kuningan | Struktur" />
+            <Head title={'Struktur'}/>
             <div>
                 <Navbar />
                 <Header img={ImgHeader} title={"Struktur"} />
@@ -24,7 +24,7 @@ const Struktur = () => {
                                 icon: "ic:round-home",
                             },
                             { label: "Struktur" },
-                        
+
                         ]}
                     />
 
@@ -33,7 +33,7 @@ const Struktur = () => {
                     </h3>
                 <main className="">
                     <img src={StrukturIMG} className="mx-auto aspect-auto lg:w-3/5 " draggable='false' alt="struktur" />
-                    
+
                 </main>
                 </section>
 

@@ -11,8 +11,6 @@ const Index = ({ auth, officers }) => {
     const flashMessage = page.props.flash
     const [toast, setToast] = useState(null);
 
-    console.log(officers);
-
     useEffect(() => {
         if (flashMessage.success) {
             setToast({ message: flashMessage.success, type: 'success' });
@@ -23,7 +21,7 @@ const Index = ({ auth, officers }) => {
 
     const handleDelete = (e, id) => {
         e.preventDefault();
-        
+
         if (confirm('Are you sure you want to delete this officer?')) {
             destroy(route('admin.officer.destroy', id));
         }
@@ -38,7 +36,7 @@ const Index = ({ auth, officers }) => {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title={'List Officer'}/>
             {toast && (
                 <Toast
                     message={toast.message}
@@ -46,7 +44,7 @@ const Index = ({ auth, officers }) => {
                     onClose={() => setToast(null)}
                 />
             )}
-          
+
             <section className="py-6 px-8  flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"
@@ -67,14 +65,14 @@ const Index = ({ auth, officers }) => {
                 <section className="grid grid-cols-5 grid-rows-1 gap-4">
                             {officers.data.length > 0 ? (
                                 officers.data.map((item, i) => (
-                                  
+
                                  <div key={i} className="w-full bg-white rounded-xl  relative aspect-[5/7]">
                                     <img src={item.photo_path} className="size-full object-cover" draggable='false'  alt={'foto '+item.name} />
                                     <div className="flex  gap-3 top-2 right-2 absolute">
                                         <Link href={route('admin.officer.edit',item.id)}>
                                     <Icon icon={'material-symbols:edit-outline'} className=" bg-white text-2xl text-black rounded-md"/>
                                         </Link>
-                                      
+
                                     <Icon icon={'material-symbols:delete-outline'} onClick={(e)=>handleDelete(e, item.id)} className="cursor-pointer bg-white text-2xl text-red-500 rounded-md"/>
 
                                     </div>
@@ -95,9 +93,9 @@ const Index = ({ auth, officers }) => {
                             )}
 
                 </section>
-                
-                   
-                
+
+
+
             </section>
         </AuthenticatedLayout>
     );

@@ -10,13 +10,13 @@ import React, { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 const UmkmDetail = ({ umkm }) => {
-   
+
 
 
 
     return (
         <>
-            <Head title="Kuningan | Sarana dan Prasarana" />
+            <Head title={'UMKM Detail'}/>
             <div className="bg-text-white">
                 <Navbar />
                 <Header img={ImgHeader} title={"Potensi Desa"} />
@@ -77,7 +77,7 @@ const UmkmDetail = ({ umkm }) => {
                             </div>
 
                         </div>
-                      
+
                     </main>
                 </section>
 

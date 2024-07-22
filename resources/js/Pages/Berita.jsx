@@ -15,7 +15,7 @@ const Berita = ({ news }) => {
 
     return (
         <>
-            <Head title="Kuningan | Tentang" />
+            <Head title={'Berita'}/>
             <div className="bg-text-white">
                 <Navbar />
                 <Header img={HeaderIMG} title={'Informasi Publik'} />

@@ -11,7 +11,7 @@ import React from "react";
 const Tentang = () => {
     return (
         <>
-            <Head title="Kuningan | Tentang" />
+            <Head title={'Tentang'}/>
             <div>
                 <Navbar />
                 <Header img={ImgHeader} title={"Profil Desa"} />

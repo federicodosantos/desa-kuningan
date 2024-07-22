@@ -10,13 +10,13 @@ import React, { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 const Umkm = ({ umkm }) => {
- 
-    
 
-    
+
+
+
     return (
         <>
-            <Head title="Kuningan | Sarana dan Prasarana" />
+            <Head title={'UMKM'}/>
             <div className="bg-text-white">
                 <Navbar />
                 <Header img={ImgHeader} title={"Potensi Desa"} />
@@ -41,7 +41,7 @@ const Umkm = ({ umkm }) => {
                                 umkm.data.map((item, i) => (
                                     <Link href={route('umkmDetail',item.id)} key={i} className="w-full relative aspect-video  rounded bg-white">
                                     <Splide className="size-full"
-                                    
+
                                     options={{
                                         arrows:false,
                                         autoplay:true,
@@ -59,7 +59,7 @@ const Umkm = ({ umkm }) => {
                                     <div className="absolute size-full bg-black bg-opacity-20 flex items-center p-2 text-2xl font-semibold text-text-white top-0">
                                         {item.name}
                                     </div>
-                                   
+
                                 </Link>
                                 ))
 
@@ -70,10 +70,10 @@ const Umkm = ({ umkm }) => {
 
                             )
                         }
-                    
+
                     </main>
 
-                   
+
                 </section>
 
                 <Footer />

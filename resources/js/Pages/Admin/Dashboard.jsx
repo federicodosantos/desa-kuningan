@@ -15,7 +15,7 @@ export default function Dashboard(params) {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title={'Dashboard'}/>
             <section className="py-6 px-8 flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"
@@ -67,6 +67,18 @@ export default function Dashboard(params) {
                                     {params.places} Koordinat
                                 </p>
                             </div>
+                            <div className="w-full aspect-square  rounded p-3 flex flex-col gap-2">
+                                <Icon
+                                    icon={"hugeicons:complaint"}
+                                    className="text-5xl text-primary-orange"
+                                />
+                                <h3 className="font-semibold">
+                                    Pengaduan
+                                </h3>
+                                <p className="text-xl font-semibold">
+                                    {params.pengaduan} Pengaduan
+                                </p>
+                            </div>
                         </div>
                         <h1 className=" text-2xl font-semibold text-gray-900">
                             Kategori
@@ -78,7 +90,7 @@ export default function Dashboard(params) {
                                     className="text-5xl text-primary-orange"
                                 />
                                 <h3 className="font-semibold text-base">
-                                    Sarana & Prasarana
+                                Sarana & Prasarana
                                 </h3>
                                 <p className="text-sm font-semibold">
                                     {params.totalSarana} Lokasi
@@ -122,7 +134,8 @@ export default function Dashboard(params) {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-white h-fit overflow-hidden w-2/5 shadow-sm sm:rounded-lg p-6 flex flex-col gap-4">
+                    <div
+                        className="bg-white h-fit overflow-hidden w-2/5 shadow-sm sm:rounded-lg p-6 flex flex-col gap-4">
                         <h1 className=" text-lg font-semibold text-center text-gray-900">
                             CMS Desa Kuningan
                         </h1>
@@ -132,7 +145,7 @@ export default function Dashboard(params) {
                             draggable="false"
                             className="w-2/5 mx-auto"
                         />
-                        <hr />
+                        <hr/>
                         <div className="text-sm prose-sm text-balance">
                             <p>
                                 Selamat datang di Dashboard CMS Kuningan! Sistem

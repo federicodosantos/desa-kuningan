@@ -12,7 +12,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 const PariwisataDetail = ({ pariwisata }) => {
     return (
         <>
-            <Head title="Kuningan | Sarana dan Prasarana" />
+            <Head title={'Pariwisata Detail'}/>
             <div className="bg-text-white">
                 <Navbar />
                 <Header img={ImgHeader} title={"Potensi Desa"} />

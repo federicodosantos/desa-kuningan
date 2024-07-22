@@ -9,7 +9,7 @@ import Header from "@/Components/Header";
 const DetailBerita = ({ news }) => {
     return (
         <>
-            <Head title="Kuningan | Tentang" />
+            <Head title={'Detail Berita'}/>
             <div className="bg-text-white">
                 <Navbar />
                 <Header img={HeaderIMG} title={'Berita Desa Kuningan'} />

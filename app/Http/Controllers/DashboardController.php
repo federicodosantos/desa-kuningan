@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
 use App\Models\News;
 use App\Models\PlacePhoto;
 use App\Models\Places;
@@ -21,8 +22,9 @@ class DashboardController extends Controller
         $homestay= Places::with('category')->where('category_id',4)->count();
         $perangkatDesa= VillageOfficer::count();
         $lokasi= Places::count();
-     
-        
+        $pengaduan = Complaint::count();
+
+
         return Inertia::render('Admin/Dashboard', [
             'totalNews' => $totalNews,
             'totalSarana' => $sapras,
@@ -30,7 +32,8 @@ class DashboardController extends Controller
             'totalHomestay' => $homestay,
             'totalPariwisata' => $pariwisata,
             'places' => $lokasi,
-            'perangkatDesa' =>$perangkatDesa
+            'perangkatDesa' =>$perangkatDesa,
+            'pengaduan' => $pengaduan
         ]);
     }
 }

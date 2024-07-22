@@ -8,6 +8,7 @@ use App\Models\News;
 use App\Models\Places;
 use App\Models\VillageOfficer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class FeController extends Controller
@@ -24,9 +25,13 @@ class FeController extends Controller
         $perangkatDesa = VillageOfficer::with('position')->
         orderBy('position_id')->get();
 
+        $kepalaDesa = VillageOfficer::with('position')->
+        where('position_id', 1)->first();
+
         return Inertia::render('Home', [
             'news' => $news,
             'perangkatDesa' => VillageOfficerResource::collection($perangkatDesa),
+            'kepalaDesa' => new VillageOfficerResource($kepalaDesa),
             'flash'=> $this->flash()
         ]);
     }
@@ -94,7 +99,7 @@ class FeController extends Controller
     public function Peta()
     {
         $places=Places::with('category')->get();
-       
+
 
 
         return Inertia::render('Peta',[
@@ -115,6 +120,7 @@ class FeController extends Controller
             'news' => $news
         ]);
     }
+
     public function flash(){
         return [
             'info' => session('info'),

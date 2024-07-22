@@ -11,7 +11,6 @@ const Index = ({ auth, complaints }) => {
     const flashMessage = page.props.flash
     const [toast, setToast] = useState(null);
 
-    console.log(complaints)
 
     useEffect(() => {
         if (flashMessage.success) {
@@ -37,7 +36,7 @@ const Index = ({ auth, complaints }) => {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title={'List Complaint'}/>
             {toast && (
                 <Toast
                     message={toast.message}
@@ -45,7 +44,7 @@ const Index = ({ auth, complaints }) => {
                     onClose={() => setToast(null)}
                 />
             )}
-          
+
             <section className="py-6 px-8  flex flex-col gap-3">
                 <Breadcrumbs
                     className="bg-white"
@@ -57,7 +56,7 @@ const Index = ({ auth, complaints }) => {
                         { label: "Pengaduan" },
                     ]}
                 />
-         
+
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border border-gray-200">
                         <thead className="bg-gray-50">
@@ -91,13 +90,13 @@ const Index = ({ auth, complaints }) => {
                                         </td>
                                         <td
                                             className="px-6 py-4  line-clamp-6  border-gray-200 prose-sm line-cla"
-                                           
+
                                         >{item.phone_number}</td>
                                         <td className="px-6 py-4  w-1/6  border-gray-200">
                                         {item.complaint}
                                         </td>
                                         <td className="px-6 py-4   border-gray-200 text-sm flex   gap-1">
-                                       
+
                                             <button
                                                 onClick={(e) => handleDelete(e, item.id)}
                                                 className="px-2 py-1 active:scale-95 duration-200 ease-in-out hover:bg-opacity-90 bg-red-500 text-text-white rounded-lg"

@@ -30,9 +30,8 @@ const Index = ({ auth, places, categories, flash }) => {
         category_id: "",
         photos: [],
     });
-    
+
     const page = usePage();
-    console.log(page)
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng] = useState(112.1828);
@@ -176,14 +175,14 @@ const Index = ({ auth, places, categories, flash }) => {
     const handleCoordinateChange = (e) => {
         const { name, value } = e.target;
         setData(name, value);
-        
+
         if (data.latitude && data.longitude) {
             const lng = parseFloat(data.longitude);
             const lat = parseFloat(data.latitude);
-            
+
             if (!isNaN(lng) && !isNaN(lat)) {
                 updateClickedPoint(lng, lat);
-                
+
                 const clickPoint = point([lng, lat]);
                 const polygonArea = polygon([polygonCoordinates]);
 
@@ -205,7 +204,7 @@ const Index = ({ auth, places, categories, flash }) => {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title={'Peta Detail'}/>
 
             <section className="py-6 px-8 flex flex-col gap-3">
                 <Breadcrumbs
@@ -488,14 +487,14 @@ const Index = ({ auth, places, categories, flash }) => {
                     </div>
                 </main>
                 <PlaceList places={places.data}/>
-              
+
                 <Pagination
                     links={places.links}
                     from={places.from}
                     to={places.to}
                     total={places.total}
                 />
-                
+
             </section>
         </AuthenticatedLayout>
     );

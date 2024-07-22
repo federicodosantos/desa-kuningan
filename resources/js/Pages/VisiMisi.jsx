@@ -11,7 +11,7 @@ import React from "react";
 const VisiMisi = () => {
     return (
         <>
-            <Head title="Kuningan | Visi Misi" />
+            <Head title={'Visi Misi'}/>
             <div className="bg-text-white">
                 <Navbar />
                 <Header img={ImgHeader} title={"Profil Desa"} />
@@ -40,7 +40,7 @@ const VisiMisi = () => {
                             </h2>
                             <div>
                             <p className="font-semibold lg:text-lg md:text-base text-sm text-center">
-                                Kecamatan Kanigoro, Kabupaten Blitar, 
+                                Kecamatan Kanigoro, Kabupaten Blitar,
                             </p>
                             <p className="font-semibold lg:text-lg md:text-base text-sm text-center">Provinsi Jawa Timur</p>
 
