@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import { useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import { z } from "zod";
@@ -49,8 +50,8 @@ const ModalForm = ({ isOpen, onClose, onSubmitSuccess }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed bottom-16 right-8 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white rounded-lg p-6 w-96">
+        <div className="fixed bottom-16 right-2 lg:right-8 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white rounded-lg p-3 lg:p-6 w-72 lg:w-96">
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="name" className="block mb-1">Nama*</label>
@@ -88,13 +89,12 @@ const ModalForm = ({ isOpen, onClose, onSubmitSuccess }) => {
                         ></textarea>
                         {validationErrors.complaint && <div className="text-red-500">{validationErrors.complaint}</div>}
                     </div>
-                    <div className="flex justify-between mt-4">
-                        <button type="submit" className="bg-orange-500 text-white px-4 py-2 rounded" disabled={processing}>
+                    <div className="flex justify-end mt-4">
+                        <button type="submit" className="bg-orange-500 text-white px-4 py-2 rounded flex items-center gap-2" disabled={processing}>
+                            <Icon icon={'tabler:send'}/>
                             {processing ? 'Mengirim...' : 'Kirim'}
                         </button>
-                        <button type="button" onClick={onClose} className="bg-gray-300 text-gray-700 px-4 py-2 rounded">
-                            Tutup
-                        </button>
+                     
                     </div>
                 </form>
             </div>

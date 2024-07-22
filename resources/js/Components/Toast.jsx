@@ -44,7 +44,7 @@ const Toast = ({ message, type = 'success', onClose, duration = 3000, autoHide =
   };
 
   return (
-    <div className={`fixed bottom-4 right-4 z-50 px-4 py-2 rounded-md text-white text-xl font-semibold ${getBackgroundColor()} shadow-lg`}>
+    <div className={`fixed bottom-4 lg:right-4 right-2 z-50 px-4 py-2 rounded-md text-white text-xs lg:text-xl font-semibold ${getBackgroundColor()} shadow-lg`}>
       <div className="flex items-center">
         <span>{message}</span>
         <button onClick={() => {

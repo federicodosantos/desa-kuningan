@@ -62,7 +62,7 @@ const Home = ({ news, perangkatDesa,flash }) => {
             />
             <button
                 onClick={toggleModal}
-                className="bg-orange-500 z-50 fixed bottom-4 right-8 text-white px-4 py-2 rounded mt-4"
+                className="bg-orange-500 z-50 fixed bottom-4 right-2 lg:right-8 text-white text-sm lg:text-base px-4 py-2 rounded mt-4"
             >
                 Pengaduan
             </button>
@@ -118,7 +118,7 @@ const Home = ({ news, perangkatDesa,flash }) => {
                     </div>
                 </div>
 
-                <section className="flex items-center py-10 lg:py-20">
+                <section className="flex items-center py-10 lg:py-20 overflow-hidden">
                     <main className="container mx-auto lg:px-10 md:px-8 gap-3 px-4 flex lg:flex-row flex-col items-center justify-between">
                         <div
                             data-aos="fade-right"

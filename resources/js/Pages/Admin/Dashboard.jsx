@@ -64,7 +64,7 @@ export default function Dashboard(params) {
                                     Peta Digital
                                 </h3>
                                 <p className="text-xl font-semibold">
-                                    10 Koordinat
+                                    {params.places} Koordinat
                                 </p>
                             </div>
                         </div>

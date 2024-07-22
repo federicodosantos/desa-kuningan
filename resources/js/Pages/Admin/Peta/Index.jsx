@@ -11,7 +11,7 @@ import Toast from "@/Components/Toast";
 import Pagination from "@/Components/Pagination";
 import PlaceList from "@/Components/PlaceList";
 
-const Index = ({ auth, places, categories ,flash}) => {
+const Index = ({ auth, places, categories, flash }) => {
     const {
         data,
         setData,
@@ -40,8 +40,6 @@ const Index = ({ auth, places, categories ,flash}) => {
     const [zoom] = useState(13.5);
     const [error, setError] = useState("");
     const [toast, setToast] = useState(null);
-
-   
 
     useEffect(() => {
         if (map.current) return;
@@ -124,38 +122,41 @@ const Index = ({ auth, places, categories ,flash}) => {
                 });
                 setError("");
 
-                if (map.current.getLayer("clicked-point")) {
-                    map.current.removeLayer("clicked-point");
-                }
-                if (map.current.getSource("clicked-point")) {
-                    map.current.removeSource("clicked-point");
-                }
-
-                map.current.addSource("clicked-point", {
-                    type: "geojson",
-                    data: {
-                        type: "Feature",
-                        geometry: {
-                            type: "Point",
-                            coordinates: [e.lngLat.lng, e.lngLat.lat],
-                        },
-                    },
-                });
-
-                map.current.addLayer({
-                    id: "clicked-point",
-                    type: "circle",
-                    source: "clicked-point",
-                    paint: {
-                        "circle-radius": 6,
-                        "circle-color": "#FF0000",
-                    },
-                });
+                updateClickedPoint(e.lngLat.lng, e.lngLat.lat);
             });
         });
     }, [places]);
 
- 
+    const updateClickedPoint = (lng, lat) => {
+        if (map.current.getLayer("clicked-point")) {
+            map.current.removeLayer("clicked-point");
+        }
+        if (map.current.getSource("clicked-point")) {
+            map.current.removeSource("clicked-point");
+        }
+
+        map.current.addSource("clicked-point", {
+            type: "geojson",
+            data: {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [lng, lat],
+                },
+            },
+        });
+
+        map.current.addLayer({
+            id: "clicked-point",
+            type: "circle",
+            source: "clicked-point",
+            paint: {
+                "circle-radius": 6,
+                "circle-color": "#FF0000",
+            },
+        });
+    };
+
     useEffect(() => {
         if (flash.success) {
             setToast({ message: flash.success, type: 'success' });
@@ -164,14 +165,35 @@ const Index = ({ auth, places, categories ,flash}) => {
         }
     }, [flash]);
 
-  
-
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route('admin.place.store'), {
             preserveState: true,
             preserveScroll: true,
         });
+    };
+
+    const handleCoordinateChange = (e) => {
+        const { name, value } = e.target;
+        setData(name, value);
+        
+        if (data.latitude && data.longitude) {
+            const lng = parseFloat(data.longitude);
+            const lat = parseFloat(data.latitude);
+            
+            if (!isNaN(lng) && !isNaN(lat)) {
+                updateClickedPoint(lng, lat);
+                
+                const clickPoint = point([lng, lat]);
+                const polygonArea = polygon([polygonCoordinates]);
+
+                if (!booleanPointInPolygon(clickPoint, polygonArea)) {
+                    setError("Koordinat yang dimasukkan berada di luar area yang diizinkan");
+                } else {
+                    setError("");
+                }
+            }
+        }
     };
 
     return (
@@ -210,13 +232,12 @@ const Index = ({ auth, places, categories ,flash}) => {
                             />
                         )}
                         {toast && (
-                <Toast
-                    message={toast.message}
-                    type={toast.type}
-                    onClose={() => setToast(null)}
-                />
-            )}
-
+                            <Toast
+                                message={toast.message}
+                                type={toast.type}
+                                onClose={() => setToast(null)}
+                            />
+                        )}
 
                         <form onSubmit={handleSubmit}>
                             <div className="grid grid-cols-2 gap-4">
@@ -231,10 +252,15 @@ const Index = ({ auth, places, categories ,flash}) => {
                                         type="text"
                                         id="latitude"
                                         name="latitude"
-                                        disabled
                                         value={data.latitude}
+                                        onChange={handleCoordinateChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
+                                    {errors.latitude && (
+                                        <div className="text-red-500">
+                                            {errors.latitude}
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <label
@@ -247,10 +273,15 @@ const Index = ({ auth, places, categories ,flash}) => {
                                         type="text"
                                         id="longitude"
                                         name="longitude"
-                                        disabled
                                         value={data.longitude}
+                                        onChange={handleCoordinateChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
+                                    {errors.longitude && (
+                                        <div className="text-red-500">
+                                            {errors.longitude}
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <label
@@ -458,13 +489,12 @@ const Index = ({ auth, places, categories ,flash}) => {
                 </main>
                 <PlaceList places={places.data}/>
               
-
                 <Pagination
-        links={places.links}
-        from={places.from}
-        to={places.to}
-        total={places.total}
-      />
+                    links={places.links}
+                    from={places.from}
+                    to={places.to}
+                    total={places.total}
+                />
                 
             </section>
         </AuthenticatedLayout>

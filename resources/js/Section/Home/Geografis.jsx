@@ -59,7 +59,7 @@ const Geografis = () => {
     }, [lng, lat, zoom]);
 
     return (
-        <section className="container mx-auto lg:px-10 md:px-8 px-4">
+        <section className="container mx-auto lg:px-10 md:px-8 px-4 overflow-hidden">
             <TitleSection title={"Geografis Desa"} />
             <main className="py-8 flex lg:flex-row flex-col-reverse gap-4 justify-between ">
                 <div className="lg:w-1/2 flex flex-col gap-5   pr-10">
