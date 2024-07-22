@@ -29,7 +29,7 @@ class DashboardController extends Controller
             'totalUmkm' => $umkm,
             'totalHomestay' => $homestay,
             'totalPariwisata' => $pariwisata,
-            'total' => $lokasi,
+            'places' => $lokasi,
             'perangkatDesa' =>$perangkatDesa
         ]);
     }
