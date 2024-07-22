@@ -15,6 +15,7 @@ import TitleSection from "@/Components/TitleSection";
 import Toast from "@/Components/Toast";
 import { z } from "zod";
 import ModalForm from "@/Components/ModalForm";
+import KadesNotFound from "../../assets/blank-pp.webp"
 
 const carouselItem = [
     { image: carousel1 },
@@ -25,11 +26,10 @@ const carouselItem = [
 
 
 const Home = ({ news, perangkatDesa,flash, kepalaDesa }) => {
-
+    console.log(kepalaDesa.data)
     const page = usePage();
     const [toast, setToast] = useState(null);
 
-    console.log(flash)
     useEffect(() => {
         if (flash.success) {
             setToast({ message: flash.success, type: 'success' });
@@ -125,11 +125,23 @@ const Home = ({ news, perangkatDesa,flash, kepalaDesa }) => {
                             data-aos-duration="1000"
                             className="lg:w-2/6 w-5/6"
                         >
-                            <img
-                                src={kepalaDesa.data.photo_path}
-                                className="w-full h-auto aspect-square rounded-full object-cover"
-                                alt="Kepala Desa"
-                            />
+                            {
+                                kepalaDesa.data.photo_path? (
+                                    <img
+                                        src={kepalaDesa.data.photo_path}
+                                        className="w-full h-auto aspect-square rounded-full object-cover"
+                                        alt="Kepala Desa"
+                                    />
+                                ):
+                                (
+                                <img
+                                src={KadesNotFound}
+                            className="w-full h-auto aspect-square rounded-full object-cover"
+                            alt="Not found"
+                        />
+                                )
+                            }
+
                         </div>
                         <div className="flex flex-col gap-3 lg:w-3/5 overflow-hidden">
                             <h2

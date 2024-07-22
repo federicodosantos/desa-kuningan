@@ -25,8 +25,13 @@ class FeController extends Controller
         $perangkatDesa = VillageOfficer::with('position')->
         orderBy('position_id')->get();
 
-        $kepalaDesa = VillageOfficer::with('position')->
-        where('position_id', 1)->first();
+        $kepalaDesa = VillageOfficer::with('position')
+            ->where('position_id', 1)
+            ->first();
+
+        if (is_null($kepalaDesa)) {
+            $kepalaDesa = new VillageOfficer();
+        }
 
         return Inertia::render('Home', [
             'news' => $news,

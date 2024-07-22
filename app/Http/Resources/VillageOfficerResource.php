@@ -15,17 +15,17 @@ class VillageOfficerResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'photo_path' => asset('storage/' . $this->photo_path),
+            'id' => $this->id ?? null,
+            'name' => $this->name ?? 'Unknown', // Default value if name is null
+            'photo_path' => $this->photo_path ? asset('storage/' . $this->photo_path) : null,
             'position' => $this->whenLoaded('position', function () {
                 return [
-                    'id' => $this->position->id,
-                    'name' => $this->position->name ?? null,
+                    'id' => optional($this->position)->id ?? null,
+                    'name' => optional($this->position)->name ?? null,
                 ];
             }),
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
+            'created_at' => $this->created_at ? $this->created_at->toDateTimeString() : null,
+            'updated_at' => $this->updated_at ? $this->updated_at->toDateTimeString() : null,
         ];
     }
 }

@@ -147,6 +147,7 @@ export default function Create({ auth, positions }) {
                                     htmlFor="photo"
                                 >
                                     Photo
+                                    (Maksimal Ukuran 2MB)
                                 </label>
                                 <input
                                     id="photo"

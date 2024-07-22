@@ -9,7 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ComplaintController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Artisan;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -118,10 +118,9 @@ Route::middleware('auth')->group(function () {
             'show' => 'admin.complaint.show',
         ])->except('store');
     });
-    
+
 });
 Route::post('/store', [ComplaintController::class, 'store'])
     ->middleware('throttle:10,1')->name('complaint.store');
-
 
 require __DIR__ . '/auth.php';

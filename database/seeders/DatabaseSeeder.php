@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,13 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PositionSeeder::class);
         User::factory()->create();
         $this->call([
-            NewsSeeder::class,
+            UserSeeder::class,
             CategorySeeder::class,
-            FacilitiesSeeder::class,
-            PariwisataSeeder::class,
-            UMKMSeeder::class,
-            VillageOfficerSeeder::class,
-            ComplaintSeeder::class
             ]);
     }
 }

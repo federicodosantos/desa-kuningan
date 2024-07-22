@@ -186,11 +186,11 @@ const Index = ({ auth, places, categories, flash }) => {
                 const clickPoint = point([lng, lat]);
                 const polygonArea = polygon([polygonCoordinates]);
 
-                if (!booleanPointInPolygon(clickPoint, polygonArea)) {
-                    setError("Koordinat yang dimasukkan berada di luar area yang diizinkan");
-                } else {
-                    setError("");
-                }
+                // if (!booleanPointInPolygon(clickPoint, polygonArea)) {
+                //     setError("Koordinat yang dimasukkan berada di luar area yang diizinkan");
+                // } else {
+                //     setError("");
+                // }
             }
         }
     };
@@ -448,6 +448,7 @@ const Index = ({ auth, places, categories, flash }) => {
                                         className="block text-gray-700 text-sm font-bold mb-2"
                                     >
                                         Gambar
+                                        (Maksimal Ukuran 2MB)
                                     </label>
                                     <input
                                         type="file"

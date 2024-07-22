@@ -103,6 +103,7 @@ export default function Create({ auth }) {
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photo">
                                     Photo
+                                    (Maksimal Ukuran 2MB)
                                 </label>
                                 <input
                                     id="photo"
